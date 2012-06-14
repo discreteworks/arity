@@ -27,7 +27,7 @@ class Entity {
 	//Filter conditionsp
 	private $condition=array();
 
-	
+
 
 	//Group by base entity table with other tables
 	private $groupby=array();
@@ -100,7 +100,7 @@ class Entity {
 
 		$table=strtolower(get_class($this->base));
 
-		$rs=$this->db->query("DELETE FROM `".$table."`");
+		$this->db->truncate($table);
 
 	}
 
@@ -266,8 +266,8 @@ class Entity {
 	 */
 
 	private function mapping($object,$resultset,$condition=null,$referenceField=null) {
-		
-	
+
+
 		$id= ARITY_IDENTITY;
 
 		$c= $object;
@@ -290,23 +290,23 @@ class Entity {
 
 			if(!array_key_exists($name, $resultset[$key])) {
 
-				
+
 				return null;
-				
+
 			}
-		
+
 			foreach($attrib as $vkey=>$var) {
 
 
 				if(@get_class(@$c::$meta->$vkey)=="Type") {
 
-					
+
 					if($condition!=NULL) {
 
-// 						if($name=="group") {
-// 							var_dump($resultset[$key][$name][$referenceField]);;exit;
-// 						}
-						
+						// 						if($name=="group") {
+						// 							var_dump($resultset[$key][$name][$referenceField]);;exit;
+						// 						}
+
 						if($resultset[$key][$name][$referenceField]==$condition[key($condition)]) {
 
 							$c->$vkey=$resultset[$key][$name][$vkey];
@@ -336,7 +336,7 @@ class Entity {
 
 				}
 				elseif(@get_class(@$c::$meta->$vkey)=="Reference") {
-					
+
 					if($c::$meta->$vkey->map==ARITY_11&& (in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
 
 						$cond1=array($id=>$resultset[$key][$name][$vkey]);
@@ -352,9 +352,9 @@ class Entity {
 					elseif($c::$meta->$vkey->map==ARITY_1M&&(in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
 
 						//var_dump($resultset[$key][$name]);
-						
+
 						$cond2=array($c::$meta->$vkey->name=>$resultset[$key][$name][$c::$meta->$vkey->name]
-									 	);
+						);
 
 						$or=$this->mapping(new $c::$meta->$vkey->reference, $resultset,$cond2,$c::$meta->$vkey->referenceField);
 
@@ -402,15 +402,15 @@ class Entity {
 	function native($sql=null) {
 
 		if($sql==null){
-			
+
 			$table=strtolower(get_class($this->base));
-			
+
 			if($this->obj==null){
-				
+
 				echo "<span>Please call the fetch method prior to native result";
 				return;
 			}
-			
+
 			$this->query=$this->
 			db->
 			makeQuery($table,$this->obj,
@@ -425,9 +425,9 @@ class Entity {
 			$this->db->query($this->query);
 		}
 		else{
-				
+
 			$this->db->query($sql);
-				
+
 		}
 		$rows=$this->db->getRows();
 
@@ -477,13 +477,13 @@ class Entity {
 		$objs=array();
 
 		$table=strtolower(get_class($this->base));
-		
+
 		if($this->obj==null){
-		
+
 			echo "Please call the fetch method prior to count";
 			return;
 		}
-		
+
 		$this->query=$this->
 		db->
 		makeQuery($table,$this->obj,
@@ -507,13 +507,13 @@ class Entity {
 		$objs=array();
 
 		$table=strtolower(get_class($this->base));
-		
+
 		if($this->obj==null){
-		
+
 			echo "Please call the fetch method prior to objecr";
 			return;
 		}
-		
+
 		$this->query=$this->
 		db->
 		makeQuery($table,$this->obj,
@@ -718,12 +718,10 @@ class Entity {
 		$attributes=get_object_vars($obj);
 
 		$table=strtolower(get_class($obj));
-		
+
 		$objectArray=array();
 
 		if(count( $attributes) == 0) return false;
-		
-		
 
 		foreach($attributes as $k => $v) {
 			if($v==null) {
@@ -732,39 +730,86 @@ class Entity {
 			}
 			elseif(is_array($attributes[$k])) {
 
-// 				foreach($attributes[$k] as $item) {
+				// 				foreach($attributes[$k] as $item) {
 
-// 					$this->save($item);
-// 				}
-				$objectArray=$attributes[$k];
+				// 					$this->save($item);
+				// 				}
+
+				if($obj::$meta->$k->parent){
+						
+					$objectArray[$k]=$attributes[$k];
+
+				}
 				unset($attributes[$k]);
 			}
 			elseif(is_object($attributes[$k])) {
-				
-				$out=$this->save($attributes[$k]);
-				
-				if($out)
-				{
-					$attributes[$obj::$meta->$k->name]=$out;
-					
+
+				if(!$obj::$meta->$k->parent){
+
+					$out=$this->save($attributes[$k]);
+
+					if($out)
+					{
+						$referedField=$obj::$meta->$k->name;
+							
+						$myField=$obj::$meta->$k->referenceField;
+
+						$attributes[$referedField]=$out->$myField;
+
+					}
+				}
+				else{
+
+					$objectArray[$k]=$attributes[$k];
+
 				}
 				unset($attributes[$k]);
-			
-				
+					
+
 			}
 
 		}
-		
 
 		$obj->$id= $this->db->insert($table,$attributes);
-		
+
 		// TODO Search for the reference field and map it the new objects.
 		// 				foreach($attributes[$k] as $item) {
 		//
 		// 					$this->save($item);
 		// 				}
 
-		return $obj->$id;
+		
+		foreach($objectArray as $k=>$v){
+				
+				
+			if(is_array($v)){
+
+				foreach($v as $item){
+						
+					$referedField=$obj::$meta->$k->name;
+						
+					$myField=$obj::$meta->$k->referenceField;
+						
+					$item->$myField=$obj->$referedField;
+
+					var_dump($item);
+					$this->save($item);
+						
+						
+				}
+			}
+			else{
+				$referedField=$obj::$meta->$k->name;
+
+				$myField=$obj::$meta->$k->referenceField;
+
+				$v->$myField=$obj->$referedField;
+
+				$this->save($v);
+			}
+		}
+
+		return $obj;
 	}
 
 	public function replace() {
@@ -782,6 +827,7 @@ class Entity {
 
 		$id= ARITY_IDENTITY;
 			
+		$objectArray=array();
 		
 		if(is_null($obj->$id))
 
@@ -797,7 +843,7 @@ class Entity {
 		foreach($attrib as $k => $v) {
 
 			if($v==null) {
-			
+					
 				unset ($attrib[$k]);
 
 			}
@@ -811,23 +857,50 @@ class Entity {
 				unset($attrib[$k]);
 			}
 			elseif(is_object($attrib[$k])) {
-				
-				$out=$this->save($attrib[$k]);
-				
-				if($out){
-					
-					$attributes[$obj::$meta->$k->name]= $out;
-					
+
+				if(!$obj::$meta->$k->parent){
+
+					$out=$this->save($attrib[$k]);
+
+					if($out)
+					{
+						$referedField=$obj::$meta->$k->name;
+							
+						$myField=$obj::$meta->$k->referenceField;
+
+						$attrib[$referedField]=$out->$myField;
+
+					}
+				}
+				else{
+
+					$objectArray[$k]=$attrib[$k];
+
 				}
 				unset($attrib[$k]);
+					
+
 			}
 
 		}
-		
+
 		$table=strtolower(get_class($obj));
-	
-		
-		return $this->db->update($table,$attrib,$id,$obj->$id);
+
+
+		$this->db->update($table,$attrib,$id,$obj->$id);
+
+		foreach($objectArray as $k=>$v){
+
+			$referedField=$obj::$meta->$k->name;
+
+			$myField=$obj::$meta->$k->referenceField;
+
+			$v->$myField=$obj->$referedField;
+
+			$this->save($v);
+
+		}
+		return $obj;
 
 	}
 

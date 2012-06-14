@@ -113,4 +113,6 @@ define("ARITY_NULL",null);
 
 define("ARITY_EMPTY","");
 
+define("ARITY_PARENT",true);
+
 

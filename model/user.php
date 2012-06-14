@@ -28,6 +28,8 @@ class User {
     public $group_id;
     
     public $group;
+    
+    public $profile;
 
     public function  __construct() {
 
@@ -40,6 +42,9 @@ class User {
        	self::$meta->group_id= new Type('group_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
 		
        	self::$meta->group= new Reference('group_id','group','id',ARITY_1M);
+       	
+       	self::$meta->profile=new Reference('id','profile','user_id',ARITY_11,ARITY_PARENT);
+       	
 
        
     }

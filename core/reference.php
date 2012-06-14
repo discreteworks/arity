@@ -24,16 +24,17 @@ class Reference extends Field {
     public $cascade;
    
   
-   function  Reference($name,$referedTable,$referedField,$map,$onDelete='SET NULL',$description=null) {
+   function  Reference($myFieldName,$referedTable,$referedFieldName,$map,$parent=false,$onDelete='SET NULL',$description=null) {
       
 
       $this->reference=$referedTable;
-      $this->referenceField=$referedField;
+      $this->referenceField=$referedFieldName;
       $this->map=$map;
       $this->onDelete=$onDelete;
+      $this->parent=$parent;
 
 
-      parent::Field($this, $name, $description,true);
+      parent::Field($this, $myFieldName, $description,true);
 
     }
 

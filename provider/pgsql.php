@@ -84,7 +84,7 @@ class Pgsql extends Db {
 
 	function delete($table,$columnName,$value){
 
-		$this->query("DELETE FROM \"$table\" WHERE $columnName =". $this->escape($value));
+		$this->execute("DELETE FROM \"$table\" WHERE $columnName =". $this->escape($value));
 	}
 
 	function insert($table,$attributes){
@@ -148,6 +148,14 @@ class Pgsql extends Db {
 
 		$sql="DROP TABLE \"".$this->escape($table)."\"";
 
+		$rs=$this->execute($sql);
+
+	}
+
+	public function truncate($table){
+
+		echo $sql="DELETE FROM \"".$table."\"";
+			
 		$rs=$this->execute($sql);
 
 	}
@@ -263,12 +271,12 @@ class Pgsql extends Db {
 		if(count($compositePrimary)>0 && $type==ARITY_PRIMARY){
 
 			return "CONSTRAINT \"".$table."_".implode("_",$compositePrimary)."_pk\" PRIMARY KEY (\"".implode("\",\"",$compositePrimary)."\")";
-		
+
 		}
 		elseif(count($compositeUnique)>0 && $type==ARITY_UNIQUE){
-				
+
 			return "CONSTRAINT \"".$table."_".implode("_",$compositeUnique)."\" UNIQUE (\"".implode("\",\"",$compositeUnique)."\")";
-		
+
 		}
 
 
@@ -374,7 +382,7 @@ class Pgsql extends Db {
 				break;
 
 		}
-		
+
 		return $field="\"".$fieldAttribute->name."\"" . $type . $required;
 	}
 
@@ -405,18 +413,18 @@ class Pgsql extends Db {
 		$field_array=array();
 
 		if($fields){
-			
+				
 			$rs =  $this->getRows($fields);
 
 			$columns =  $this->numRows($fields);
 
 			for ($i = 0; $i < $columns; $i++) {
-				
+
 				$field_array[] = $rs[$i]['columns']["column_name"];
 
 			}
 		}
-		
+
 		return in_array($field, $field_array);
 
 	}
@@ -718,7 +726,7 @@ class Pgsql extends Db {
 	public function escape($var) {
 
 		if(!$this->isConnected()) $this->connect();
-		
+
 		return pg_escape_string($this->DB,$var);
 	}
 
