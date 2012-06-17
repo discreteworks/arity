@@ -51,6 +51,22 @@ abstract class Db {
             $obj = new $DB();
         return $obj;
     }
+    
+    protected  function showQuery(){
+    
+    	if(QUERY_DEBUG){
+    
+    		echo "<div class=\"debug\" style=\"background:#eee;color:#222;padding:5px;font: 90% Courier New,Courier,monospace\">";
+    		echo "<h1 style=\"\">DEBUG</></h2>";
+    		foreach($this->queries as $key=>$query){
+    
+    			echo "<p style=\"color:#555;\">".$query."</p>";
+    		}
+    		echo "</div>";
+    
+    
+    	}
+    }
 
     //  Abstract methods
     abstract function initialize();
