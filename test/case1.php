@@ -12,7 +12,7 @@ echo "/* Case 1: Intitialize Arity Simple Persistent Object*/<br/>";
 
 echo "/* Create PHP Object*/<br/>";
 
-$testObj=new Test();
+$testObj=new TestSimple();
 
 echo "Initialize Simple PHP Object"."<br/>";
 
@@ -42,8 +42,10 @@ echo "Fetch Persisted PHP Object from DB"."<br/>";
 $rs=$dbObj->fetch()->object();
 
 var_dump($rs);
+?>
 
 
+<?php 
 echo "Clean Simple Object Entries"."<br/>";;
 
 $dbObj->truncateTable();
