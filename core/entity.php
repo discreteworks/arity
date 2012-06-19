@@ -671,13 +671,30 @@ class Entity {
 	public function ok() {
 		return !is_null($this->base->$this->identity);
 	}
-
+	
 	/**
 	 * Save entity instance in database.
 	 * @param Entity object $obj
 	 * @return integer new insert id.
 	 */
-	public function save($obj=null) {
+	
+	public function save(){
+		
+		if(TRANSACTIONAL){
+		
+			$this->db->begin();
+		}
+		
+		$this->saveObject();
+		
+		if(TRANSACTIONAL){
+				
+			$this->db->end();
+		}
+		
+	}
+	
+	private function saveObject($obj=null) {
 
 		$id= ARITY_IDENTITY;
 
@@ -711,7 +728,7 @@ class Entity {
 	 * @param Entity object $obj
 	 * @return integer new insert id.
 	 */
-	public function insert($obj) {
+	private function insert($obj) {
 
 		$id= ARITY_IDENTITY;
 
@@ -792,8 +809,8 @@ class Entity {
 						
 					$item->$myField=$obj->$referedField;
 
-					var_dump($item);
-					$this->save($item);
+					//var_dump($item);
+					$this->saveObject($item);
 						
 						
 				}
@@ -805,7 +822,7 @@ class Entity {
 
 				$v->$myField=$obj->$referedField;
 
-				$this->save($v);
+				$this->saveObject($v);
 			}
 		}
 
@@ -823,7 +840,7 @@ class Entity {
 	 * @param Entity object $obj
 	 * @return integer number of rows affected.
 	 */
-	public function update($obj) {
+	private function update($obj) {
 
 		$id= ARITY_IDENTITY;
 			
@@ -897,7 +914,7 @@ class Entity {
 
 			$v->$myField=$obj->$referedField;
 
-			$this->save($v);
+			$this->saveObject($v);
 
 		}
 		return $obj;

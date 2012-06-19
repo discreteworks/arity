@@ -25,6 +25,8 @@ ini_set('display_errors', '1');
 ini_set('error_reporting', E_ALL);
 
 
+define('QUERY_DEBUG',1);
+
 /*********************
  *MYSQL DB CONNECTION*
 **********************/
@@ -52,6 +54,8 @@ define("PGSQL_SCHEMA", 'public');
 define("PGSQL_USERNAME", 'postgres');
 
 define("PGSQL_PASSWORD", 'sasa');
+
+define("TRANSACTIONAL", 1);
 
 
 
