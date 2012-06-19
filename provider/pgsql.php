@@ -36,20 +36,23 @@ class Pgsql extends Db {
 	}
 
 	function __destruct(){
-			
-		//  		if( $this->result ) {
-			
-		//  			@pg_free_result($this->result);
-		//  			return $this;
-			
-		//  		}
-		//  		else {
-			
-		//  			@pg_free_result($this->result);
-			
-		//  			return false;
-			
-		//  		}
+
+		$this->showQuery();
+
+		if( $this->result ) {
+
+			@pg_free_result($this->result);
+			return $this;
+
+		}
+		else {
+
+			@pg_free_result($this->result);
+
+			return false;
+
+		}
+
 
 			
 			
@@ -413,7 +416,7 @@ class Pgsql extends Db {
 		$field_array=array();
 
 		if($fields){
-				
+
 			$rs =  $this->getRows($fields);
 
 			$columns =  $this->numRows($fields);
@@ -506,22 +509,40 @@ class Pgsql extends Db {
 				$this->connect();
 
 			$the_db = $this->DB;
-
+			
+			
 			$this->queries[] = $sql;
 
-			echo $sql; echo "<br>";
 			$this->result = pg_query($the_db,$sql) or $this->notify();
+			
+			
 
 		}
 
 		return $this->result;
 
 	}
+	
+	public function begin(){
+		
+		$sql="BEGIN";
+		
+		$this->execute($sql);
+		
+	}
+	
+	public function end(){
+		
+		$sql="COMMIT";
+		
+		$this->execute($sql);
+		
+	}
 
 	public function execute( $sql ) {
 
-		//echo $sql;
 
+		$this->queries[]=$sql;
 
 		if(!$this->isConnected())
 
