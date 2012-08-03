@@ -13,16 +13,16 @@
 			<ul>
 				<li><strong><a href="index.html">Arity</a></strong>
 					<ul>
-						<li><a href="createTable.html">createTable</a></li>
-						<li><a href="truncateTable.html">truncateTable</a></li>
-						<li><a href="removeTable.html">removeTable</a></li>
-						<li><a href="fetch.html">fetch</a></li>
-						<li><a href="native.html">native</a></li>
-						<li><a href="objectCount.html">truncateTable</a></li>
-						<li><a href="createTable.html">createTable</a></li>
-						<li><a href="truncateTable.html">truncateTable</a></li>
-						<li><a href="createTable.html">createTable</a></li>
-						<li><a href="truncateTable.html">truncateTable</a></li>
+						<li><a href="#createTable">createTable</a></li>
+						<li><a href="#truncateTable">truncateTable</a></li>
+						<li><a href="#removeTable">removeTable</a></li>
+						<li><a href="#fetch">fetch</a></li>
+						<li><a href="#native">native</a></li>
+						<li><a href="#objectCount">truncateTable</a></li>
+						<li><a href="#createTable">createTable</a></li>
+						<li><a href="#truncateTable">truncateTable</a></li>
+						<li><a href="#createTable">createTable</a></li>
+						<li><a href="#truncateTable">truncateTable</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -34,7 +34,14 @@
 			<ul id="index">
 				<li><a href="#NAME">NAME</a></li>
 				<li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-
+				<li><a href="#CONFIG">CONFIG</a>
+					<ul>
+						<li><a href="#ARITY_IDENTITY">ARITY_IDENTITY</a></li>
+						<li><a href="#ARITY_TYPE">ARITY_TYPE</a></li>
+						<li><a href="#ARITY_NULL">ARITY_NULL</a></li>
+						<li><a href="#ARITY_EMPTY">ARITY_EMPTY</a></li>
+						<li><a href="#QUERY_DEBUG">QUERY_DEBUG</a></li>
+					</ul></li>
 				<li><a href="#TYPES">DATATYPE IDENTIFIERS</a>
 					<ul>
 						<li><a href="#ARITY_INT">ARITY_INT</a></li>
@@ -48,14 +55,10 @@
 					</ul></li>
 				<li><a href="#CONSTRAINTS">CONSTRAINTS</a>
 					<ul>
-						<li><a href="#ARITY_IDENTITY">ARITY_IDENTITY</a></li>
 						<li><a href="#ARITY_PRIMARY">ARITY_PRIMARY</a></li>
 						<li><a href="#ARITY_UNIQUE">ARITY_UNIQUE</a></li>
 						<li><a href="#ARITY_COMPOSITE">ARITY_COMPOSITE</a></li>
 						<li><a href="#ARITY_REQUIRED">ARITY_REQUIRED</a></li>
-						<li><a href="#ARITY_TYPE">ARITY_TYPE</a></li>
-						<li><a href="#ARITY_NULL">ARITY_NULL</a></li>
-						<li><a href="#ARITY_EMPTY">ARITY_EMPTY</a></li>
 						<li><a href="#ARITY_PARENT">ARITY_PARENT</a></li>
 					</ul></li>
 				<li><a href="#MULTIPLICITY">MULTIPLICITY</a>
@@ -108,6 +111,19 @@
 			<p>Arity provides are simple easy to use Object Relation Mapping
 				library. Provide set of method to easy manage and access database
 				table in form of data objects.</p>
+			<h1>
+				<a id="CONF" href="#___top">CONF</a>
+			</h1>
+			<h2>
+				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
+			</h2>
+			<p>Located in the conf.inc.php.Sets the identity field for the
+				object. This identity field is used for object to provider mapping.
+				In most case identity field is the primary key of the provider
+				mapped table.</p>
+			<pre>
+			define("ARITY_IDENTITY","id"); //Change to your choice of table identity field
+			</pre>
 
 			<h1 id="TYPES">
 				<a href="#___top">TYPE DATA IDENTIFIERS</a>
@@ -117,10 +133,9 @@
 				with a database object. To have these types you need to define a
 				meta static variable for the php object which will encapsulate the
 				objects to relational mapping.</p>
-			<p>
-			The mapping of these types depends on the provider which translate them to the corresponding data storage.
-			</p>	
-				
+			<p>The mapping of these types depends on the provider which
+				translate them to the corresponding data storage.</p>
+
 			<pre>
 			class TestSimple {
 				public static $meta;
@@ -138,32 +153,26 @@
 			<h2>
 				<a href="#___top" id="ARITY_INT">ARITY_INT</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with integer datatype.
-			</p>
+			<p>Type identifier to map object attributes with integer
+				datatype.</p>
 			<pre>
 				self::$meta->myType= new Type('myType',ARITY_INT,10);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_SERIAL">ARITY_SERIAL</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with integer datatype with auto increment in table.
-				The actual allocation of size depends on the database.
-			</p>
-			<p>	
-				A primary key is usually associated with serial type.
-				
-			</p>
+			<p>Type identifier to map object attributes with integer datatype
+				with auto increment in table. The actual allocation of size depends
+				on the database.</p>
+			<p>A primary key is usually associated with serial type.</p>
 			<pre>
 				self::$meta->myType= new Type('myType',ARITY_SERIAL,10);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_SMALLINT">ARITY_SMALLINT</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with small integer datatype.
-			</p>
+			<p>Type identifier to map object attributes with small integer
+				datatype.</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_SMALLINT,10);
 			</pre>
@@ -171,8 +180,10 @@
 				<a href="#___top" id="ARITY_DECIMAL">ARITY_DECIMAL</a>
 			</h2>
 			<p>
-				Type identifier to map object attributes with decimal datatype. The implementation may vary to corresponding
-				provider. The size input parameter for <a href="#Type">Type</a> Object works as precision for decimal type. 
+				Type identifier to map object attributes with decimal datatype. The
+				implementation may vary to corresponding provider. The size input
+				parameter for <a href="#Type">Type</a> Object works as precision for
+				decimal type.
 			</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_DECIMAL,10);
@@ -180,54 +191,70 @@
 			<h2>
 				<a href="#___top" id="ARITY_VARCHAR">ARITY_VARCHAR</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with variable character datatype.
-			</p>
+			<p>Type identifier to map object attributes with variable
+				character datatype.</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_VARCHAR,50);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_TEXT">ARITY_TEXT</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with character variable unlimited length datatype.
-			</p>
+			<p>Type identifier to map object attributes with character
+				variable unlimited length datatype.</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_TEXT);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_DATE">ARITY_DATE</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with date datatype.
-			</p>
+			<p>Type identifier to map object attributes with date datatype.</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_DATE);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_BINARY">ARITY_BINARY</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with binary datatype. Intended for storing images,videos or documents in binary format.
-			</p>
+			<p>Type identifier to map object attributes with binary datatype.
+				Intended for storing images,videos or documents in binary format.</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_BINARY);
 			</pre>
 			<h1>
 				<a id="CONSTRAINTS" href="#___top">CONSTRAINTS</a>
 			</h1>
-			<p>List of constraints both row and column level are available for developer. Constraints are used to control object properties to map with correct provider implementation.</p>
+			<p>List of constraints both row and column level are available
+				for developer. Constraints are used to control object properties to
+				map with correct provider implementation.</p>
 			<h2>
-				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
+				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
 			</h2>
-			<p>
-				Type identifier to map object attributes with binary datatype. Intended for storing images,videos or documents in binary format.
-			</p>
+			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
 			<pre>
-				self::$meta->myType= new Type('mytype',ARITY_BINARY);
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
+			</h2>
+			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
+			<pre>
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
+			</h2>
+			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
+			<pre>
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
+			</h2>
+			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
+			<pre>
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
 			
-			<h1 >
+			<h1>
 				<a id="CORE" href="#___top">CORE</a>
 			</h1>
 			<p>List of core classes available for Arity</p>
@@ -248,7 +275,7 @@
 			</h2>
 			<p>Create the table in the database corresponding to the test
 				object.</p>
-		
+
 			<h2>
 				<a id="Entity" href="#___top">Entity</a>
 			</h2>
@@ -298,7 +325,7 @@
 			</h2>
 			<p>Create the table in the database corresponding to the test
 				object.</p>
-			
+
 			<h1 id="Tutorials">Tutorials</h1>
 			<p>Arity provides are simple easy to use methods to create,add
 				and retrieve data objects.</p>
