@@ -35,10 +35,5 @@ class TestSimple {
 
 	}
 
-
-
-	 
-
-
 }
 ?>

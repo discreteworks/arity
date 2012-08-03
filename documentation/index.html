@@ -1,87 +1,311 @@
-<html>
-	<head>
-		<title>Test Cases</title>
-		<link href="css/style.css" rel="stylesheet" type="text/css">
-	</head>
-	<body>
-	
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Arity</title>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 	<div id="content">
-	<h1>Arity</h1>
-	<div class="search-bar" style="position: absolute; top: 50px;">
-	<strong>
-	Table of content
-	</strong>
-	<ul>
-		<li>
-			<a href="#introduction">Introduction</a>	
-		</li>
-		<li>
-			<a href="case.html">Case Based Tutorial</a>	
-		</li>
-		<li>
-			<strong><a href="manual/arity.php">Arity</a></strong>
+		<h1>Arity</h1>
+		<div class="search-bar" style="position: absolute; top: 50px;">
+			<strong> Table of content </strong>
 			<ul>
-				<li><a href="manual/createTable.php">createTable</a></li>
-				<li><a href="manual/truncateTable.php">truncateTable</a></li>
-				<li><a href="manual/createTable.php">createTable</a></li>
-				<li><a href="manual/truncateTable.php">truncateTable</a></li>
-				<li><a href="manual/createTable.php">createTable</a></li>
-				<li><a href="manual/truncateTable.php">truncateTable</a></li>
-				<li><a href="manual/createTable.php">createTable</a></li>
-				<li><a href="manual/truncateTable.php">truncateTable</a></li>
-				<li><a href="manual/createTable.php">createTable</a></li>
-				<li><a href="manual/truncateTable.php">truncateTable</a></li>
+				<li><strong><a href="index.html">Arity</a></strong>
+					<ul>
+						<li><a href="createTable.html">createTable</a></li>
+						<li><a href="truncateTable.html">truncateTable</a></li>
+						<li><a href="removeTable.html">removeTable</a></li>
+						<li><a href="fetch.html">fetch</a></li>
+						<li><a href="native.html">native</a></li>
+						<li><a href="objectCount.html">truncateTable</a></li>
+						<li><a href="createTable.html">createTable</a></li>
+						<li><a href="truncateTable.html">truncateTable</a></li>
+						<li><a href="createTable.html">createTable</a></li>
+						<li><a href="truncateTable.html">truncateTable</a></li>
+					</ul></li>
 			</ul>
+		</div>
+		<a name="___top"></a>
+		<div class="pod">
+
+			<h1>Arity</h1>
+
+			<ul id="index">
+				<li><a href="#NAME">NAME</a></li>
+				<li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+
+				<li><a href="#TYPES">DATATYPE IDENTIFIERS</a>
+					<ul>
+						<li><a href="#ARITY_INT">ARITY_INT</a></li>
+						<li><a href="#ARITY_SERIAL">ARITY_SERIAL</a></li>
+						<li><a href="#ARITY_SMALLINT">ARITY_SMALLINT</a></li>
+						<li><a href="#ARITY_DECIMAL">ARITY_DECIMAL</a></li>
+						<li><a href="#ARITY_VARCHAR">ARITY_VARCHAR</a></li>
+						<li><a href="#ARITY_TEXT">ARITY_TEXT</a></li>
+						<li><a href="#ARITY_DATE">ARITY_DATE</a></li>
+						<li><a href="#ARITY_BINARY">ARITY_BINARY</a></li>
+					</ul></li>
+				<li><a href="#CONSTRAINTS">CONSTRAINTS</a>
+					<ul>
+						<li><a href="#ARITY_IDENTITY">ARITY_IDENTITY</a></li>
+						<li><a href="#ARITY_PRIMARY">ARITY_PRIMARY</a></li>
+						<li><a href="#ARITY_UNIQUE">ARITY_UNIQUE</a></li>
+						<li><a href="#ARITY_COMPOSITE">ARITY_COMPOSITE</a></li>
+						<li><a href="#ARITY_REQUIRED">ARITY_REQUIRED</a></li>
+						<li><a href="#ARITY_TYPE">ARITY_TYPE</a></li>
+						<li><a href="#ARITY_NULL">ARITY_NULL</a></li>
+						<li><a href="#ARITY_EMPTY">ARITY_EMPTY</a></li>
+						<li><a href="#ARITY_PARENT">ARITY_PARENT</a></li>
+					</ul></li>
+				<li><a href="#MULTIPLICITY">MULTIPLICITY</a>
+					<ul>
+						<li><a href="#ARITY_11">ARITY_11</a></li>
+						<li><a href="#ARITY_1M">ARITY_1M</a></li>
+						<li><a href="#ARITY_MM">ARITY_MM</a></li>
+					</ul></li>
+
+				<li><a href="#CORE">CORE</a>
+					<ul>
+						<li><a href="#Arity">Arity</a></li>
+						<li><a href="#Base">Base</a></li>
+						<li><a href="#Db">Db</a></li>
+						<li><a href="#Entity">Entity</a>
+							<ul>
+								<li><a href="#createTable">createTable</a></li>
+								<li><a href="#truncateTable">truncateTable</a></li>
+								<li><a href="#removeTable">removeTable</a></li>
+								<li><a href="#fetch">fetch</a></li>
+								<li><a href="#native">native</a></li>
+								<li><a href="#objectCount">truncateTable</a></li>
+								<li><a href="#createTable">createTable</a></li>
+								<li><a href="#truncateTable">truncateTable</a></li>
+								<li><a href="#createTable">createTable</a></li>
+								<li><a href="#truncateTable">truncateTable</a></li>
+							</ul></li>
+						<li><a href="#Field">Field</a></li>
+						<li><a href="#Reference">Reference</a></li>
+						<li><a href="#TWWype">Type</a></li>
+					</ul></li>
+				<li><a href="#TUTORIALS">TUTORIALS</a>
+					<ul>
+						<li><a href="tutorial1.php">Tutorial 1</a></li>
+						<li><a href="tutorial2.php">Tutorial 2</a></li>
+						<li><a href="tutorial3.php">Tutorial 3</a></li>
+						<li><a href="tutorial4.php">Tutorial 4</a></li>
+						<li><a href="tutorial5.php">Tutorial 5</a></li>
+					</ul></li>
+
+			</ul>
+			<h1 id="NAME">
+				<a href="#___top">NAME</a>
+			</h1>
+			<p>This tutorial is based on 5 cases. Each case explains and
+				solves a particular problem of data persistent.</p>
+			<h1 id="DESCRIPTION">
+				<a href="#___top">DESCRIPTION</a>
+			</h1>
+			<p>Arity provides are simple easy to use Object Relation Mapping
+				library. Provide set of method to easy manage and access database
+				table in form of data objects.</p>
+
+			<h1 id="TYPES">
+				<a href="#___top">TYPE DATA IDENTIFIERS</a>
+			</h1>
+			<p>The types that are available to construct object that can be
+				mapped to database tables.These types explain the normal php object
+				with a database object. To have these types you need to define a
+				meta static variable for the php object which will encapsulate the
+				objects to relational mapping.</p>
+			<p>
+			The mapping of these types depends on the provider which translate them to the corresponding data storage.
+			</p>	
 				
-		</li>
-	</ul>
-</div>
-	
-	<div class="pod">
-	
-		<h1>Test Cases</h1>
+			<pre>
+			class TestSimple {
+				public static $meta;
+				public $id;
+				public $name;
+				public function  __construct()  {
+			
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+					 
+					self::$meta->name= new Type('name',ARITY_VARCHAR,50);
+				}
+			}			
+			</pre>
 
-<ul id="index">
-  <li><a href="#NAME">NAME</a></li>
-  <li><a href="#OVERVIEW">OVERVIEW</a></li>
-  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-  <li><a href="#CASES">CASE</a>
-  		<ul>
-			<li><a href="case/case1.php">Case1</a>
-			</li>
-			<li><a href="case/case2.php">Case2</a>
-			</li>
-			<li><a href="case/case3.php">Case3</a>
-			</li>
-			</ul>
-  </li>
-  <li><a href="#HELLO-WORLD">HELLO WORLD</a>
-    <ul>
-      <li><a href="#The-Simplest-Way">The Simplest Way</a></li>
-      <li><a href="#Hello-World-Using-a-View-and-a-Template">Hello, World! Using a View and a Template</a></li>
-    </ul>
-  </li>
-  <li><a href="#CREATE-A-SIMPLE-CONTROLLER-AND-AN-ACTION">CREATE A SIMPLE CONTROLLER AND AN ACTION</a></li>
-  <li><a href="#AUTHORS">AUTHORS</a></li>
-</ul>
+			<h2>
+				<a href="#___top" id="ARITY_INT">ARITY_INT</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with integer datatype.
+			</p>
+			<pre>
+				self::$meta->myType= new Type('myType',ARITY_INT,10);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_SERIAL">ARITY_SERIAL</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with integer datatype with auto increment in table.
+				The actual allocation of size depends on the database.
+			</p>
+			<p>	
+				A primary key is usually associated with serial type.
+				
+			</p>
+			<pre>
+				self::$meta->myType= new Type('myType',ARITY_SERIAL,10);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_SMALLINT">ARITY_SMALLINT</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with small integer datatype.
+			</p>
+			<pre>
+				self::$meta->myType= new Type('mytype',ARITY_SMALLINT,10);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_DECIMAL">ARITY_DECIMAL</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with decimal datatype. The implementation may vary to corresponding
+				provider. The size input parameter for <a href="#Type">Type</a> Object works as precision for decimal type. 
+			</p>
+			<pre>
+				self::$meta->myType= new Type('mytype',ARITY_DECIMAL,10);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_VARCHAR">ARITY_VARCHAR</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with variable character datatype.
+			</p>
+			<pre>
+				self::$meta->myType= new Type('mytype',ARITY_VARCHAR,50);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_TEXT">ARITY_TEXT</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with character variable unlimited length datatype.
+			</p>
+			<pre>
+				self::$meta->myType= new Type('mytype',ARITY_TEXT);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_DATE">ARITY_DATE</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with date datatype.
+			</p>
+			<pre>
+				self::$meta->myType= new Type('mytype',ARITY_DATE);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_BINARY">ARITY_BINARY</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with binary datatype. Intended for storing images,videos or documents in binary format.
+			</p>
+			<pre>
+				self::$meta->myType= new Type('mytype',ARITY_BINARY);
+			</pre>
+			<h1>
+				<a id="CONSTRAINTS" href="#___top">CONSTRAINTS</a>
+			</h1>
+			<p>List of constraints both row and column level are available for developer. Constraints are used to control object properties to map with correct provider implementation.</p>
+			<h2>
+				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
+			</h2>
+			<p>
+				Type identifier to map object attributes with binary datatype. Intended for storing images,videos or documents in binary format.
+			</p>
+			<pre>
+				self::$meta->myType= new Type('mytype',ARITY_BINARY);
+			</pre>
+			
+			<h1 >
+				<a id="CORE" href="#___top">CORE</a>
+			</h1>
+			<p>List of core classes available for Arity</p>
+			<h2>
+				<a id="Arity" href="#___top">Arity</a>
+			</h2>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
 
+			<h2>
+				<a id="Base" href="#___top">Base</a>
+			</h2>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
 
-<h1 id="NAME">NAME</h1>
-<p>
-This tutorial is based on 5 cases. Each case explains and solves a particular problem of
-data persistent.
-</p>
-
-<h1 id="OVERVIEW">OVERVIEW</h1>
-<p>
-Arity provides are simple easy to use methods to create,add and retrieve data objects.
-</p>
-
-
+			<h2>
+				<a id="Db" href="#___top">Db</a>
+			</h2>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
 		
-		
+			<h2>
+				<a id="Entity" href="#___top">Entity</a>
+			</h2>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
+			<h3>
+				<a id="createTable" href="#___top">createTable</a>
+			</h3>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
+			<pre>
+			class TestSimple {
+				public static $meta;
+				public $id;
+				public $name;
+				public function  __construct()  {
+			
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+					 
+					self::$meta->name= new Type('name',ARITY_VARCHAR,50);
+				}
+			}			
+			#Initialize a test object
+			
+			$testObj=new TestSimple();
+			
+			$testObj->name="test";
+			
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->createTable();
+			</pre>
+			<h2>
+				<a id="Field" href="#___top">Field</a>
+			</h2>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
+			<h2>
+				<a id="Reference" href="#___top">Reference</a>
+			</h2>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
+			<h2>
+				<a id="Type" href="#___top">Type</a>
+			</h2>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
+			
+			<h1 id="Tutorials">Tutorials</h1>
+			<p>Arity provides are simple easy to use methods to create,add
+				and retrieve data objects.</p>
+
+
 
 		</div>
-		</div>
-	</body>
+	</div>
+</body>
 </html>
