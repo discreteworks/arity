@@ -58,13 +58,14 @@
 						<li><a href="#ARITY_UNIQUE">ARITY_UNIQUE</a></li>
 						<li><a href="#ARITY_COMPOSITE">ARITY_COMPOSITE</a></li>
 						<li><a href="#ARITY_REQUIRED">ARITY_REQUIRED</a></li>
+						<li><a href="#ARITY_NOTREQUIRED">ARITY_NOTREQUIRED</a></li>
 						<li><a href="#ARITY_PARENT">ARITY_PARENT</a></li>
+						<li><a href="#ARITY_CHILD">ARITY_CHILD</a></li>
 					</ul></li>
 				<li><a href="#MULTIPLICITY">MULTIPLICITY</a>
 					<ul>
 						<li><a href="#ARITY_11">ARITY_11</a></li>
 						<li><a href="#ARITY_1M">ARITY_1M</a></li>
-						<li><a href="#ARITY_MM">ARITY_MM</a></li>
 					</ul></li>
 
 				<li><a href="#CORE">CORE</a>
@@ -274,18 +275,25 @@
 			<h2>
 				<a href="#___top" id="ARITY_COMPOSITE">ARITY_COMPOSITE</a>
 			</h2>
-			<p>Create a primary key constraint on an object property.The
-				implementation of primary key constraint depends on provider.</p>
+			<p>Add the current attribute to composite key constraint of an object.</p>
 			<pre>
-					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY,ARITY_COMPOSITE);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_REQUIRED">ARITY_REQUIRED</a>
 			</h2>
-			<p>Create a primary key constraint on an object property.The
-				implementation of primary key constraint depends on provider.</p>
+			<p>Create a required object property.The
+				implementation of which depends on provider.</p>
 			<pre>
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_NOTREQUIRED">ARITY_NOTREQUIRED</a>
+			</h2>
+			<p>Create a not required object property.The
+				implementation of which depends on provider.</p>
+			<pre>
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_NOTREQUIRED,ARITY_PRIMARY);
 			</pre>
 
 			<h2>
@@ -295,7 +303,16 @@
 			<pre>
 					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_PARENT);
 			</pre>
-
+			<h2>
+				<a href="#___top" id="ARITY_CHILD">ARITY_CHILD</a>
+			</h2>
+			<p>Define a child entity object of a relationship.On for child objects foreign key
+				relationships are mapped by provider from child to parent.
+			</p>
+			<pre>
+					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_CHILD);
+			</pre>
+			
 
 			<h1>
 				<a id="CORE" href="#___top">CORE</a>
