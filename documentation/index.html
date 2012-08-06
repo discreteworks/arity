@@ -36,11 +36,10 @@
 				<li><a href="#DESCRIPTION">DESCRIPTION</a></li>
 				<li><a href="#CONFIG">CONFIG</a>
 					<ul>
+						<li><a href="#QUERY_DEBUG">QUERY_DEBUG</a></li>
 						<li><a href="#ARITY_IDENTITY">ARITY_IDENTITY</a></li>
-						<li><a href="#ARITY_TYPE">ARITY_TYPE</a></li>
 						<li><a href="#ARITY_NULL">ARITY_NULL</a></li>
 						<li><a href="#ARITY_EMPTY">ARITY_EMPTY</a></li>
-						<li><a href="#QUERY_DEBUG">QUERY_DEBUG</a></li>
 					</ul></li>
 				<li><a href="#TYPES">DATATYPE IDENTIFIERS</a>
 					<ul>
@@ -115,6 +114,16 @@
 				<a id="CONF" href="#___top">CONF</a>
 			</h1>
 			<h2>
+				<a href="#___top" id="QUERY_DEBUG">QUERY_DEBUG</a>
+			</h2>
+			<p>
+				Enables query debug for Arity<a href="#Type">Type</a> is created.
+			</p>
+			<pre>
+				define('QUERY_DEBUG',1);
+			</pre>
+
+			<h2>
 				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
 			</h2>
 			<p>Located in the conf.inc.php.Sets the identity field for the
@@ -124,7 +133,20 @@
 			<pre>
 			define("ARITY_IDENTITY","id"); //Change to your choice of table identity field
 			</pre>
-
+			<h2>
+				<a href="#___top" id="ARITY_NULL">ARITY_NULL</a>
+			</h2>
+			<p>
+				PHP equivalent NULL representation for NULL values either set when <a
+					href="#Type">Type</a> is created.
+			</p>
+			<h2>
+				<a href="#___top" id="ARITY_EMPTY">ARITY_EMPTY</a>
+			</h2>
+			<p>
+				PHP equivalent empty string representation for empty values either
+				set when <a href="#Type">Type</a> is created.
+			</p>
 			<h1 id="TYPES">
 				<a href="#___top">TYPE DATA IDENTIFIERS</a>
 			</h1>
@@ -228,32 +250,53 @@
 			<h2>
 				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
 			</h2>
-			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
+			<p>Create a primary key constraint on an object property.The
+				implementation of primary key constraint depends on provider.</p>
 			<pre>
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
+				<a href="#___top" id="ARITY_UNIQUE">ARITY_UNIQUE</a>
 			</h2>
-			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
+			<p>Create a unique key constraint on an object property.The
+				implementation of unique key constraint depends on provider.</p>
 			<pre>
-					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+					  self::$meta->user_id= new Type('user_id',ARITY_INT,11,ARITY_EMPTY,ARITY_NULL,ARITY_UNIQUE);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
 			</h2>
-			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
+			<p>Create a primary key constraint on an object property.The
+				implementation of primary key constraint depends on provider.</p>
 			<pre>
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
+				<a href="#___top" id="ARITY_COMPOSITE">ARITY_COMPOSITE</a>
 			</h2>
-			<p>Create a primary key constraint on an object property.The implementation of primary key constraint depends on provider.</p>
+			<p>Create a primary key constraint on an object property.The
+				implementation of primary key constraint depends on provider.</p>
 			<pre>
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
-			
+			<h2>
+				<a href="#___top" id="ARITY_REQUIRED">ARITY_REQUIRED</a>
+			</h2>
+			<p>Create a primary key constraint on an object property.The
+				implementation of primary key constraint depends on provider.</p>
+			<pre>
+					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+			</pre>
+
+			<h2>
+				<a href="#___top" id="ARITY_PARENT">ARITY_PARENT</a>
+			</h2>
+			<p>Define a parent entity object of a relationship.</p>
+			<pre>
+					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_PARENT);
+			</pre>
+
+
 			<h1>
 				<a id="CORE" href="#___top">CORE</a>
 			</h1>
