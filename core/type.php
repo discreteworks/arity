@@ -22,6 +22,7 @@ class Type extends Field {
     public $default;
     public $key;
     public $composite;
+    public $required;
 
 
     /**
@@ -34,16 +35,71 @@ class Type extends Field {
      *    @param mixed $default    Default value of field.
      *    @access public
      */
-    function  Type($name,$type,$size=null,$default=null,$required=null,$key=null,$composite=null,$description=null) {
+    function  __construct($name,$type,$size=null,$default=null,$required=ARITY_NOTREQUIRED,$key=null,$composite=null) {
 
-        parent::Field($this, $name, $description, $required );
+        parent::Field($this, $name, $description);
+
         $this->size=$size;
+        
         $this->type=$type;
+        
         $this->default=$default;
+        
         $this->key=$key;
+        
         $this->composite=$composite;
+        
+        $this->required=$required;
 
     }
+    
+    static function create($name,$type,$size=null){
+    	
+    	return new Type($name,$type,$size);
+    	
+    }
+    
+    
+    function setDefault($default){
+    	
+    	$this->default=$default;
+    	
+    	return $this;
+    	
+    }
+    
+    function composite(){
+    	
+    	$this->composite=ARITY_COMPOSITE;	
+    	
+    	return $this;
+    	
+    }
+    
+    function primaryKey(){
+    	 
+    	$this->key=ARITY_PRIMARY;
+    	 
+    	return $this;
+    	 
+    }
+    
+    function uniqueKey(){
+    
+    	$this->key=ARITY_UNIQUE;
+    
+    	return $this;
+    
+    }
+    
+    function required(){
+    	 
+    	$this->key=ARITY_REQUIRED;
+    	 
+    	return $this;
+    	 
+    }
+   
 
 
 }

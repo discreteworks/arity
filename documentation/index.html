@@ -59,25 +59,30 @@
 						<li><a href="#ARITY_COMPOSITE">ARITY_COMPOSITE</a></li>
 						<li><a href="#ARITY_REQUIRED">ARITY_REQUIRED</a></li>
 						<li><a href="#ARITY_NOTREQUIRED">ARITY_NOTREQUIRED</a></li>
-						<li><a href="#ARITY_PARENT">ARITY_PARENT</a></li>
-						<li><a href="#ARITY_CHILD">ARITY_CHILD</a></li>
+
 					</ul></li>
 				<li><a href="#MULTIPLICITY">MULTIPLICITY</a>
 					<ul>
+						<li><a href="#ARITY_PARENT">ARITY_PARENT</a></li>
+						<li><a href="#ARITY_CHILD">ARITY_CHILD</a></li>
 						<li><a href="#ARITY_11">ARITY_11</a></li>
 						<li><a href="#ARITY_1M">ARITY_1M</a></li>
 					</ul></li>
 
 				<li><a href="#CORE">CORE</a>
 					<ul>
-						<li><a href="#Arity">Arity</a></li>
+						<li><a href="#Arity">Arity</a>
+							<ul>
+								<li><a href="#entity">entity</a></li>
+								<li><a href="#native">native</a></li>
+							</ul></li>
 						<li><a href="#Base">Base</a></li>
 						<li><a href="#Db">Db</a></li>
 						<li><a href="#Entity">Entity</a>
 							<ul>
 								<li><a href="#createTable">createTable</a></li>
-								<li><a href="#truncateTable">truncateTable</a></li>
 								<li><a href="#removeTable">removeTable</a></li>
+								<li><a href="#truncateTable">truncateTable</a></li>
 								<li><a href="#fetch">fetch</a></li>
 								<li><a href="#native">native</a></li>
 								<li><a href="#objectCount">truncateTable</a></li>
@@ -103,8 +108,10 @@
 			<h1 id="NAME">
 				<a href="#___top">NAME</a>
 			</h1>
-			<p>This tutorial is based on 5 cases. Each case explains and
-				solves a particular problem of data persistent.</p>
+			<p>
+				Arity Object Relational Mapper for PHP.<br />Arity provides are
+				simple easy to use methods to create,add and retrieve data objects.
+			</p>
 			<h1 id="DESCRIPTION">
 				<a href="#___top">DESCRIPTION</a>
 			</h1>
@@ -112,7 +119,7 @@
 				library. Provide set of method to easy manage and access database
 				table in form of data objects.</p>
 			<h1>
-				<a id="CONF" href="#___top">CONF</a>
+				<a id="CONFIG" href="#___top">CONFIG</a>
 			</h1>
 			<h2>
 				<a href="#___top" id="QUERY_DEBUG">QUERY_DEBUG</a>
@@ -275,27 +282,31 @@
 			<h2>
 				<a href="#___top" id="ARITY_COMPOSITE">ARITY_COMPOSITE</a>
 			</h2>
-			<p>Add the current attribute to composite key constraint of an object.</p>
+			<p>Add the current attribute to composite key constraint of an
+				object.</p>
 			<pre>
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY,ARITY_COMPOSITE);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_REQUIRED">ARITY_REQUIRED</a>
 			</h2>
-			<p>Create a required object property.The
-				implementation of which depends on provider.</p>
+			<p>Create a required object property.The implementation of which
+				depends on provider.</p>
 			<pre>
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_NOTREQUIRED">ARITY_NOTREQUIRED</a>
 			</h2>
-			<p>Create a not required object property.The
-				implementation of which depends on provider.</p>
+			<p>Create a not required object property.The implementation of
+				which depends on provider.</p>
 			<pre>
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_NOTREQUIRED,ARITY_PRIMARY);
 			</pre>
-
+			<h1>
+				<a id="MULTIPLICITY" href="#___top">MULTIPLICITY</a>
+			</h1>
+			<p>List of core classes available for Arity</p>
 			<h2>
 				<a href="#___top" id="ARITY_PARENT">ARITY_PARENT</a>
 			</h2>
@@ -306,47 +317,34 @@
 			<h2>
 				<a href="#___top" id="ARITY_CHILD">ARITY_CHILD</a>
 			</h2>
-			<p>Define a child entity object of a relationship.On for child objects foreign key
-				relationships are mapped by provider from child to parent.
-			</p>
+			<p>Define a child entity object of a relationship.On for child
+				objects foreign key relationships are mapped by provider from child
+				to parent.</p>
 			<pre>
 					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_CHILD);
 			</pre>
-			
-
+			<h2>
+				<a href="#___top" id="ARITY_11">ARITY_11</a>
+			</h2>
+			<p>Define one to one relationship.</p>
+			<pre>
+					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_PARENT);
+			</pre>
+			<h2>
+				<a href="#___top" id="ARITY_1M">ARITY_1M</a>
+			</h2>
+			<p>Define one to many relationship.</p>
+			<pre>
+					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_1M,ARITY_CHILD);
+			</pre>
 			<h1>
 				<a id="CORE" href="#___top">CORE</a>
 			</h1>
 			<p>List of core classes available for Arity</p>
-			<h2>
-				<a id="Arity" href="#___top">Arity</a>
-			</h2>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
-
-			<h2>
-				<a id="Base" href="#___top">Base</a>
-			</h2>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
-
-			<h2>
-				<a id="Db" href="#___top">Db</a>
-			</h2>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
-
-			<h2>
-				<a id="Entity" href="#___top">Entity</a>
-			</h2>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
-			<h3>
-				<a id="createTable" href="#___top">createTable</a>
-			</h3>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
 			<pre>
+			
+			//Sample Model Class
+			
 			class TestSimple {
 				public static $meta;
 				public $id;
@@ -357,38 +355,299 @@
 					 
 					self::$meta->name= new Type('name',ARITY_VARCHAR,50);
 				}
-			}			
+			}		
+			</pre>
+
+			<h2>
+				<a id="Arity" href="#___top">Arity</a>
+
+			</h2>
+			<p>Class with static methods to instantiate the entity object.</p>
+			<h3>
+				<a id="entity" href="#___top">entity</a>
+			</h3>
+			<p>Creates an entity object for model object for a specified
+				provider.</p>
+			<pre>public static function entity($object,$type=DEFAULT_DB)</pre>
+			<p>
+				$object is the instantiated Model Object.<br /> $type
+				Provider(Postgres/Mysql). Default to the provider selected in config
+			</p>
+			<pre>
 			#Initialize a test object
 			
 			$testObj=new TestSimple();
 			
 			$testObj->name="test";
 			
-			#Add Object to Arity peristent manager
+			#Add Object to Arity persistent manager
+			
+			$dbObj=Arity::entity($testObj);
+			</pre>
+			<h3>
+				<a id="native" href="#___top">native</a>
+			</h3>
+			<p>Creates an native object for a specified provider. Native
+				method provide sql support.</p>
+			<pre> public static function native($type)</pre>
+			<p>
+				<br /> $type Provider(Postgres/Mysql). Default to the provider
+				selected in config
+			</p>
+			<pre>
+			$dbObj=Arity::native();
+			</pre>
+			<h2>
+				<a id="Base" href="#___top">Base</a>
+			</h2>
+			<p>Abstract Base class for model. Includes the static $meta
+				variable to describe the child class provide mapping structure.</p>
+
+			<h2>
+				<a id="Db" href="#___top">Db</a>
+			</h2>
+			<p>Abstract class mandatory for the provider to implement.
+				Includes abstract methods which define how arity communicates with
+				the provider. object.</p>
+			<h2>
+				<a id="Entity" href="#___top">Entity</a>
+			</h2>
+			<p>Entity class contains all the bindings required for orm to
+				work. Provides set of methods to access the provider independent
+				data objects.</p>
+			<h3>
+				<a id="createTable" href="#___top">createTable</a>
+			</h3>
+			<p>Create the table in the database corresponding to the test
+				object.</p>
+			<pre>
+				
+			#Initialize a test object
+			
+			$testObj=new TestSimple();
+			
+			$testObj->name="test";
+			
+			#Add Object to Arity persistent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
 			$dbObj->createTable();
 			</pre>
+			<h3>
+				<a id="removeTable" href="#___top">removeTable</a>
+			</h3>
+			<p>Remove the table in the database corresponding to the test
+				object.</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity persistent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->removeTable();
+			</pre>
+			<h3>
+				<a id="truncateTable" href="#___top">truncateTable</a>
+			</h3>
+			<p>Remove all the records from the corresponding provider table.</p>
+			<pre>
+			$testObj=new TestSimple();
+			
+			#Add Object to Arity persistent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->removeTable();
+			</pre>
+			<h3>
+				<a id="save" href="#___top">save</a>
+			</h3>
+			<p>Saves the object in provider table</p>
+			<pre>
+			$testObj=new TestSimple();
+			
+			$testObj->name="test";
+			
+			#Add Object to Arity persistent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->save();
+			</pre>
+			<h3>
+				<a id="delete" href="#___top">delete</a>
+			</h3>
+			<p>Delete object instance in provider table with respect to the
+				ARITY IDENTITY field if set.</p>
+			<pre>
+			$testObj=new TestSimple();
+			
+			$testObj->id=1;
+			
+			#Add Object to Arity persistent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->delete();
+			</pre>
+
+			<h3>
+				<a id="fetch" href="#___top">fetch</a>
+			</h3>
+			<p>Remove the table in the database corresponding to the test
+				object.</p>
+			<pre>
+			public function fetch($depth=null)
+			</pre>
+			<p>Define the depth of reference child objects. e.g 1 means first
+				level childs.</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch();
+			</pre>
+			<h3>
+				<a id="filter" href="#___top">filter</a>
+			</h3>
+			<p>Remove the table in the database corresponding to the test
+				object.</p>
+			<pre>
+			function filter($filter,$type='AND',$compare=' = ')
+			</pre>
+			<p>
+				$filter Key pair values of argument 'name'=>'Test' <br /> $type
+				Operator AND=/OR among the key pair value arguments <br /> $compare
+				The compare operator =,<,>,>=,<=,!= <br />
+			</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->filter(array("name"=>"test"));
+			
+			$dbObj->fetch()->filter(array("name"=>"test","age"=>"10"),'OR',"=");
+			
+			</pre>
+			<h3>
+				<a id="object" href="#___top">object</a>
+			</h3>
+			<p>Returns instantiated populated object.Object with it
+				relationships are populated at this point into the instantiated
+				object.</p>
+
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->filter(array("name"=>"test"))->object();
+			</pre>
+			<h3>
+				<a id="objectCount" href="#___top">objectCount</a>
+			</h3>
+			<p>Returns instantiated populated object. Count of the instances
+				that are loaded. This count is for the main object. Child object
+				combination are not counted.</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->filter(array("name"=>"test"))->object()->objectCount();
+			</pre>
+
+			<h3>
+				<a id="native" href="#___top">native</a>
+			</h3>
+			<p>Return instances for native query.Result can be combinations.</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->filter(array("name"=>"test"))->native();
+			</pre>
+
+			<h3>
+				<a id="nativeCount" href="#___top">nativeCount</a>
+			</h3>
+			<p>Count of the instances for a native query.Result can be
+				combinations.</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->filter(array("name"=>"test"))->nativeCount();
+			</pre>
+
+
+			<h3>
+				<a id="groupBy" href="#___top">groupBy</a>
+			</h3>
+			<p>Only abvailable for native queries.</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->filter(array("name"=>"test"))->nativeCount();
+			</pre>
+			<h3>
+				<a id="having" href="#___top">having</a>
+			</h3>
+			<p>Only abvailable for native queries.</p>
+			<pre>
+			$testObj=new TestSimple();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->filter(array("name"=>"test"))->nativeCount();
+			</pre>
+
+
+
 			<h2>
 				<a id="Field" href="#___top">Field</a>
 			</h2>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
+			<p>Abstract class for creating object fields.Its inherited by
+				Type and Reference.</p>
 			<h2>
 				<a id="Reference" href="#___top">Reference</a>
 			</h2>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
+			<p>Extends the Field abstract class. Create a relationship
+				between objects.These relationships are used for mapping the object
+				to provider table relationships.</p>
 			<h2>
 				<a id="Type" href="#___top">Type</a>
 			</h2>
-			<p>Create the table in the database corresponding to the test
-				object.</p>
+			<p>Extends the Field abstract class. Create a type that can be
+				mapped to the provider table type.</p>
 
 			<h1 id="Tutorials">Tutorials</h1>
-			<p>Arity provides are simple easy to use methods to create,add
-				and retrieve data objects.</p>
+			<p>This tutorial is based on 5 cases. Each case explains and
+				solves a particular problem of data persistent.</p>
 
 
 

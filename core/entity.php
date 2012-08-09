@@ -21,13 +21,11 @@ class Entity {
 	// Base entity on which operations are added
 	protected $base;
 
-	//Database connection instance
+	//Provider instance
 	public $db;
 
 	//Filter conditionsp
 	private $condition=array();
-
-
 
 	//Group by base entity table with other tables
 	private $groupby=array();
@@ -57,7 +55,7 @@ class Entity {
 	private $offset=1;
 
 	// Count of instances of entities object compile
-	private $object_count=0;
+	private $objectCount=0;
 
 	/*
 	 * Entity Constructor
@@ -71,8 +69,8 @@ class Entity {
 	}
 
 	/**
-	 * Installs the entity in database.
-	 * Creates relation(table) in the database.
+	 * Installs the entity in provider.
+	 * Creates relation(table) in the provider.
 	 */
 	public function createTable() {
 
@@ -93,7 +91,7 @@ class Entity {
 
 	/**
 	 * Truncate
-	 * Removes all the row from the relation
+	 * Removes all the row from the provider table
 	 */
 	public function truncateTable() {
 
@@ -105,8 +103,7 @@ class Entity {
 	}
 
 	/**
-	 * Installs the entity in database.
-	 * Creates relation(table) in the database.
+	 * Removes the provider table.
 	 */
 	public function removeTable() {
 
@@ -115,120 +112,13 @@ class Entity {
 
 		if($this->db->tableExists($table))
 
-			$this->db->dropTable($table);
+		$this->db->dropTable($table);
 	}
 
-
-	private function alterEntity(){
-
-
-		$fieldAttributes=array();
-
-		$table=strtolower(get_class($this->base));
-
-		$attributes=get_object_vars($this->base);
-
-		foreach ($attributes as $key=>$item) {
-
-			if(!$this->db->fieldExists($table,$key)) {
-
-				if(get_class($table::$meta->$key)==ARITY_TYPE) {
-
-					$fieldAttributes[]=$table::$meta->$key;
-
-
-				}
-
-			}
-
-		}
-
-		if($fieldAttributes)
-
-			$this->db->addField($table,$fieldAttributes);
-
-
-
-	}
 
 
 	/**
-	 * Create new entity table in database. If entity table exists
-	 * in database drop and re-create in the database.
-	 */
-	private function createEntity($table) {
-
-
-		$relationFlag=true;
-
-		//Read attributes of the model
-
-		$attributes=get_object_vars($this->base);
-
-		if(count($attributes)>0){
-
-			foreach ($attributes as $key=>$item) {
-				if(get_class($table::$meta->$key)==ARITY_TYPE) {
-					$fieldAttributes[]=$table::$meta->$key;
-
-				}
-			}
-
-			$this->db->createTable($table,$fieldAttributes);
-		}
-			
-
-	}
-
-	/**
-	 * Recursive method which form the query to get entities database resultset.
-	 * @param Object Entity object
-	 * @return Object Entitydecorator
-	 */
-	private function chain($obj=null) {
-
-		$id= ARITY_IDENTITY;
-
-		$this->level=$this->level+1;
-
-		if($obj==null) {
-
-			$ref=$this->base;
-		}
-		else {
-
-			$ref=$obj;
-
-		}
-
-		$this->obj[strtolower(get_class($ref))]=get_class($ref);
-
-		$attributes=get_object_vars($ref);
-
-		$table=strtolower(get_class($ref));
-
-		foreach($attributes as $key=>$name) {
-
-
-			if(@get_class($table::$meta->$key)=='Reference'&&!isset($this->obj[strtolower($table::$meta->$key->reference)])&&$this->level<$this->depth) {
-
-				$this->db->createJoin($table::$meta->$key,$table,$id,$table::$meta->$key->map);
-
-				$ref=$table::$meta->$key->reference;
-
-				$this->chain(new $ref);
-
-
-			}
-
-		}
-
-		return $this;
-
-	}
-
-	/**
-	 * Fetches the entities from database with level of depth.
+	 * Fetches the entities from provider with level of depth.
 	 * @param integer $depth the level of entities with respect to join
 	 * @return Object Entitydecorator
 	 */
@@ -249,7 +139,7 @@ class Entity {
 	 * @return Object
 	 */
 
-	function loads($obj) {
+	private function loads($obj) {
 
 		$this->load[]="`".$obj."`.*";
 
@@ -257,146 +147,11 @@ class Entity {
 
 	}
 
-	/**
-	 * Recursive method which maps the entities with database resultset.
-	 * @param Object Entity object
-	 * @param Array resultset result returned from database
-	 * @param Array $condition recursive call terminating condition
-	 * @return Array Entity objects
-	 */
 
-	private function mapping($object,$resultset,$condition=null,$referenceField=null) {
-
-
-		$id= ARITY_IDENTITY;
-
-		$c= $object;
-
-		$objectArray=array();
-
-		$tempArray=array();
-
-		$name=strtolower(get_class($object));
-
-		$this->map[]=$name;
-
-		$this->map=array_unique($this->map);
-
-		$attrib=get_object_vars($c);
-		//var_dump($attrib);
-		//if($name=="group"){  var_dump($condition);return null;}
-
-		foreach($resultset as $key=>$item) {
-
-			if(!array_key_exists($name, $resultset[$key])) {
-
-
-				return null;
-
-			}
-
-			foreach($attrib as $vkey=>$var) {
-
-
-				if(@get_class(@$c::$meta->$vkey)=="Type") {
-
-
-					if($condition!=NULL) {
-
-						// 						if($name=="group") {
-						// 							var_dump($resultset[$key][$name][$referenceField]);;exit;
-						// 						}
-
-						if($resultset[$key][$name][$referenceField]==$condition[key($condition)]) {
-
-							$c->$vkey=$resultset[$key][$name][$vkey];
-
-							if($name=="objectfield") {
-
-							}
-
-						}
-						else {
-							if($name=="objectfield" and $c->name==null) {
-									
-							}
-
-						}
-
-					}
-					else {
-
-						$c->$vkey=$resultset[$key][$name][$vkey];
-
-						if($name=="user" ) {
-
-
-						}
-					}
-
-				}
-				elseif(@get_class(@$c::$meta->$vkey)=="Reference") {
-
-					if($c::$meta->$vkey->map==ARITY_11&& (in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
-
-						$cond1=array($id=>$resultset[$key][$name][$vkey]);
-
-						$ores=$this->mapping(new $vkey(), $resultset,$cond1);
-
-						if(isset($ores[0])) {
-
-							$c->$vkey=$ores[0];
-
-						}
-					}
-					elseif($c::$meta->$vkey->map==ARITY_1M&&(in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
-
-						//var_dump($resultset[$key][$name]);
-
-						$cond2=array($c::$meta->$vkey->name=>$resultset[$key][$name][$c::$meta->$vkey->name]
-						);
-
-						$or=$this->mapping(new $c::$meta->$vkey->reference, $resultset,$cond2,$c::$meta->$vkey->referenceField);
-
-						$c->$vkey=$or;
-
-					}
-					else {
-
-						unset($c->$vkey);
-
-					}
-
-				}
-
-			}
-			if($name=="objectfield" and $c->name==null) {
-				// debug statements
-
-			}
-
-
-			$c_clone=clone $c;
-
-			if(!array_key_exists(md5($c_clone->id), $tempArray)&&$c->$id!=null) {
-
-				$tempArray[md5($c_clone->id)]=md5(serialize( $c_clone));
-
-				$objectArray[]= $c_clone;
-
-
-			}
-
-
-		}
-
-		return $objectArray;
-
-	}
 
 	/**
 	 * Standard compile of the result set without mapping to entities
-	 * @return Associative Array resultset of entities from database.
+	 * @return Associative Array resultset of entities from provider.
 	 */
 
 	function native($sql=null) {
@@ -414,13 +169,13 @@ class Entity {
 			$this->query=$this->
 			db->
 			makeQuery($table,$this->obj,
-					$this->load,
-					$this->join,
-					$this->condition);
+			$this->load,
+			$this->join,
+			$this->condition);
 
 			if(isset($this->limit))
 
-				$this->query.=" ".$this->limit;
+			$this->query.=" ".$this->limit;
 			echo $this->query;
 			$this->db->query($this->query);
 		}
@@ -462,17 +217,17 @@ class Entity {
 	 * @return integer count of entity instances or number of rows.
 	 */
 
-	function object_count() {
+	function objectCount() {
 
-		return $this->object_count;
+		return $this->objectCount;
 	}
 
 	/**
-	 * Count the results from database resultset.
+	 * Count the results from provider resultset.
 	 * @return integer number of rows.
 	 */
 
-	function count() {
+	function nativeCount() {
 
 		$objs=array();
 
@@ -487,9 +242,9 @@ class Entity {
 		$this->query=$this->
 		db->
 		makeQuery($table,$this->obj,
-				$this->load,
-				$this->join,
-				$this->condition);
+		$this->load,
+		$this->join,
+		$this->condition);
 
 		$this->db->query($this->query);
 
@@ -498,7 +253,7 @@ class Entity {
 	}
 
 	/**
-	 * Object compile of database resultset of entities with mapping.
+	 * Object compile of provider resultset of entities with mapping.
 	 * @return Associative array of mapped entity object instances.
 	 */
 
@@ -517,9 +272,9 @@ class Entity {
 		$this->query=$this->
 		db->
 		makeQuery($table,$this->obj,
-				$this->load,
-				$this->condition,
-				$this->groupby);
+		$this->load,
+		$this->condition,
+		$this->groupby);
 
 		$this->db->query($this->query);
 
@@ -531,7 +286,7 @@ class Entity {
 
 		$obj=$this->mapping($this->base, $rows);
 
-		$this->object_count=sizeof($obj);
+		$this->objectCount=sizeof($obj);
 
 		if(isset($this->limit)) {
 
@@ -668,32 +423,32 @@ class Entity {
 	 * Check Id set for the base object
 	 * @return boolean true or false
 	 */
-	public function ok() {
+	private function ok() {
 		return !is_null($this->base->$this->identity);
 	}
-	
+
 	/**
-	 * Save entity instance in database.
+	 * Save entity instance in provider.
 	 * @param Entity object $obj
 	 * @return integer new insert id.
 	 */
-	
+
 	public function save(){
-		
+
 		if(TRANSACTIONAL){
-		
+
 			$this->db->begin();
 		}
-		
+
 		$this->saveObject();
-		
+
 		if(TRANSACTIONAL){
-				
+
 			$this->db->end();
 		}
-		
+
 	}
-	
+
 	private function saveObject($obj=null) {
 
 		$id= ARITY_IDENTITY;
@@ -702,10 +457,10 @@ class Entity {
 
 			if(is_null($obj->$id))
 
-				$this->insert($obj);
+			$this->insert($obj);
 
 			else
-				$this->update($obj);
+			$this->update($obj);
 
 			return $obj->$id;
 		}
@@ -713,18 +468,18 @@ class Entity {
 
 			if(is_null($this->base->$id))
 
-				$this->insert($this->base);
+			$this->insert($this->base);
 
 			else
 
-				$this->update($this->base);
+			$this->update($this->base);
 
 			return $this->base->$id;
 		}
 	}
 
 	/**
-	 * Insert the entity instance in database.
+	 * Insert the entity instance in provider.
 	 * @param Entity object $obj
 	 * @return integer new insert id.
 	 */
@@ -753,7 +508,7 @@ class Entity {
 				// 				}
 
 				if($obj::$meta->$k->parent){
-						
+
 					$objectArray[$k]=$attributes[$k];
 
 				}
@@ -795,24 +550,24 @@ class Entity {
 		// 					$this->save($item);
 		// 				}
 
-		
+
 		foreach($objectArray as $k=>$v){
-				
-				
+
+
 			if(is_array($v)){
 
 				foreach($v as $item){
-						
+
 					$referedField=$obj::$meta->$k->name;
-						
+
 					$myField=$obj::$meta->$k->referenceField;
-						
+
 					$item->$myField=$obj->$referedField;
 
 					//var_dump($item);
 					$this->saveObject($item);
-						
-						
+
+
 				}
 			}
 			else{
@@ -829,7 +584,27 @@ class Entity {
 		return $obj;
 	}
 
-	public function replace() {
+
+
+	/*
+	 * Delete the entity based on condition.
+	* @return Integer number of rows affected.
+	*/
+	public function delete() {
+
+		$id= ARITY_IDENTITY;
+			
+		if(is_null($this->base->$id)) return false;
+
+		$table=strtolower(get_class($this->base));
+
+		$this->db->delete($table,$id,$this->base->$id);
+
+		return $this->db->affectedRows();
+
+	}
+
+	private function replace() {
 
 		return $this->base->delete() && $this->base->insert();
 
@@ -845,17 +620,17 @@ class Entity {
 		$id= ARITY_IDENTITY;
 			
 		$objectArray=array();
-		
+
 		if(is_null($obj->$id))
 
-			return false;
+		return false;
 
 
 		$attrib=get_object_vars($obj);
 
 		if(count($attrib) == 0)
 
-			return;
+		return;
 
 		foreach($attrib as $k => $v) {
 
@@ -921,23 +696,249 @@ class Entity {
 
 	}
 
-	/*
-	 * Delete the entity based on condition.
-	* @return Integer number of rows affected.
-	*/
-	public function delete() {
+	private function alterEntity(){
 
-		$id= ARITY_IDENTITY;
-			
-		if(is_null($this->base->$id)) return false;
+
+		$fieldAttributes=array();
 
 		$table=strtolower(get_class($this->base));
 
-		$this->db->delete($table,$id,$this->base->$id);
+		$attributes=get_object_vars($this->base);
 
-		return $this->db->affectedRows();
+		foreach ($attributes as $key=>$item) {
+
+			if(!$this->db->fieldExists($table,$key)) {
+
+				if(get_class($table::$meta->$key)==ARITY_TYPE) {
+
+					$fieldAttributes[]=$table::$meta->$key;
+
+
+				}
+
+			}
+
+		}
+
+		if($fieldAttributes)
+
+		$this->db->addField($table,$fieldAttributes);
+
+
 
 	}
 
+
+	/**
+	 * Create new entity table in provider. If entity table exists
+	 * in provider drop and re-create in the provider.
+	 */
+	private function createEntity($table) {
+
+
+		$relationFlag=true;
+
+		//Read attributes of the model
+
+		$attributes=get_object_vars($this->base);
+
+		if(count($attributes)>0){
+
+			foreach ($attributes as $key=>$item) {
+				if(get_class($table::$meta->$key)==ARITY_TYPE) {
+					$fieldAttributes[]=$table::$meta->$key;
+
+				}
+			}
+
+			$this->db->createTable($table,$fieldAttributes);
+		}
+			
+
+	}
+
+	/**
+	 * Recursive method which form the query to get entities provider resultset.
+	 * @param Object Entity object
+	 * @return Object Entitydecorator
+	 */
+	private function chain($obj=null) {
+
+		$id= ARITY_IDENTITY;
+
+		$this->level=$this->level+1;
+
+		if($obj==null) {
+
+			$ref=$this->base;
+		}
+		else {
+
+			$ref=$obj;
+
+		}
+
+		$this->obj[strtolower(get_class($ref))]=get_class($ref);
+
+		$attributes=get_object_vars($ref);
+
+		$table=strtolower(get_class($ref));
+
+		foreach($attributes as $key=>$name) {
+
+
+			if(@get_class($table::$meta->$key)=='Reference'&&!isset($this->obj[strtolower($table::$meta->$key->reference)])&&$this->level<$this->depth) {
+
+				$this->db->createJoin($table::$meta->$key,$table,$id,$table::$meta->$key->map);
+
+				$ref=$table::$meta->$key->reference;
+
+				$this->chain(new $ref);
+
+
+			}
+
+		}
+
+		return $this;
+
+	}
+
+	/**
+	 * Recursive method which maps the entities with provider resultset.
+	 * @param Object Entity object
+	 * @param Array resultset result returned from provider
+	 * @param Array $condition recursive call terminating condition
+	 * @return Array Entity objects
+	 */
+
+	private function mapping($object,$resultset,$condition=null,$referenceField=null) {
+
+
+		$id= ARITY_IDENTITY;
+
+		$c= $object;
+
+		$objectArray=array();
+
+		$tempArray=array();
+
+		$name=strtolower(get_class($object));
+
+		$this->map[]=$name;
+
+		$this->map=array_unique($this->map);
+
+		$attrib=get_object_vars($c);
+		//var_dump($attrib);
+		//if($name=="group"){  var_dump($condition);return null;}
+
+		foreach($resultset as $key=>$item) {
+
+			if(!array_key_exists($name, $resultset[$key])) {
+
+
+				return null;
+
+			}
+
+			foreach($attrib as $vkey=>$var) {
+
+
+				if(@get_class(@$c::$meta->$vkey)=="Type") {
+
+
+					if($condition!=NULL) {
+
+						// 						if($name=="group") {
+						// 							var_dump($resultset[$key][$name][$referenceField]);;exit;
+						// 						}
+
+						if($resultset[$key][$name][$referenceField]==$condition[key($condition)]) {
+
+							$c->$vkey=$resultset[$key][$name][$vkey];
+
+							if($name=="objectfield") {
+
+							}
+
+						}
+						else {
+							if($name=="objectfield" and $c->name==null) {
+									
+							}
+
+						}
+
+					}
+					else {
+
+						$c->$vkey=$resultset[$key][$name][$vkey];
+
+						if($name=="user" ) {
+
+
+						}
+					}
+
+				}
+				elseif(@get_class(@$c::$meta->$vkey)=="Reference") {
+
+					if($c::$meta->$vkey->map==ARITY_11&& (in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
+
+						$cond1=array($id=>$resultset[$key][$name][$vkey]);
+
+						$ores=$this->mapping(new $vkey(), $resultset,$cond1);
+
+						if(isset($ores[0])) {
+
+							$c->$vkey=$ores[0];
+
+						}
+					}
+					elseif($c::$meta->$vkey->map==ARITY_1M&&(in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
+
+						//var_dump($resultset[$key][$name]);
+
+						$cond2=array($c::$meta->$vkey->name=>$resultset[$key][$name][$c::$meta->$vkey->name]
+						);
+
+						$or=$this->mapping(new $c::$meta->$vkey->reference, $resultset,$cond2,$c::$meta->$vkey->referenceField);
+
+						$c->$vkey=$or;
+
+					}
+					else {
+	
+						unset($c->$vkey);
+	
+					}
+	
+				}
+	
+			}
+			if($name=="objectfield" and $c->name==null) {
+				// debug statements
+	
+			}
+	
+	
+			$c_clone=clone $c;
+	
+			if(!array_key_exists(md5($c_clone->id), $tempArray)&&$c->$id!=null) {
+	
+				$tempArray[md5($c_clone->id)]=md5(serialize( $c_clone));
+	
+				$objectArray[]= $c_clone;
+	
+	
+			}
+	
+	
+		}
+	
+		return $objectArray;
+	
+	}
 
 }

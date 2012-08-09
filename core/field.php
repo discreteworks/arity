@@ -15,22 +15,19 @@
  * @since		Version 1.0
  * @filesource
  */
-class Field{
+abstract class Field{
 
    public $name;
-   public $description;
-   public $required; 
    
-   function  Field(Field $obj,$name,$description='',$required=false) {
+   function  __construct(Field $obj,$name) {
 
-      assert('$name!="" /* $name parameter must be an set */');
-      
       $obj->name=$name;
-      $obj->description=$description;
-      $obj->required=$required;
-
-
+   
    }
+   
+  
+   
+   
 
 }
 ?>

@@ -28,7 +28,6 @@ class TestGroupType{
 		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 		self::$meta->name= new Type('name',ARITY_VARCHAR,50);
 		 
-
 	}
 
 

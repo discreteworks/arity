@@ -45,9 +45,9 @@ define("MYSQL_PASSWORD", '');
  *PGSQL DB CONNECTION*
 **********************/
 
-define("PGSQL_HOST", 'p3');
+define("PGSQL_HOST", 'localhost');
 
-define("PGSQL_DB_NAME"    , 'test');
+define("PGSQL_DB_NAME"    , 'arity');
 
 define("PGSQL_SCHEMA", 'public');
 
@@ -105,6 +105,8 @@ define("ARITY_COMPOSITE","COMPOSITE");
 
 define("ARITY_REQUIRED","REQUIRED");
 
+define("ARITY_NOTREQUIRED","NOTREQUIRED");
+
 define("ARITY_11","ONETOONE");
 
 define("ARITY_1M","ONETOMANY");
@@ -117,6 +119,8 @@ define("ARITY_NULL",null);
 
 define("ARITY_EMPTY","");
 
-define("ARITY_PARENT",true);
+define("ARITY_MASTER","MASTER");
+
+define("ARITY_CHILD","CHILD");
 
 

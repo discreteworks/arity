@@ -19,23 +19,97 @@ class Reference extends Field {
     //put your code here
   
     public $reference;
+
     public $map;
+    
     public $referenceField;
+    
     public $cascade;
+    
+    public $role;
    
-  
-   function  Reference($myFieldName,$referedTable,$referedFieldName,$map,$parent=false,$onDelete='SET NULL',$description=null) {
+   /**
+    * 
+    * 
+    */
+   function  __construct($fieldName,$referedTable=null,$referedFieldName=null,$map=null,$role=false,$onDelete='SET NULL') {
       
 
       $this->reference=$referedTable;
+
       $this->referenceField=$referedFieldName;
+      
       $this->map=$map;
+      
       $this->onDelete=$onDelete;
-      $this->parent=$parent;
+      
+      $this->role=$role;
 
+      parent::__construct($this, $fieldName);
 
-      parent::Field($this, $myFieldName, $description,true);
-
+    }
+    
+  
+    
+    static function create($fieldName){
+    	
+    	return new Reference($fieldName);
+    	
+    	
+    }
+    
+    function referToTable($table){
+    	
+    	$this->reference=$table;
+    	
+    	return $this;
+    }
+    
+    function referFieldName($name){
+    	
+    	$this->referenceField=$name;
+    	
+    	return $this;
+    }
+    
+    function one2many(){
+    	
+    	$this->map=ARITY_1M;
+    	
+    	return $this;
+    	
+    }
+    
+    function one2one(){
+    	 
+    	$this->map=ARITY_11;
+    	 
+    	return $this;
+    	 
+    }
+    
+    function isMaster(){
+    	
+    	$this->role=ARITY_MASTER;
+    	
+    	return $this;
+    	
+    }
+    
+    function isChild(){
+    	 
+    	$this->role=ARITY_CHILD;
+    	 
+    	return $this;
+    	 
+    }
+    
+    function setOnDelete($str){
+    	
+    	$this->onDelete=$str;
+    	
+    	return $this;
+    	
     }
 
   
