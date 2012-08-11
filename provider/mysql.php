@@ -16,7 +16,7 @@
  * @filesource
  */
 
-class Mysql extends Db {
+class Mysql extends Provider {
 
 
 	public function  initialize() {

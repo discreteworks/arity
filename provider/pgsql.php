@@ -16,9 +16,20 @@
  * @filesource
  */
 
-class Pgsql extends Db {
+class Pgsql extends Provider {
 
 	//Join base entity table with other tables
+
+	private $DB;
+
+	private $host;
+
+	private $name;
+
+	private $username;
+
+	private $password;
+
 	private $join=array();
 
 	public function  initialize() {
@@ -98,9 +109,9 @@ class Pgsql extends Db {
 
 		foreach($attributes as $k => $v)
 
-			if(!is_null($v))
+		if(!is_null($v))
 
-			$data[$k] = $this->quote($v);
+		$data[$k] = $this->quote($v);
 
 		$columns = '' . implode(', ', array_keys($data)) . '';
 
@@ -119,7 +130,7 @@ class Pgsql extends Db {
 
 		foreach($attrib as $k => $v)
 
-			$sql .= "$k=" . $this->quote($v) . ',';
+		$sql .= "$k=" . $this->quote($v) . ',';
 
 		$sql[strlen($sql) - 1] = ' ';
 
@@ -140,11 +151,11 @@ class Pgsql extends Db {
 
 		if($rs)
 
-			return $this->hasRows($rs);
+		return $this->hasRows($rs);
 
 		else
 
-			return false;
+		return false;
 	}
 
 	public function droptable($table) {
@@ -180,7 +191,7 @@ class Pgsql extends Db {
 				$constraint=$this->makeConstraint($table, $item);
 					
 				if($constraint)
-					$constraints[]=$constraint;
+				$constraints[]=$constraint;
 			}
 		}
 			
@@ -239,11 +250,11 @@ class Pgsql extends Db {
 
 		if($fieldAttribute->key==ARITY_PRIMARY && $fieldAttribute->composite==ARITY_NULL)
 
-			return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_pk\" PRIMARY KEY (\"".$fieldAttribute->name."\")";
+		return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_pk\" PRIMARY KEY (\"".$fieldAttribute->name."\")";
 
 		if($fieldAttribute->key==ARITY_UNIQUE && $fieldAttribute->composite==ARITY_NULL)
 
-			return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_u\" UNIQUE (\"".$fieldAttribute->name."\")";
+		return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_u\" UNIQUE (\"".$fieldAttribute->name."\")";
 
 
 
@@ -263,11 +274,11 @@ class Pgsql extends Db {
 
 				if($item->key==ARITY_PRIMARY)
 
-					$compositePrimary[]=$item->name;
+				$compositePrimary[]=$item->name;
 
 				if($item->key==ARITY_UNIQUE)
 
-					$compositeUnique[]=$item->name;
+				$compositeUnique[]=$item->name;
 			}
 
 		}
@@ -394,11 +405,13 @@ class Pgsql extends Db {
 		$result=$this->buildFieldConstraint($table,$fieldAttributes);
 
 		if(count($result["constraints"])){
+
 			$cStr=", ADD ".implode(", ADD ",$result["constraints"]);
 		}
 		else {
 
 			$cStr="";
+
 		}
 
 		$fstr=implode(", ADD COLUMN ",$result["fields"]);
@@ -432,7 +445,56 @@ class Pgsql extends Db {
 
 	}
 
-	function makeQuery($table,$obj,$load,$condition,$groupby=array()){
+	/**
+	 * Build the conditional statements.
+	 * @param Associative Array $value.
+	 * @param String $type Login operator AND OR.
+	 * @param String $compare condition.
+	 * @return Boolean $prefix.
+	 */
+	public function buildCondition($keyPairValues,$type,$compare,$prefix=TRUE) {
+
+		$message="";
+
+		$msgArray=array();
+
+		foreach($keyPairValues as $key=>$value) {
+
+			$msgArray[]="$key $compare'".$value."'";
+		}
+
+		$message=implode(" ".$type." ", $msgArray);
+
+		if($prefix) {
+
+			$message= $type." ".$message;
+		}
+
+		return $message;
+	}
+
+
+	public function select($obj,$column)
+	{
+		$selected= "";
+
+		if(isset($column)){
+
+			$selected= " \"".$obj."\".".$column;
+
+		}
+		else{
+
+			$selected= " \"".$obj."\".* ";
+		}
+
+
+		return $selected;
+	}
+
+
+
+	function makeQuery($table,$obj,$load,$condition=array(),$groupBy=array(),$having=array()){
 
 		if(count($load)==0) {
 
@@ -442,6 +504,7 @@ class Pgsql extends Db {
 
 			}
 		}
+		
 
 		$fields=implode(',', $load);
 
@@ -452,15 +515,36 @@ class Pgsql extends Db {
 			$query.=" ".$item." \n";
 		}
 
-		foreach($condition as $item ) {
+		if(count($condition)>0){
 
-			$query.=" ".$item." \n";
+			$query.=" WHERE ";
+
+			foreach($condition as $key=>$item ) {
+
+				$query.=" ".$item." \n";
+
+			}
 		}
-		foreach($groupby as $item){
 
-			$query.=" ".$item." \n";
+
+		if(count($groupBy)>0){
+
+				
+			$query.=" GROUP BY ".implode(",",$groupBy)." \n";
 
 		}
+
+		if(count($having)>0){
+				
+			$query.=" HAVING ";
+				
+			foreach($having as $item){
+
+				$query.=" ".$item." \n";
+
+			}
+		}
+
 
 		//Clear joins
 		$this->join=array();
@@ -506,37 +590,37 @@ class Pgsql extends Db {
 
 			if(!$this->isConnected())
 
-				$this->connect();
+			$this->connect();
 
 			$the_db = $this->DB;
-			
-			
+
+
 			$this->queries[] = $sql;
 
 			$this->result = pg_query($the_db,$sql) or $this->notify();
-			
-			
+
+
 
 		}
 
 		return $this->result;
 
 	}
-	
+
 	public function begin(){
-		
+
 		$sql="BEGIN";
-		
+
 		$this->execute($sql);
-		
+
 	}
-	
+
 	public function end(){
-		
+
 		$sql="COMMIT";
-		
+
 		$this->execute($sql);
-		
+
 	}
 
 	public function execute( $sql ) {
@@ -546,7 +630,7 @@ class Pgsql extends Db {
 
 		if(!$this->isConnected())
 
-			$this->connect();
+		$this->connect();
 
 		try{
 
@@ -650,7 +734,7 @@ class Pgsql extends Db {
 
 		while($row = pg_fetch_array($result, PGSQL_ASSOC))
 
-			$values[] = array_pop($row);
+		$values[] = array_pop($row);
 
 		return $values;
 	}
@@ -761,18 +845,18 @@ class Pgsql extends Db {
 
 		if($this->numQueries() > 0)
 
-			return $this->queries[$this->numQueries() - 1];
+		return $this->queries[$this->numQueries() - 1];
 
 		else
 
-			return false;
+		return false;
 	}
 
 	public function resulter($arg = null) {
 
 		if(is_null($arg) && is_resource($this->result))
 
-			return $this->result;
+		return $this->result;
 
 		elseif(is_resource($arg))
 
@@ -784,16 +868,16 @@ class Pgsql extends Db {
 
 			if(is_resource($this->result))
 
-				return $this->result;
+			return $this->result;
 
 			else
 
-				return false;
+			return false;
 		}
 
 		else
 
-			return false;
+		return false;
 	}
 }
 
