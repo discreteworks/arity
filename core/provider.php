@@ -15,20 +15,9 @@
  * @since		Version 1.0
  * @filesource
  */
-abstract class Db {
+abstract class Provider {
     // Singleton object. Leave $me alone.
    
-
-    public $DB;
-
-    public $host;
-
-    public $name;
-
-    public $username;
-    
-    public $password;
-
     public $onError; // Can be '', 'die', or 'redirect'
 
     public $queries;
@@ -45,10 +34,10 @@ abstract class Db {
     }
 
     // Get Singleton object
-    public static function getDb($DB) {
+    public static function getProvider($provider) {
         static $obj;
         if(is_null($obj))
-            $obj = new $DB();
+            $obj = new $provider();
         return $obj;
     }
     
@@ -70,25 +59,48 @@ abstract class Db {
 
     //  Abstract methods
     abstract function initialize();
+    
     abstract function isConnected();
+    
     abstract function databaseSelected();
+    
     abstract function createTable($tableName,$fieldAttributes);
+    
     abstract function query( $sql );
+    
     abstract function execute( $sql );
+    
     abstract function numRows($arg = null);
+    
     abstract function hasRows($arg = null);
+    
     abstract function affectedRows();
+    
     abstract function insertId();
+    
     abstract function getValue($arg = null);
+    
     abstract function getValues($arg = null);
+    
     abstract function getRow($arg = null);
+    
     abstract function getRows($arg = null);
+    
     abstract function resultSet($results);
+    
     abstract function quote($var);
+    
     abstract function escape($var);
+    
     abstract function numQueries();
+    
     abstract function lastQuery();
+    
     abstract function resulter($arg = null);
+
+    abstract function buildCondition($keyPairValues,$type,$compare,$prefix=TRUE);
+    
+    abstract function select($obj,$column);
 
 
 

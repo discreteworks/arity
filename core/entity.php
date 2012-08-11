@@ -22,16 +22,16 @@ class Entity {
 	protected $base;
 
 	//Provider instance
-	public $db;
+	public $provider;
 
-	//Filter conditionsp
+	//Filter conditions
 	private $condition=array();
 
 	//Group by base entity table with other tables
-	private $groupby=array();
+	private $groupByItem=array();
 
 	//Having conditions
-	private $having=array();
+	private $havingCondition=array();
 
 	// Object array of entities
 	private $obj=array();
@@ -60,11 +60,11 @@ class Entity {
 	/*
 	 * Entity Constructor
 	*/
-	public function  __construct($baseIn,$dbInstance) {
+	public function  __construct($baseIn,$providerInstance) {
 
 		$this->base=$baseIn;
 
-		$this->db=$dbInstance;
+		$this->provider=$providerInstance;
 
 	}
 
@@ -76,7 +76,7 @@ class Entity {
 
 		$table=strtolower(get_class($this->base));
 
-		if(!$this->db->tableExists($table)){
+		if(!$this->provider->tableExists($table)){
 
 			$this->createEntity($table);
 
@@ -98,7 +98,7 @@ class Entity {
 
 		$table=strtolower(get_class($this->base));
 
-		$this->db->truncate($table);
+		$this->provider->truncate($table);
 
 	}
 
@@ -110,9 +110,9 @@ class Entity {
 
 		$table=strtolower(get_class($this->base));
 
-		if($this->db->tableExists($table))
+		if($this->provider->tableExists($table))
 
-		$this->db->dropTable($table);
+		$this->provider->dropTable($table);
 	}
 
 
@@ -139,9 +139,9 @@ class Entity {
 	 * @return Object
 	 */
 
-	private function loads($obj) {
+	public function loads($obj,$column=null) {
 
-		$this->load[]="`".$obj."`.*";
+		$this->load[]=$this->provider->select($obj,$column);
 
 		return $this;
 
@@ -167,24 +167,28 @@ class Entity {
 			}
 
 			$this->query=$this->
-			db->
-			makeQuery($table,$this->obj,
+			provider->
+			makeQuery($table,
+			$this->obj,
 			$this->load,
-			$this->join,
-			$this->condition);
+			$this->condition,
+			$this->groupByItem,
+			$this->havingCondition
+			);
 
 			if(isset($this->limit))
 
 			$this->query.=" ".$this->limit;
-			echo $this->query;
-			$this->db->query($this->query);
+
+
+			$this->provider->query($this->query);
 		}
 		else{
 
-			$this->db->query($sql);
+			$this->provider->query($sql);
 
 		}
-		$rows=$this->db->getRows();
+		$rows=$this->provider->getRows();
 
 		$objectArray=array();
 
@@ -193,20 +197,36 @@ class Entity {
 
 			$ci=key($item);
 
-			$c=new $ci;
+				
+			if(isset($ci)){
+				
+				$c=new $ci;
 
-			$attrib=get_object_vars($c);
+				$attrib=get_object_vars($c);
 
-			foreach($attrib as $vkey=>$var) {
+				foreach($attrib as $vkey=>$var) {
 
-				$c->$vkey=$rows[$key][key($item)][$vkey];
+					if(isset($rows[$key][key($item)][$vkey])){
+						
+						$c->$vkey=$rows[$key][key($item)][$vkey];
+						
+					}
 
+				}
 			}
-
+			
 			$objectArray[md5(serialize($c))]=$c;
 		}
 
+		//Clears the sets
 
+		$this->load=array();
+
+		$this->condition=array();
+
+		$this->groupByItem= array();
+
+		$this->havingCondition=array();
 
 		return $rows;
 
@@ -240,15 +260,28 @@ class Entity {
 		}
 
 		$this->query=$this->
-		db->
-		makeQuery($table,$this->obj,
+		provider->
+		makeQuery($table,
+		$this->obj,
 		$this->load,
-		$this->join,
-		$this->condition);
+		$this->condition,
+		$this->groupByItem,
+		$this->havingCondition
+		);
 
-		$this->db->query($this->query);
+		$this->provider->query($this->query);
 
-		return $this->db->numRows();
+		//Clears the sets
+
+		$this->load=array();
+
+		$this->condition=array();
+
+		$this->groupByItem= array();
+
+		$this->havingCondition=array();
+	
+		return $this->provider->numRows();
 
 	}
 
@@ -265,22 +298,23 @@ class Entity {
 
 		if($this->obj==null){
 
-			echo "Please call the fetch method prior to objecr";
+			echo "Please call the fetch method prior to object";
 			return;
 		}
 
 		$this->query=$this->
-		db->
-		makeQuery($table,$this->obj,
+		provider->
+		makeQuery($table,
+		$this->obj,
 		$this->load,
-		$this->condition,
-		$this->groupby);
+		$this->condition
+		);
 
-		$this->db->query($this->query);
+		$this->provider->query($this->query);
 
 		$class_name=get_class($this->base);
 
-		$rows=$this->db->getRows();
+		$rows=$this->provider->getRows();
 
 		$objectArray=array();
 
@@ -293,6 +327,12 @@ class Entity {
 			$obj=array_slice($obj,$this->start,$this->offset);
 
 		}
+
+		//Clears the sets
+
+		$this->load=array();
+
+		$this->condition=array();
 
 		return $obj;
 
@@ -312,23 +352,21 @@ class Entity {
 
 			if(is_array($filter)) {
 
-				$filter=$this->condition($filter,$type,$compare,FALSE);
+				$filter=$this->provider->buildCondition($filter,$type,$compare,FALSE);
 			}
 
-			$this->condition[]=" WHERE ". $filter;
+			$this->condition[]= $filter;
 
 		}
 		else {
 
 			if(is_array($filter)) {
 
-				$filter=$this->condition($filter,$type,$compare);
+				$filter=$this->provider->buildCondition($filter,$type,$compare);
 			}
 
 			$this->condition[]=" ".$filter;
-
 		}
-
 		return $this;
 
 	}
@@ -339,28 +377,27 @@ class Entity {
 	 */
 	public function having($filter,$type='AND',$compare=' = ') {
 
-
-		if(count($this->having)==0) {
+		if(count($this->condition)==0) {
 
 			if(is_array($filter)) {
 
-				$filter=$this->condition($filter,$type,$compare,FALSE);
+				$filter=$this->provider->buildCondition($filter,$type,$compare,FALSE);
 			}
 
-			$this->condition[]=" HAVING ". $filter;
+			$this->havingCondition[]= $filter;
+
 		}
 		else {
 
 			if(is_array($filter)) {
 
-				$filter=$this->condition($filter,$type,$compare);
+				$filter=$this->provider->buildCondition($filter,$type,$compare);
 			}
 
-			$this->condition[]=" ".$filter;
-
+			$this->havingCondition[]=" ".$filter;
 		}
-
 		return $this;
+
 
 	}
 
@@ -370,7 +407,9 @@ class Entity {
 	public function groupBy($columns) {
 
 
-		$this->groupby="GROUP BY ".$columns;
+		$this->groupByItem=$columns;
+
+		return $this;
 
 
 	}
@@ -385,38 +424,10 @@ class Entity {
 
 		$this->offset=$offset;
 
-		$this->limit=$this->db->addLimit($start, $offset);
+		$this->limit=$this->provider->addLimit($start, $offset);
 
 		return $this;
 
-	}
-
-	/**
-	 * Build the conditional statements.
-	 * @param Associative Array $value.
-	 * @param String $type Login operator AND OR.
-	 * @param String $compare condition.
-	 * @return Boolean $prefix.
-	 */
-	private function condition($keyPairValues,$type,$compare,$prefix=TRUE) {
-
-		$message="";
-
-		$msgArray=array();
-
-		foreach($keyPairValues as $key=>$value) {
-
-			$msgArray[]="$key $compare'".$value."'";
-		}
-
-		$message=implode(" ".$type." ", $msgArray);
-
-		if($prefix) {
-
-			$message= $type." ".$message;
-		}
-
-		return $message;
 	}
 
 	/**
@@ -437,14 +448,14 @@ class Entity {
 
 		if(TRANSACTIONAL){
 
-			$this->db->begin();
+			$this->provider->begin();
 		}
 
 		$this->saveObject();
 
 		if(TRANSACTIONAL){
 
-			$this->db->end();
+			$this->provider->end();
 		}
 
 	}
@@ -542,7 +553,7 @@ class Entity {
 
 		}
 
-		$obj->$id= $this->db->insert($table,$attributes);
+		$obj->$id= $this->provider->insert($table,$attributes);
 
 		// TODO Search for the reference field and map it the new objects.
 		// 				foreach($attributes[$k] as $item) {
@@ -598,9 +609,9 @@ class Entity {
 
 		$table=strtolower(get_class($this->base));
 
-		$this->db->delete($table,$id,$this->base->$id);
+		$this->provider->delete($table,$id,$this->base->$id);
 
-		return $this->db->affectedRows();
+		return $this->provider->affectedRows();
 
 	}
 
@@ -679,7 +690,7 @@ class Entity {
 		$table=strtolower(get_class($obj));
 
 
-		$this->db->update($table,$attrib,$id,$obj->$id);
+		$this->provider->update($table,$attrib,$id,$obj->$id);
 
 		foreach($objectArray as $k=>$v){
 
@@ -707,7 +718,7 @@ class Entity {
 
 		foreach ($attributes as $key=>$item) {
 
-			if(!$this->db->fieldExists($table,$key)) {
+			if(!$this->provider->fieldExists($table,$key)) {
 
 				if(get_class($table::$meta->$key)==ARITY_TYPE) {
 
@@ -722,7 +733,7 @@ class Entity {
 
 		if($fieldAttributes)
 
-		$this->db->addField($table,$fieldAttributes);
+		$this->provider->addField($table,$fieldAttributes);
 
 
 
@@ -751,7 +762,7 @@ class Entity {
 				}
 			}
 
-			$this->db->createTable($table,$fieldAttributes);
+			$this->provider->createTable($table,$fieldAttributes);
 		}
 			
 
@@ -789,7 +800,7 @@ class Entity {
 
 			if(@get_class($table::$meta->$key)=='Reference'&&!isset($this->obj[strtolower($table::$meta->$key->reference)])&&$this->level<$this->depth) {
 
-				$this->db->createJoin($table::$meta->$key,$table,$id,$table::$meta->$key->map);
+				$this->provider->createJoin($table::$meta->$key,$table,$id,$table::$meta->$key->map);
 
 				$ref=$table::$meta->$key->reference;
 
@@ -872,8 +883,14 @@ class Entity {
 
 					}
 					else {
-
-						$c->$vkey=$resultset[$key][$name][$vkey];
+						if(isset($resultset[$key][$name][$vkey])){
+							
+							$c->$vkey=$resultset[$key][$name][$vkey];
+						}
+						else{
+							
+							$c->$vkey=null;
+						}
 
 						if($name=="user" ) {
 
@@ -909,36 +926,36 @@ class Entity {
 
 					}
 					else {
-	
+
 						unset($c->$vkey);
-	
+
 					}
-	
+
 				}
-	
+
 			}
 			if($name=="objectfield" and $c->name==null) {
 				// debug statements
-	
+
 			}
-	
-	
+
+
 			$c_clone=clone $c;
-	
+
 			if(!array_key_exists(md5($c_clone->id), $tempArray)&&$c->$id!=null) {
-	
+
 				$tempArray[md5($c_clone->id)]=md5(serialize( $c_clone));
-	
+
 				$objectArray[]= $c_clone;
-	
-	
+
+
 			}
-	
-	
+
+
 		}
-	
+
 		return $objectArray;
-	
+
 	}
 
 }

@@ -37,7 +37,7 @@ class Type extends Field {
      */
     function  __construct($name,$type,$size=null,$default=null,$required=ARITY_NOTREQUIRED,$key=null,$composite=null) {
 
-        parent::Field($this, $name, $description);
+        parent::__construct($this, $name);
 
         $this->size=$size;
         

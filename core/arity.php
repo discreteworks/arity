@@ -21,7 +21,7 @@ class Arity {
 
         if(empty($type)) {
 
-            return  DEFAULT_DB::getDb();
+            return  DEFAULT_PROVIDER::getProvider();
 
         }
         else {
@@ -29,13 +29,11 @@ class Arity {
             return  $type::getDb();
         }
 
-
-
     }
-    public static function entity($object,$type=DEFAULT_DB) {
+    
+    public static function entity($object,$type=DEFAULT_PROVIDER) {
 
-        $db=$type::getDb($type);
-
+        $db=$type::getProvider($type);
 
         return new Entity($object,$db);
 
