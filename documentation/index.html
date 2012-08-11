@@ -83,13 +83,17 @@
 								<li><a href="#createTable">createTable</a></li>
 								<li><a href="#removeTable">removeTable</a></li>
 								<li><a href="#truncateTable">truncateTable</a></li>
+								<li><a href="#save">save</a></li>
+								<li><a href="#delete">delete</a></li>
 								<li><a href="#fetch">fetch</a></li>
+								<li><a href="#filter">filter</a></li>
+								<li><a href="#object">object</a></li>
+								<li><a href="#objectCount">objectCount</a></li>
 								<li><a href="#native">native</a></li>
-								<li><a href="#objectCount">truncateTable</a></li>
-								<li><a href="#createTable">createTable</a></li>
-								<li><a href="#truncateTable">truncateTable</a></li>
-								<li><a href="#createTable">createTable</a></li>
-								<li><a href="#truncateTable">truncateTable</a></li>
+								<li><a href="#nativeCount">nativeCount</a></li>
+								<li><a href="#groupBy">groupBy</a></li>
+								<li><a href="#having">having</a></li>
+						
 							</ul></li>
 						<li><a href="#Field">Field</a></li>
 						<li><a href="#Reference">Reference</a></li>
@@ -496,7 +500,7 @@
 			<h3>
 				<a id="fetch" href="#___top">fetch</a>
 			</h3>
-			<p>Remove the table in the database corresponding to the test
+			<p>fetch provider table in corresponding to the instatiated
 				object.</p>
 			<pre>
 			public function fetch($depth=null)
@@ -602,7 +606,10 @@
 			<h3>
 				<a id="groupBy" href="#___top">groupBy</a>
 			</h3>
-			<p>Only abvailable for native queries.</p>
+			<pre>
+			
+			</pre>
+			<p>Only abvailable for native queries.Groups the results based on the arguments.</p>
 			<pre>
 			$testObj=new TestSimple();
 		
