@@ -25,38 +25,7 @@ ini_set('display_errors', '1');
 ini_set('error_reporting', E_ALL);
 
 
-define('QUERY_DEBUG',1);
-
-/*********************
- *MYSQL DB CONNECTION*
-**********************/
-
-define("MYSQL_HOST", 'localhost');
-
-define("MYSQL_DB_NAME"    , 'arity');
-
-define("MYSQL_USERNAME", 'root');
-
-define("MYSQL_PASSWORD", '');
-
-
-
-/*********************
- *PGSQL DB CONNECTION*
-**********************/
-
-define("PGSQL_HOST", 'localhost');
-
-define("PGSQL_DB_NAME"    , 'arity');
-
-define("PGSQL_SCHEMA", 'public');
-
-define("PGSQL_USERNAME", 'postgres');
-
-define("PGSQL_PASSWORD", 'sasa');
-
-define("TRANSACTIONAL", 1);
-
+define('ARITY_DEBUG',1);
 
 
 
@@ -64,7 +33,7 @@ define("TRANSACTIONAL", 1);
  *ARITY ORM DEFAULTS *
 **********************/
 
-define("DEFAULT_DB","pgsql");
+define("DEFAULT_PROVIDER","pgsql");
 
 define("NUMBER_LENGTH","11");
 
@@ -122,5 +91,62 @@ define("ARITY_EMPTY","");
 define("ARITY_MASTER","MASTER");
 
 define("ARITY_CHILD","CHILD");
+
+define("ARITY_MAX","MAX");
+
+define("ARITY_MIN","MIN");
+
+define("ARITY_AVG","AVG");
+
+define("ARITY_SUM","SUM");
+
+define("ARITY_AND","AND");
+
+define("ARITY_OR","OR");
+
+define("ARITY_EQ","=");
+
+define("ARITY_NEQ","!=");
+
+define("ARITY_GTEQ",">=");
+
+define("ARITY_LTEQ","<=");
+
+
+
+/*********************
+*Providers*
+**********************/
+
+
+/*********************
+*MYSQL DB CONNECTION*
+**********************/
+
+define("MYSQL_HOST", 'localhost');
+
+define("MYSQL_DB_NAME"    , 'arity');
+
+define("MYSQL_USERNAME", 'root');
+
+define("MYSQL_PASSWORD", '');
+
+
+
+/*********************
+ *PGSQL DB CONNECTION*
+**********************/
+
+define("PGSQL_HOST", 'localhost');
+
+define("PGSQL_DB_NAME"    , 'arity');
+
+define("PGSQL_SCHEMA", 'public');
+
+define("PGSQL_USERNAME", 'postgres');
+
+define("PGSQL_PASSWORD", 'sasa');
+
+define("TRANSACTIONAL", 1);
 
 
