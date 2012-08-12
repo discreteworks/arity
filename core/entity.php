@@ -24,20 +24,8 @@ class Entity {
 	//Provider instance
 	public $provider;
 
-	//Filter conditions
-	private $condition=array();
-
-	//Group by base entity table with other tables
-	private $groupByItem=array();
-
-	//Having conditions
-	private $havingCondition=array();
-
 	// Object array of entities
 	private $obj=array();
-
-	//Entities to be loaded prior to mapping
-	private $load=array();
 
 	//Depth restriction of the joins 0 to n
 	private $depth=0;
@@ -47,12 +35,6 @@ class Entity {
 
 	//Name of entities mapped
 	private $map=array();
-
-	//Limit index
-	private $start=0;
-
-	//Limit offset
-	private $offset=1;
 
 	// Count of instances of entities object compile
 	private $objectCount=0;
@@ -141,96 +123,175 @@ class Entity {
 
 	public function loads($obj,$column=null) {
 
-		$this->load[]=$this->provider->select($obj,$column);
+		$this->provider->select($obj,$column);
 
 		return $this;
 
 	}
-
-
+	
+	/**
+	* sum of table column
+	* @param String Entities names to load
+	* @return Object
+	*/
+	public function sum($obj,$column=null) {
+	
+		$this->provider->select($obj,$column,ARITY_SUM);
+	
+		return $this;
+	
+	}
+	
+	/**
+	* sum of table column
+	* @param String Entities names to load
+	* @return Object
+	*/
+	
+	public function avg($obj,$column=null) {
+	
+		$this->provider->select($obj,$column,ARITY_AVG);
+	
+		return $this;
+	
+	}
+	
+	/**
+	* sum of table column
+	* @param String Entities names to load
+	* @return Object
+	*/
+	
+	public function min($obj,$column=null) {
+	
+		$this->provider->select($obj,$column,ARITY_MIN);
+	
+		return $this;
+	
+	}
+	
+	/**
+	* sum of table column
+	* @param String Entities names to load
+	* @return Object
+	*/
+	
+	public function max($obj,$column=null) {
+	
+		$this->provider->select($obj,$column,ARITY_MAX);
+	
+		return $this;
+	
+	}
+	
+	
+	/**
+	* Having conditions applied before compilation
+	* @return Object Entitydecorator.
+	*/
+	public function having($filter,$type=ARITY_AND,$compare=ARITY_EQ) {
+	
+		
+			if(is_array($filter)) {
+	
+				$filter=$this->provider->setHavingCondition($filter,$type,$compare);
+			}
+			
+	
+		return $this;
+	
+	
+	}
+	
+	/**
+	 * Group by
+	 */
+	public function groupBy($column) {
+	
+		$this->provider->setGroupBy($column);
+	
+		return $this;
+	
+	
+	}
 
 	/**
 	 * Standard compile of the result set without mapping to entities
 	 * @return Associative Array resultset of entities from provider.
 	 */
 
-	function native($sql=null) {
+	function arrayList() {
 
-		if($sql==null){
+		$table=strtolower(get_class($this->base));
 
-			$table=strtolower(get_class($this->base));
+		if($this->obj==null){
 
-			if($this->obj==null){
-
-				echo "<span>Please call the fetch method prior to native result";
-				return;
-			}
-
-			$this->query=$this->
-			provider->
-			makeQuery($table,
-			$this->obj,
-			$this->load,
-			$this->condition,
-			$this->groupByItem,
-			$this->havingCondition
-			);
-
-			if(isset($this->limit))
-
-			$this->query.=" ".$this->limit;
-
-
-			$this->provider->query($this->query);
-		}
-		else{
-
-			$this->provider->query($sql);
-
-		}
-		$rows=$this->provider->getRows();
-
-		$objectArray=array();
-
-		foreach($rows as $key=>$item) {
-
-
-			$ci=key($item);
-
-				
-			if(isset($ci)){
-				
-				$c=new $ci;
-
-				$attrib=get_object_vars($c);
-
-				foreach($attrib as $vkey=>$var) {
-
-					if(isset($rows[$key][key($item)][$vkey])){
-						
-						$c->$vkey=$rows[$key][key($item)][$vkey];
-						
-					}
-
-				}
-			}
-			
-			$objectArray[md5(serialize($c))]=$c;
+			echo "<span>Please call the fetch method prior to native result";
+			return;
 		}
 
-		//Clears the sets
+		$rows=$this->provider->
 
-		$this->load=array();
+		buildQuery($table,$this->obj);
+		
 
-		$this->condition=array();
+// 		$objectArray=array();
 
-		$this->groupByItem= array();
+// 		foreach($rows as $key=>$item) {
 
-		$this->havingCondition=array();
+
+// 			$ci=key($item);
+
+
+// 			if(isset($ci)){
+
+// 				$c=new $ci;
+
+// 				$attrib=get_object_vars($c);
+
+// 				foreach($attrib as $vkey=>$var) {
+
+// 					if(isset($rows[$key][key($item)][$vkey])){
+
+// 						$c->$vkey=$rows[$key][key($item)][$vkey];
+
+// 					}
+
+// 				}
+// 			}
+
+// 			$objectArray[md5(serialize($c))]=$c;
+// 		}
 
 		return $rows;
 
 	}
+
+	/**
+	 * Count the results from provider resultset.
+	 * @return integer number of rows.
+	 */
+
+	function arrayListCount($statement=null) {
+
+		$table=strtolower(get_class($this->base));
+		
+		if($this->obj==null){
+
+			echo "Please call the fetch method prior to count";
+			return;
+		}
+
+		$this->
+		provider->
+		buildQuery($table,$this->obj);
+
+		return $this->provider->getRowCount();
+
+	}
+
+
+
 
 	/**
 	 * Count the results from mapped entities resultset.
@@ -242,48 +303,6 @@ class Entity {
 		return $this->objectCount;
 	}
 
-	/**
-	 * Count the results from provider resultset.
-	 * @return integer number of rows.
-	 */
-
-	function nativeCount() {
-
-		$objs=array();
-
-		$table=strtolower(get_class($this->base));
-
-		if($this->obj==null){
-
-			echo "Please call the fetch method prior to count";
-			return;
-		}
-
-		$this->query=$this->
-		provider->
-		makeQuery($table,
-		$this->obj,
-		$this->load,
-		$this->condition,
-		$this->groupByItem,
-		$this->havingCondition
-		);
-
-		$this->provider->query($this->query);
-
-		//Clears the sets
-
-		$this->load=array();
-
-		$this->condition=array();
-
-		$this->groupByItem= array();
-
-		$this->havingCondition=array();
-	
-		return $this->provider->numRows();
-
-	}
 
 	/**
 	 * Object compile of provider resultset of entities with mapping.
@@ -302,19 +321,11 @@ class Entity {
 			return;
 		}
 
-		$this->query=$this->
-		provider->
-		makeQuery($table,
-		$this->obj,
-		$this->load,
-		$this->condition
-		);
-
-		$this->provider->query($this->query);
-
 		$class_name=get_class($this->base);
-
-		$rows=$this->provider->getRows();
+		
+		$rows=$this->
+		provider->
+		buildQuery($table,$this->obj);
 
 		$objectArray=array();
 
@@ -348,69 +359,13 @@ class Entity {
 	 */
 	function filter($filter,$type='AND',$compare=' = ') {
 
-		if(count($this->condition)==0) {
 
-			if(is_array($filter)) {
+		if(is_array($filter)) {
 
-				$filter=$this->provider->buildCondition($filter,$type,$compare,FALSE);
-			}
-
-			$this->condition[]= $filter;
-
+			$this->provider->setCondition($filter,$type,$compare);
 		}
-		else {
-
-			if(is_array($filter)) {
-
-				$filter=$this->provider->buildCondition($filter,$type,$compare);
-			}
-
-			$this->condition[]=" ".$filter;
-		}
+			
 		return $this;
-
-	}
-
-	/**
-	 * Having conditions applied before compilation
-	 * @return Object Entitydecorator.
-	 */
-	public function having($filter,$type='AND',$compare=' = ') {
-
-		if(count($this->condition)==0) {
-
-			if(is_array($filter)) {
-
-				$filter=$this->provider->buildCondition($filter,$type,$compare,FALSE);
-			}
-
-			$this->havingCondition[]= $filter;
-
-		}
-		else {
-
-			if(is_array($filter)) {
-
-				$filter=$this->provider->buildCondition($filter,$type,$compare);
-			}
-
-			$this->havingCondition[]=" ".$filter;
-		}
-		return $this;
-
-
-	}
-
-	/**
-	 * Group by
-	 */
-	public function groupBy($columns) {
-
-
-		$this->groupByItem=$columns;
-
-		return $this;
-
 
 	}
 
@@ -420,11 +375,7 @@ class Entity {
 	 */
 	public function limit($start=0,$offset=1) {
 
-		$this->start=$start;
-
-		$this->offset=$offset;
-
-		$this->limit=$this->provider->addLimit($start, $offset);
+		$this->provider->setLimit($start, $offset);
 
 		return $this;
 
@@ -448,14 +399,14 @@ class Entity {
 
 		if(TRANSACTIONAL){
 
-			$this->provider->begin();
+			$this->provider->beginTransaction();
 		}
 
 		$this->saveObject();
 
 		if(TRANSACTIONAL){
 
-			$this->provider->end();
+			$this->provider->endTransaction();
 		}
 
 	}
@@ -756,7 +707,9 @@ class Entity {
 		if(count($attributes)>0){
 
 			foreach ($attributes as $key=>$item) {
+
 				if(get_class($table::$meta->$key)==ARITY_TYPE) {
+
 					$fieldAttributes[]=$table::$meta->$key;
 
 				}
@@ -841,8 +794,6 @@ class Entity {
 		$this->map=array_unique($this->map);
 
 		$attrib=get_object_vars($c);
-		//var_dump($attrib);
-		//if($name=="group"){  var_dump($condition);return null;}
 
 		foreach($resultset as $key=>$item) {
 
@@ -861,9 +812,6 @@ class Entity {
 
 					if($condition!=NULL) {
 
-						// 						if($name=="group") {
-						// 							var_dump($resultset[$key][$name][$referenceField]);;exit;
-						// 						}
 
 						if($resultset[$key][$name][$referenceField]==$condition[key($condition)]) {
 
@@ -884,18 +832,15 @@ class Entity {
 					}
 					else {
 						if(isset($resultset[$key][$name][$vkey])){
-							
+
 							$c->$vkey=$resultset[$key][$name][$vkey];
 						}
 						else{
-							
+
 							$c->$vkey=null;
 						}
 
-						if($name=="user" ) {
 
-
-						}
 					}
 
 				}
@@ -915,7 +860,6 @@ class Entity {
 					}
 					elseif($c::$meta->$vkey->map==ARITY_1M&&(in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
 
-						//var_dump($resultset[$key][$name]);
 
 						$cond2=array($c::$meta->$vkey->name=>$resultset[$key][$name][$c::$meta->$vkey->name]
 						);

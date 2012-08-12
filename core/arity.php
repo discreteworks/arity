@@ -26,7 +26,7 @@ class Arity {
         }
         else {
 
-            return  $type::getDb();
+            return  $type::getProvider();
         }
 
     }

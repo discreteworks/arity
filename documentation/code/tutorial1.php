@@ -7,7 +7,9 @@
  * and open the template in the editor.
  */
 
-require '..\loader.php';
+require '..\..\loader.php';
+
+require 'model\testsimple.php';
 
 
 echo "/* Case 1: Intitialize Arity Simple Persistent Object*/<br/>";

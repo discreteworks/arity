@@ -18,32 +18,103 @@
 abstract class Provider {
     // Singleton object. Leave $me alone.
    
-    public $onError; // Can be '', 'die', or 'redirect'
+    public $onError; 
 
     public $queries;
     
     public $result;
 
     public $map;
+    
+    public $table;
+        
+    //Limit index
+    public $start=0;
+    
+    //Limit offset
+    public $offset=1;
+        
+    //Entities to be loaded prior to mapping
+    public $load=array();
+    
+    //Filter conditions
+    public $condition=array();
+    
+    //Group by base entity table with other tables
+    public $groupByItem=array();
+    
+    //Having conditions
+    public $havingCondition=array();
+    
 
+   
+
+    //  Main Abstract methods
+    
+    abstract function initialize();
+    
+    abstract function createTable($tableName,$fieldAttributes);
+    
+    abstract function tableExists($table);
+    
+    abstract function dropTable($table);
+    
+    abstract function delete($table,$columnName,$value);
+    
+    abstract function fieldExists($table,$key);
+    
+    abstract function addField($table,$fieldAttributes);
+    
+    abstract function setCondition($keyPairValues,$type,$compare);
+    
+    abstract function setHavingCondition($keyPairValues,$type,$compare);
+    
+    abstract function getCondition();
+    
+    abstract function select($obj,$column,$operator=null);
+    
+    abstract function beginTransaction();
+    
+    abstract function endTransaction();
+    
+    
+    //Provider Oriented methods
+    
+    abstract function query( $statement );
+    
+    abstract function execute(  $statement );
+    
+    abstract function getRowCount($arg = null);
+   
+    abstract function getValue($arg = null);
+    
+    abstract function getValues($arg = null);
+    
+    abstract function getRow($arg = null);
+    
+    abstract function getRows($arg = null);
+  
+           
+   
     // Singleton constructor
     private function __construct() {
-
-        $this->initialize();
-        $this->queries = array();
+    
+    	$this->initialize();
+    
+    	$this->queries = array();
     }
-
+    
     // Get Singleton object
     public static function getProvider($provider) {
-        static $obj;
-        if(is_null($obj))
-            $obj = new $provider();
-        return $obj;
+    	static $obj;
+    	if(is_null($obj))
+    	$obj = new $provider();
+    	return $obj;
     }
     
-    protected  function showQuery(){
+    public  function showDebug(){
     
-    	if(QUERY_DEBUG){
+    	if(ARITY_DEBUG){
     
     		echo "<div class=\"debug\" style=\"background:#eee;color:#222;padding:5px;font: 90% Courier New,Courier,monospace\">";
     		echo "<h1 style=\"\">DEBUG</></h2>";
@@ -56,52 +127,6 @@ abstract class Provider {
     
     	}
     }
-
-    //  Abstract methods
-    abstract function initialize();
-    
-    abstract function isConnected();
-    
-    abstract function databaseSelected();
-    
-    abstract function createTable($tableName,$fieldAttributes);
-    
-    abstract function query( $sql );
-    
-    abstract function execute( $sql );
-    
-    abstract function numRows($arg = null);
-    
-    abstract function hasRows($arg = null);
-    
-    abstract function affectedRows();
-    
-    abstract function insertId();
-    
-    abstract function getValue($arg = null);
-    
-    abstract function getValues($arg = null);
-    
-    abstract function getRow($arg = null);
-    
-    abstract function getRows($arg = null);
-    
-    abstract function resultSet($results);
-    
-    abstract function quote($var);
-    
-    abstract function escape($var);
-    
-    abstract function numQueries();
-    
-    abstract function lastQuery();
-    
-    abstract function resulter($arg = null);
-
-    abstract function buildCondition($keyPairValues,$type,$compare,$prefix=TRUE);
-    
-    abstract function select($obj,$column);
-
 
 
 

@@ -48,7 +48,7 @@ class Pgsql extends Provider {
 
 	function __destruct(){
 
-		$this->showQuery();
+		$this->showDebug();
 
 		if( $this->result ) {
 
@@ -313,7 +313,7 @@ class Pgsql extends Provider {
 
 		if($primaryKeys){
 
-			if( $this->numRows($primaryKeys)>0){
+			if( $this->getRowCount($primaryKeys)>0){
 				return true;
 
 			}
@@ -432,7 +432,7 @@ class Pgsql extends Provider {
 
 			$rs =  $this->getRows($fields);
 
-			$columns =  $this->numRows($fields);
+			$columns =  $this->getRowCount($fields);
 
 			for ($i = 0; $i < $columns; $i++) {
 
@@ -445,6 +445,12 @@ class Pgsql extends Provider {
 
 	}
 
+	function setTable($table){
+
+		$this->table=$table;
+
+	}
+
 	/**
 	 * Build the conditional statements.
 	 * @param Associative Array $value.
@@ -452,9 +458,10 @@ class Pgsql extends Provider {
 	 * @param String $compare condition.
 	 * @return Boolean $prefix.
 	 */
-	public function buildCondition($keyPairValues,$type,$compare,$prefix=TRUE) {
 
-		$message="";
+	public function setCondition($keyPairValues,$type,$compare) {
+
+		$cond="";
 
 		$msgArray=array();
 
@@ -463,18 +470,52 @@ class Pgsql extends Provider {
 			$msgArray[]="$key $compare'".$value."'";
 		}
 
-		$message=implode(" ".$type." ", $msgArray);
+		$cond=implode(" ".$type." ", $msgArray);
 
-		if($prefix) {
+		if(count($this->condition)>0) {
 
-			$message= $type." ".$message;
+			$cond= $type." ".$cond;
 		}
 
-		return $message;
+		$this->condition[]=$cond;
+	}
+
+	public function getCondition() {
+
+		return $this->condition;
+	}
+
+	public function setHavingCondition($keyPairValues,$type,$compare){
+
+		$cond="";
+
+		$msgArray=array();
+
+		foreach($keyPairValues as $key=>$value) {
+
+			$msgArray[]="$key $compare'".$value."'";
+		}
+
+		$cond=implode(" ".$type." ", $msgArray);
+
+		if(count($this->havingCondition)>0) {
+
+			$cond= $type." ".$cond;
+		}
+		
+
+		$this->havingCondition[]=$cond;
+
+	}
+
+	public function setGroupBy($column){
+
+		$this->groupByItem=$column;
+
 	}
 
 
-	public function select($obj,$column)
+	public function select($obj,$column,$operator=null)
 	{
 		$selected= "";
 
@@ -488,25 +529,31 @@ class Pgsql extends Provider {
 			$selected= " \"".$obj."\".* ";
 		}
 
-
-		return $selected;
+		if(isset($operator)){
+				
+			$selected = $operator."(".$selected.")";
+				
+		}
+		echo $selected;
+		
+		$this->load[]=$selected;
 	}
 
 
 
-	function makeQuery($table,$obj,$load,$condition=array(),$groupBy=array(),$having=array()){
+	function buildQuery($table,$obj,$limit=TRUE){
 
-		if(count($load)==0) {
+		if(count($this->load)==0) {
 
 			foreach($obj as $item) {
 
-				$load[]= "\"".strtolower($item)."\".*";
+				$this->load[]= "\"".strtolower($item)."\".*";
 
 			}
 		}
-		
 
-		$fields=implode(',', $load);
+
+		$fields=implode(',', $this->load);
 
 		$query="SELECT $fields FROM \"$table\"";
 
@@ -515,11 +562,11 @@ class Pgsql extends Provider {
 			$query.=" ".$item." \n";
 		}
 
-		if(count($condition)>0){
+		if(count($this->condition)>0){
 
 			$query.=" WHERE ";
 
-			foreach($condition as $key=>$item ) {
+			foreach($this->condition as $key=>$item ) {
 
 				$query.=" ".$item." \n";
 
@@ -527,35 +574,54 @@ class Pgsql extends Provider {
 		}
 
 
-		if(count($groupBy)>0){
+		if(count($this->groupByItem)>0){
 
-				
-			$query.=" GROUP BY ".implode(",",$groupBy)." \n";
+			var_dump($this->groupByItem);
+			$query.=" GROUP BY ".implode(",",$this->groupByItem)." \n";
 
 		}
 
-		if(count($having)>0){
-				
+		if(count($this->havingCondition)>0){
+
 			$query.=" HAVING ";
-				
-			foreach($having as $item){
+
+			foreach($this->havingCondition as $item){
 
 				$query.=" ".$item." \n";
 
 			}
 		}
 
+		if(isset($this->limit)&&$limit)
+
+			$query.=" ".$this->limit;
+
+		echo $query;
 
 		//Clear joins
-		$this->join=array();
 
-		return $query;
+		$this->load=array();
+
+		$this->condition=array();
+
+		$this->groupByItem= array();
+
+		$this->havingCondition=array();
+
+
+		$this->query($query);
+
+		return $this->getRows();
 
 	}
 
-	function addLimit($start=0,$offset=1){
+	function setLimit($start=0,$offset=1){
 
-		return "LIMIT ".$this->escape($start)." OFFSET ". $this->escape($offset);
+		$this->start=$start;
+
+		$this->offset=$offset;
+
+		$this->limit= "LIMIT ".$this->escape($start)." OFFSET ". $this->escape($offset);
 
 	}
 
@@ -593,8 +659,7 @@ class Pgsql extends Provider {
 			$this->connect();
 
 			$the_db = $this->DB;
-
-
+				
 			$this->queries[] = $sql;
 
 			$this->result = pg_query($the_db,$sql) or $this->notify();
@@ -607,7 +672,7 @@ class Pgsql extends Provider {
 
 	}
 
-	public function begin(){
+	public function beginTransaction(){
 
 		$sql="BEGIN";
 
@@ -615,7 +680,7 @@ class Pgsql extends Provider {
 
 	}
 
-	public function end(){
+	public function endTransaction(){
 
 		$sql="COMMIT";
 
@@ -647,7 +712,7 @@ class Pgsql extends Provider {
 
 	// Returns the number of rows.
 	// You can pass in nothing, a string, or a db result
-	public function numRows($arg = null) {
+	public function getRowCount($arg = null) {
 
 		$result = $this->resulter($arg);
 
