@@ -235,33 +235,6 @@ class Entity {
 		buildQuery($table,$this->obj);
 		
 
-// 		$objectArray=array();
-
-// 		foreach($rows as $key=>$item) {
-
-
-// 			$ci=key($item);
-
-
-// 			if(isset($ci)){
-
-// 				$c=new $ci;
-
-// 				$attrib=get_object_vars($c);
-
-// 				foreach($attrib as $vkey=>$var) {
-
-// 					if(isset($rows[$key][key($item)][$vkey])){
-
-// 						$c->$vkey=$rows[$key][key($item)][$vkey];
-
-// 					}
-
-// 				}
-// 			}
-
-// 			$objectArray[md5(serialize($c))]=$c;
-// 		}
 
 		return $rows;
 
@@ -903,3 +876,32 @@ class Entity {
 	}
 
 }
+
+
+// 		$objectArray=array();
+
+// 		foreach($rows as $key=>$item) {
+
+
+// 			$ci=key($item);
+
+
+// 			if(isset($ci)){
+
+// 				$c=new $ci;
+
+// 				$attrib=get_object_vars($c);
+
+// 				foreach($attrib as $vkey=>$var) {
+
+// 					if(isset($rows[$key][key($item)][$vkey])){
+
+// 						$c->$vkey=$rows[$key][key($item)][$vkey];
+
+// 					}
+
+// 				}
+// 			}
+
+// 			$objectArray[md5(serialize($c))]=$c;
+// 		}

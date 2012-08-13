@@ -48,6 +48,12 @@ define("DECIMAL_LENGTH","6,2");
 
 define("ARITY_IDENTITY","id"); //Change to your choice of table identity field
 
+
+//Types
+
+
+define("ARITY_TYPE","Type");
+
 define("ARITY_INT","INT");
 
 define("ARITY_SERIAL","'SERIAL'");
@@ -66,6 +72,9 @@ define("ARITY_DATE","DATE");
 
 define("ARITY_BINARY","BINARY");
 
+
+//Constraints
+
 define("ARITY_PRIMARY","PRIMARY");
 
 define("ARITY_UNIQUE","UNIQUE");
@@ -76,21 +85,26 @@ define("ARITY_REQUIRED","REQUIRED");
 
 define("ARITY_NOTREQUIRED","NOTREQUIRED");
 
-define("ARITY_11","ONETOONE");
-
-define("ARITY_1M","ONETOMANY");
-
-define("ARITY_MM","MANYTOMANY");//Proposed multilevel 
-
-define("ARITY_TYPE","Type");
-
 define("ARITY_NULL",null);
 
 define("ARITY_EMPTY","");
 
+
+//Relational Operators
+
+define("ARITY_11","ONETOONE");
+
+define("ARITY_1M","ONETOMANY");
+
+define("ARITY_MM","MANYTOMANY");//Proposed multilevel
+
 define("ARITY_MASTER","MASTER");
 
 define("ARITY_CHILD","CHILD");
+
+
+
+//Agregate Operators
 
 define("ARITY_MAX","MAX");
 
@@ -99,6 +113,8 @@ define("ARITY_MIN","MIN");
 define("ARITY_AVG","AVG");
 
 define("ARITY_SUM","SUM");
+
+//Logic Operators
 
 define("ARITY_AND","AND");
 

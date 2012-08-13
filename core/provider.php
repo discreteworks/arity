@@ -24,7 +24,7 @@ abstract class Provider {
     
     public $result;
 
-    public $map;
+    public $obj;
     
     public $table;
         
