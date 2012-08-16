@@ -15,25 +15,25 @@
  * @since		Version 1.0
  * @filesource
  */
-class TestGroupType{
+class Sample {
 	 
 	public static $meta;
 
 	public $id;
-
 	public $name;
 
-	public function  __construct() {
+	 
+	 
+	public function  __construct()  {
 
 		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
-		
-		self::$meta->name= new Type('name',ARITY_VARCHAR,50);
 		 
+		self::$meta->name= new Type('name',ARITY_VARCHAR,50);
+
+	
+		
+
 	}
-
-
-
-
 
 }
 ?>

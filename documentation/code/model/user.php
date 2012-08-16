@@ -15,7 +15,7 @@
  * @since		Version 1.0
  * @filesource
  */
-class TestUser {
+class User {
     
     public static $meta;
     

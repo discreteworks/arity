@@ -15,27 +15,32 @@
  * @since		Version 1.0
  * @filesource
  */
-class TestProfile{
+class Group{
    
 	public static $meta;
 	
 	public $id;
 	
-    public $address;
-    
-    public $user_id;
+    public $name;
     
     public $user;
-   
+    
+    public $type_id;
+    
+    public $grouptype;
+  
+
     public function  __construct() {
 
        self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 	   
-       self::$meta->address= new Type('address',ARITY_VARCHAR,50);
+       self::$meta->name= new Type('name',ARITY_VARCHAR,50);
 	   
-       self::$meta->user_id= new Type('user_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
-	  
-	   self::$meta->user= new Reference('user_id','testuser','id',ARITY_11);
+       self::$meta->type_id= new Type('type_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
+	   
+	   self::$meta->grouptype= new Reference('type_id','testgrouptype','id',ARITY_1M);
+	   
+	   self::$meta->user= new Reference('id','testuser','group_id',ARITY_1M);
 	   
 
     }
