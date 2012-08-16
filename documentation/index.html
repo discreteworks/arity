@@ -7,22 +7,32 @@
 </head>
 <body>
 	<div id="content">
-		<h1><img src="images/arity.png"></h1>
+		<h1>
+			<img src="images/arity.png">
+		</h1>
 		<div class="search-bar" style="position: absolute; top: 50px;">
 			<strong> Table of content </strong>
 			<ul>
-				<li><strong><a href="index.html">Arity</a></strong>
+				<li><strong><a href="#Entity">Entity</a></strong>
 					<ul>
 						<li><a href="#createTable">createTable</a></li>
-						<li><a href="#truncateTable">truncateTable</a></li>
 						<li><a href="#removeTable">removeTable</a></li>
+						<li><a href="#truncateTable">truncateTable</a></li>
+						<li><a href="#save">save</a></li>
+						<li><a href="#delete">delete</a></li>
 						<li><a href="#fetch">fetch</a></li>
-						<li><a href="#native">native</a></li>
-						<li><a href="#objectCount">truncateTable</a></li>
-						<li><a href="#createTable">createTable</a></li>
-						<li><a href="#truncateTable">truncateTable</a></li>
-						<li><a href="#createTable">createTable</a></li>
-						<li><a href="#truncateTable">truncateTable</a></li>
+						<li><a href="#where">where</a></li>
+						<li><a href="#object">object</a></li>
+						<li><a href="#objectCount">objectCount</a></li>
+						<li><a href="#arrayList">arraylist</a></li>
+						<li><a href="#arrayListCount">arrayListCount</a></li>
+						<li><a href="#select">select</a></li>
+						<li><a href="#min">min</a></li>
+						<li><a href="#max">max</a></li>
+						<li><a href="#avg">avg</a></li>
+						<li><a href="#sum">sum</a></li>
+						<li><a href="#groupBy">groupBy</a></li>
+						<li><a href="#having">having</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -86,14 +96,19 @@
 								<li><a href="#save">save</a></li>
 								<li><a href="#delete">delete</a></li>
 								<li><a href="#fetch">fetch</a></li>
-								<li><a href="#filter">filter</a></li>
+								<li><a href="#where">where</a></li>
 								<li><a href="#object">object</a></li>
 								<li><a href="#objectCount">objectCount</a></li>
-								<li><a href="#native">native</a></li>
-								<li><a href="#nativeCount">nativeCount</a></li>
+								<li><a href="#arrayList">arraylist</a></li>
+								<li><a href="#arrayListCount">arrayListCount</a></li>
+								<li><a href="#select">select</a></li>
+								<li><a href="#min">min</a></li>
+								<li><a href="#max">max</a></li>
+								<li><a href="#avg">avg</a></li>
+								<li><a href="#sum">sum</a></li>
 								<li><a href="#groupBy">groupBy</a></li>
 								<li><a href="#having">having</a></li>
-						
+
 							</ul></li>
 						<li><a href="#Field">Field</a></li>
 						<li><a href="#Reference">Reference</a></li>
@@ -101,27 +116,26 @@
 					</ul></li>
 				<li><a href="#TUTORIALS">TUTORIALS</a>
 					<ul>
-						<li><a href="tutorial1.php">Tutorial 1</a></li>
-						<li><a href="tutorial2.php">Tutorial 2</a></li>
-						<li><a href="tutorial3.php">Tutorial 3</a></li>
-						<li><a href="tutorial4.php">Tutorial 4</a></li>
-						<li><a href="tutorial5.php">Tutorial 5</a></li>
+						<li><a href="#tutorial1">Tutorial 1</a></li>
+						<li><a href="#tutorial2">Tutorial 2</a></li>
+						<li><a href="#tutorial3">Tutorial 3</a></li>
+						<li><a href="#tutorial4">Tutorial 4</a></li>
+						<li><a href="#tutorial5">Tutorial 5</a></li>
 					</ul></li>
 
 			</ul>
 			<h1 id="NAME">
 				<a href="#___top">NAME</a>
 			</h1>
-			<p>
-				Arity Object Relational Mapper for PHP.<br />Arity provides are
-				simple easy to use methods to create,add and retrieve data objects.
-			</p>
+			<p>Arity Object Relational Mapper for PHP.</p>
 			<h1 id="DESCRIPTION">
 				<a href="#___top">DESCRIPTION</a>
 			</h1>
-			<p>Arity provides are simple easy to use Object Relation Mapping
-				library. Provide set of method to easy manage and access database
-				table in form of data objects.</p>
+			<p>Arity provides simple easy to use methods to create,add and
+				retrieve data objects. Presently Arity only support postgresql as
+				the only provider. Arity provides a framework for supporting
+				multiple providers.</p>
+
 			<h1>
 				<a id="CONFIG" href="#___top">CONFIG</a>
 			</h1>
@@ -171,7 +185,7 @@
 				translate them to the corresponding data storage.</p>
 
 			<pre>
-			class TestSimple {
+			class Sample {
 				public static $meta;
 				public $id;
 				public $name;
@@ -349,7 +363,7 @@
 			
 			//Sample Model Class
 			
-			class TestSimple {
+			class Sample {
 				public static $meta;
 				public $id;
 				public $name;
@@ -380,7 +394,7 @@
 			<pre>
 			#Initialize a test object
 			
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 			
 			$testObj->name="test";
 			
@@ -428,7 +442,7 @@
 				
 			#Initialize a test object
 			
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 			
 			$testObj->name="test";
 			
@@ -444,7 +458,7 @@
 			<p>Remove the table in the database corresponding to the test
 				object.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity persistent manager
 			
@@ -457,7 +471,7 @@
 			</h3>
 			<p>Remove all the records from the corresponding provider table.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 			
 			#Add Object to Arity persistent manager
 			
@@ -470,7 +484,7 @@
 			</h3>
 			<p>Saves the object in provider table</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 			
 			$testObj->name="test";
 			
@@ -486,7 +500,7 @@
 			<p>Delete object instance in provider table with respect to the
 				ARITY IDENTITY field if set.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 			
 			$testObj->id=1;
 			
@@ -508,7 +522,7 @@
 			<p>Define the depth of reference child objects. e.g 1 means first
 				level childs.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
@@ -517,28 +531,28 @@
 			$dbObj->fetch();
 			</pre>
 			<h3>
-				<a id="filter" href="#___top">filter</a>
+				<a id="where" href="#___top">where</a>
 			</h3>
 			<p>Remove the table in the database corresponding to the test
 				object.</p>
 			<pre>
-			function filter($filter,$type='AND',$compare=' = ')
+			function where($args,$type=ARITY_AND,$compare=ARITY_EQ)
 			</pre>
 			<p>
-				$filter Key pair values of argument 'name'=>'Test' <br /> $type
+				$where Key pair values of argument 'name'=>'Test' <br /> $type
 				Operator AND=/OR among the key pair value arguments <br /> $compare
 				The compare operator =,<,>,>=,<=,!= <br />
 			</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
-			$dbObj->fetch()->filter(array("name"=>"test"));
+			$dbObj->fetch()->where(array("name"=>"test"));
 			
-			$dbObj->fetch()->filter(array("name"=>"test","age"=>"10"),'OR',"=");
+			$dbObj->fetch()->where(array("name"=>"test","age"=>"10"),ARITY_OR,ARITY_EQ);
 			
 			</pre>
 			<h3>
@@ -549,13 +563,13 @@
 				object.</p>
 
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
-			$dbObj->fetch()->filter(array("name"=>"test"))->object();
+			$dbObj->fetch()->where(array("name"=>"test"))->object();
 			</pre>
 			<h3>
 				<a id="objectCount" href="#___top">objectCount</a>
@@ -563,45 +577,146 @@
 			<p>Returns instantiated populated object. Count of the instances
 				that are loaded. This count is for the main object. Child object
 				combination are not counted.</p>
+			<p>This must by invoked after calling the object method.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
-			$dbObj->fetch()->filter(array("name"=>"test"))->object()->objectCount();
+			$dbObj->fetch()->where(array("name"=>"test"))->object()->objectCount();
 			</pre>
 
 			<h3>
-				<a id="native" href="#___top">native</a>
+				<a id="arrayList" href="#___top">arrayList</a>
 			</h3>
 			<p>Return instances for native query.Result can be combinations.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
-			$dbObj->fetch()->filter(array("name"=>"test"))->native();
+			$dbObj->fetch()->where(array("name"=>"test"))->arrayList();
 			</pre>
 
 			<h3>
-				<a id="nativeCount" href="#___top">nativeCount</a>
+				<a id="arrayListCount" href="#___top">arrayListCount</a>
 			</h3>
-			<p>Count of the instances for a native query.Result can be
-				combinations.</p>
+			<p>Count of the instances for a arrayList result set.Result can
+				be combinations of child table and redundant results.</p>
+			<p>You can use the fetch(depth) variable to get the current
+				object exact count.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
-			$dbObj->fetch()->filter(array("name"=>"test"))->nativeCount();
+			$dbObj->fetch()->where(array("name"=>"test"))->arrayListCount();
+			</pre>
+			<h3>
+				<a id="select" href="#___top">select</a>
+			</h3>
+			<pre>
+			public function select($obj,$column=null)
+			</pre>
+			<p>Only suitable for ArrayList queries.</p>
+
+			<p>Provide selection of object attributes.</p>
+			<pre>
+			$testObj=new Sample();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->select("sample","name")->arrayList();
+			</pre>
+			<h3>
+				<a id="min" href="#___top">min</a>
+			</h3>
+			<pre>
+			
 			</pre>
 
+			<p>Only suitable for ArrayList queries.</p>
+			<p>Aggregate function get the minimum value of the selected
+				object attribute.</p>
+
+			<pre>
+			$testObj=new Sample();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->min("sample","id")->arrayList();
+			</pre>
+			<h3>
+				<a id="max" href="#___top">max</a>
+			</h3>
+			<pre>
+			
+			</pre>
+
+			<p>Only suitable for ArrayList queries.</p>
+			<p>Aggregate function get the maximum value of the selected
+				object attribute.</p>
+
+			<pre>
+			$testObj=new Sample();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->max("sample","id")->arrayList();
+			</pre>
+
+			<h3>
+				<a id="avg" href="#___top">avg</a>
+			</h3>
+			<pre>
+			
+			</pre>
+
+			<p>Only suitable for ArrayList queries.</p>
+			<p>Aggregate function get the average value of the selected
+				object attribute.</p>
+
+			<pre>
+			$testObj=new Sample();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->avg("sample","id")->arrayList();
+			</pre>
+			<h3>
+				<a id="sum" href="#___top">sum</a>
+			</h3>
+			<pre>
+			
+			</pre>
+
+			<p>Only suitable for ArrayList queries.</p>
+			<p>Aggregate function get the sum value of the selected object
+				attribute.</p>
+
+			<pre>
+			$testObj=new Sample();
+		
+			#Add Object to Arity peristent manager
+			
+			$dbObj=Arity::entity($testObj);
+			
+			$dbObj->fetch()->sum("sample","id")->arrayList();
+			</pre>
 
 			<h3>
 				<a id="groupBy" href="#___top">groupBy</a>
@@ -609,31 +724,34 @@
 			<pre>
 			
 			</pre>
-			<p>Only abvailable for native queries.Groups the results based on the arguments.</p>
+			<p>Only abvailable for native queries.Groups the results based on
+				the arguments.</p>
 			<pre>
-			$testObj=new TestSimple();
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
-			$dbObj->fetch()->filter(array("name"=>"test"))->nativeCount();
+			$dbObj->fetch()->select("sample.name")->groupBy("sample.name")->arrayList();
 			</pre>
 			<h3>
 				<a id="having" href="#___top">having</a>
 			</h3>
-			<p>Only abvailable for native queries.</p>
 			<pre>
-			$testObj=new TestSimple();
+			public function having($args,$type=ARITY_AND,$compare=ARITY_EQ)
+			</pre>
+			<p>Only available for native queries.</p>
+			<pre>
+			$testObj=new Sample();
 		
 			#Add Object to Arity peristent manager
 			
 			$dbObj=Arity::entity($testObj);
 			
-			$dbObj->fetch()->filter(array("name"=>"test"))->nativeCount();
+			$dbObj->fetch()->select("sample.name")->sum("sample.id")->groupBy(array("name"))->having(array("name"=>"sam"))->arrayList();
+
 			</pre>
-
-
 
 			<h2>
 				<a id="Field" href="#___top">Field</a>
@@ -652,11 +770,11 @@
 			<p>Extends the Field abstract class. Create a type that can be
 				mapped to the provider table type.</p>
 
-			<h1 id="Tutorials">Tutorials</h1>
-			<p>This tutorial is based on 5 cases. Each case explains and
-				solves a particular problem of data persistent.</p>
-
-
+			<h1>
+				<a id="TUTORIALS" href="#___top">TUTORIALS</a>
+			</h1>
+			<p>This tutorial is based on 5 cases. Each case solves a
+				particular problem of data persistent.</p>
 
 		</div>
 	</div>
