@@ -53,14 +53,14 @@ class Type extends Field {
 
     }
     
-    static function create($name,$type,$size=null){
+    public static function create($name,$type,$size=null){
     	
     	return new Type($name,$type,$size);
     	
     }
     
     
-    function setDefault($default){
+    public function setDefault($default){
     	
     	$this->default=$default;
     	
@@ -68,7 +68,7 @@ class Type extends Field {
     	
     }
     
-    function composite(){
+    public function composite(){
     	
     	$this->composite=ARITY_COMPOSITE;	
     	
@@ -76,7 +76,7 @@ class Type extends Field {
     	
     }
     
-    function primaryKey(){
+    public function primaryKey(){
     	 
     	$this->key=ARITY_PRIMARY;
     	 
@@ -84,7 +84,7 @@ class Type extends Field {
     	 
     }
     
-    function uniqueKey(){
+    public function uniqueKey(){
     
     	$this->key=ARITY_UNIQUE;
     
@@ -92,7 +92,7 @@ class Type extends Field {
     
     }
     
-    function required(){
+    public function required(){
     	 
     	$this->key=ARITY_REQUIRED;
     	 

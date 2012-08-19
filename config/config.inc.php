@@ -98,7 +98,7 @@ define("ARITY_1M","ONETOMANY");
 
 define("ARITY_MM","MANYTOMANY");//Proposed multilevel
 
-define("ARITY_MASTER","MASTER");
+define("ARITY_PARENT","PARENT");
 
 define("ARITY_CHILD","CHILD");
 

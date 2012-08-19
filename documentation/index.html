@@ -758,23 +758,158 @@
 			</h2>
 			<p>Abstract class for creating object fields.Its inherited by
 				Type and Reference.</p>
+
+			<h2>
+				<a id="Type" href="#___top">Type</a>
+			</h2>
+			<p>Extends the Field abstract class. Create a type that can be
+				mapped to the provider table type.</p>
+			
+			<h3>Option 1</h3>
+			<pre>
+			self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+			</pre>	
+			<h3>Option 2</h3>
+			<pre>
+			self::$meta->id= Type::create('id',ARITY_SERIAL,11)->setDefault(ARITY_EMPTY)->required()->primary();
+			</pre>	
+			<h3>
+				<a id="create" href="#___top">create</a>
+			</h3>
+			<pre>
+			public static function create($name,$type,$size=null)
+			</pre>
+			<p>Static method to create type mapping.</p>
+			<h3>
+				<a id="setDefault" href="#___top">setDefault</a>
+			</h3>
+			<pre>
+			 public function setDefault($default)
+			</pre>
+			<p>Method to set default value for type.</p>
+			<h3>
+				<a id="composite" href="#___top">composite</a>
+			</h3>
+			<pre>
+			 public function composite()
+			</pre>
+			<p>Method to add a type to a composite key.</p>
+			<h3>
+				<a id="primaryKey" href="#___top">primaryKey</a>
+			</h3>
+			<pre>
+			 public function primaryKey()
+			</pre>
+			<p>Method to add a primary key type.</p>
+			<h3>
+				<a id="uniqueKey" href="#___top">uniqueKey</a>
+			</h3>
+			<pre>
+			 public function uniqueKey()
+			</pre>
+			<p>Method to add a unique key type.</p>
+			<h3>
+				<a id="required" href="#___top">required</a>
+			</h3>
+			<pre>
+			 public function required()
+			</pre>
+			<p>Method to add a required key type.</p>
 			<h2>
 				<a id="Reference" href="#___top">Reference</a>
 			</h2>
 			<p>Extends the Field abstract class. Create a relationship
 				between objects.These relationships are used for mapping the object
 				to provider table relationships.</p>
-			<h2>
-				<a id="Type" href="#___top">Type</a>
-			</h2>
-			<p>Extends the Field abstract class. Create a type that can be
-				mapped to the provider table type.</p>
+			<h3>Option 1</h3>
+			<pre>
+			self::$meta->group_id= new Type('group_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
+			self::$meta->group= new Reference('group_id','testgroup','id',ARITY_1M);
+      		</pre>	
+			<h3>Option 2</h3>
+			<pre>
+			self::$meta->group_id= Type::create('group_id',ARITY_INT,11)->setDefault(ARITY_EMPTY)->required();
+			self::$meta->group= Reference::create('group_id')->referToTable('testgroup')->referToFieldName('id')->one2many();
+			</pre>		
+			<h3>
+				<a id="create" href="#___top">create</a>
+			</h3>
+			<pre>
+			public static function create($fieldName)
+			</pre>
+			<p>Static method to create the field.</p>
+			<h3>
+				<a id="referToTable" href="#___top">referToTable</a>
+			</h3>
+			<pre>
+			public function referToTable($table)
+			</pre>
+			<p>Method to create relation for a attribute to a table.</p>
+			<h3>
+				<a id="referFieldName" href="#___top">referFieldName</a>
+			</h3>
+			<pre>
+			public function referFieldName($name)
+			</pre>
+			<p>Method to relation for a attribute for already refered table.</p>
+			<h3>
+				<a id="one2many" href="#___top">one2many</a>
+			</h3>
+			<pre>
+			   public function one2many()
+			</pre>
+			<p>Method to define one to many multiplicity of relation.</p>
+			<h3>
+				<a id="one2one" href="#___top">one2one</a>
+			</h3>
+			<pre>
+			 public function one2one()
+			</pre>
+			<p>Method to define one to one multiplicity of relation.</p>
+			<h3>
+				<a id="isParent" href="#___top">isParent</a>
+			</h3>
+			<pre>
+			public function isParent()
+			</pre>
+			<p>Method to define a parent relation heirarchy.</p>
+			<h3>
+				<a id="isChild" href="#___top">isChild</a>
+			</h3>
+			<pre>
+			public function isChild()
+			</pre>
+			<p>Method to define a child relation heirarchy.</p>
 
 			<h1>
 				<a id="TUTORIALS" href="#___top">TUTORIALS</a>
 			</h1>
 			<p>This tutorial is based on 5 cases. Each case solves a
 				particular problem of data persistent.</p>
+			<h2>
+				<a id="tutorial0" href="#___top">tutorial0</a>
+			</h2>
+			<p>Tutorial 0 contains all the general features of Arity.</p>
+			<h2>
+				<a id="tutorial1" href="#___top">tutorial1</a>
+			</h2>
+			<p>Tutorial 1: Intitialize Arity Simple Persistent Object.</p>
+			<h2>
+				<a id="tutorial2" href="#___top">tutorial2</a>
+			</h2>
+			<p>Test 2 Intitialize User Object.</p>
+			<h2>
+				<a id="tutorial3" href="#___top">tutorial3</a>
+			</h2>
+			<p>Tutorial 3 contains all the general features of Arity.</p>
+			<h2>
+				<a id="tutorial4" href="#___top">tutorial4</a>
+			</h2>
+			<p>Tutorial 4 contains all the general features of Arity.</p>
+			<h2>
+				<a id="tutorial5" href="#___top">tutorial5</a>
+			</h2>
+			<p>Tutorial 5 contains all the general features of Arity.</p>
 
 		</div>
 	</div>

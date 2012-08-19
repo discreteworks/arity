@@ -453,7 +453,7 @@ class Pgsql extends Provider {
 
 	/**
 	 * Build the conditional statements.
-	 * @param Associative Array $value.
+	 * @param Associative Array $keyPairValues.
 	 * @param String $type Login operator AND OR.
 	 * @param String $compare condition.
 	 * @return Boolean $prefix.
@@ -502,40 +502,63 @@ class Pgsql extends Provider {
 
 			$cond= $type." ".$cond;
 		}
-		
+
 
 		$this->havingCondition[]=$cond;
 
 	}
 
-	public function setGroupBy($column){
-
-		$this->groupByItem=$column;
+	
+	public function setGroupBy($args){
+	
+		$selected= "";
+		
+		if(isset($column)){
+		
+			$objColumnEx=explode(".", $column);
+		
+			if(count($objColumn)>1){
+		
+				$selected= " \"".$objColumn[0]."\".".$objColumn[1];
+		
+			}
+			else{
+		
+				$selected= $objColumn[0];
+			}
+		}
+		
+		$this->groupByItem[]=$selected;
 
 	}
 
 
-	public function select($obj,$column,$operator=null)
+	public function setSelect($objColumn,$operator=null)
 	{
 		$selected= "";
 
 		if(isset($column)){
+				
+			$objColumnEx=explode(".", $column);
+				
+			if(count($objColumn)>1){
 
-			$selected= " \"".$obj."\".".$column;
+				$selected= " \"".$objColumn[0]."\".".$objColumn[1];
 
-		}
-		else{
+			}
+			else{
 
-			$selected= " \"".$obj."\".* ";
+				$selected= " \"".$objColumn[0]."\".* ";
+			}
 		}
 
 		if(isset($operator)){
-				
+
 			$selected = $operator."(".$selected.")";
-				
+
 		}
-		echo $selected;
-		
+
+
 		$this->load[]=$selected;
 	}
 
@@ -594,7 +617,7 @@ class Pgsql extends Provider {
 
 		if(isset($this->limit)&&$limit)
 
-			$query.=" ".$this->limit;
+		$query.=" ".$this->limit;
 
 		echo $query;
 
@@ -659,7 +682,7 @@ class Pgsql extends Provider {
 			$this->connect();
 
 			$the_db = $this->DB;
-				
+
 			$this->queries[] = $sql;
 
 			$this->result = pg_query($the_db,$sql) or $this->notify();

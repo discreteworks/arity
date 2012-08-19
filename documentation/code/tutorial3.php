@@ -4,143 +4,56 @@
  * and open the template in the editor.
  */
 
-require '..\loader.php';
 
-// // echo "/* Test1 Intitialize the Arity Simple Object*/<br/>";
+require '..\..\loader.php';
 
-// // $testObj=new Test();
+require 'model\sample.php';
 
-// // $dbObj=Arity::entity($testObj);
 
+echo "/* Test 3 Intitialize User Object*/<br/>";
 
-// // echo "Create Object to DB Entities<br/>";
+$userObj=new User();
 
+$udbObj=Arity::entity($userObj);
 
-// // //$dbObj->removeTable();
+$udbObj->removeTable();
 
-// // $dbObj->createTable();
+$udbObj->createTable();
 
 
+echo "/* Test 3 Intitialize Group Object*/<br/>";
 
-// // echo "Create Object to DB Entities:complete<br/>";
+$groupObj= new Group();
 
+$gdbObj=Arity::entity($groupObj);
 
-// // echo "Initialize sample test object"."<br/>";
+$gdbObj->removeTable();
 
-// // $testObj->name="sam";
+$gdbObj->createTable();
 
 
+echo "/* Test 3 Add Parent with Child Objects*/<br/>";
 
-// // echo "Initialize sample test object:complete"."<br/>";
 
+$userObj=new User();
 
-// // echo "Save sample test object"."<br/>";
+$userObj->username="test";
+$userObj->password="sample";
 
 
-// // $dbObj->save();
+$grp=new Group();
 
+$grp->name=2;
+$grp->type_id=1;
 
-// // echo "Save sample test object:complete"."<br/>";
+$userObj->group=$grp;
 
+$udbObj=Arity::entity($userObj);
 
-// // echo "Fetch test object"."<br/>";
+$udbObj->save();
 
 
-// // $rs=$dbObj->fetch()->object();
-
-// // var_dump($rs);
-
-// // echo "Fetch test object:complete"."<br/>";
-
-
-// echo "/* Test 2 Arity Relational Object*/<br/>";
-
-
-// echo "/* Test 2 Intitialize User Object*/<br/>";
-
-// $userObj=new User();
-
-// $udbObj=Arity::entity($userObj);
-
-// $udbObj->removeTable();
-
-// $udbObj->createTable();
-
-// echo "/* Test 2 Intitialize Group Object*/<br/>";
-
-// $groupObj= new Group();
-
-// $gdbObj=Arity::entity($groupObj);
-
-// $gdbObj->removeTable();
-
-// $gdbObj->createTable();
-
-
-// echo "/* Test 2 Intitialize Group Object*/<br/>";
-
-// $grouptypeObj= new Grouptype();
-
-// $gtdbObj=Arity::entity($grouptypeObj);
-
-// $gtdbObj->removeTable();
-
-// $gtdbObj->createTable();
-
-
-// echo "/* Test 2 Add Group Type */<br/>";
-
-// $grouptypeObj->name="admin";
-
-// echo $type_id=$gtdbObj->save();
-
-// echo "/* Test 2 Add Group Object*/<br/>";
-
-// $groupObj->name="admin";
-// $groupObj->type_id=$type_id;
-
-// echo $group_id=$gdbObj->save();
-
-
-// echo "/* Test 2 Add User Object*/<br/>";
-
-// $userObj->username="sam";
-// $userObj->password="sam";
-// $userObj->group_id=$group_id;
-
-// $udbObj->save();
-
-// $rs=$gdbObj->fetch(3)->object();
-
-// foreach($rs as $item){
-	
-// 	var_dump($item);
-	
-// };
-
-
-// echo "/* Test 3 Add Multipe Objects*/<br/>";
-
-
-// $userObj=new User();
-
-// $userObj->username="test";
-// $userObj->password="sample";
-
-
-// $grp=new Group();
-
-// $grp->name=2;
-// $grp->type_id=1;
-
-// $userObj->group=$grp;
-
-// $udbObj=Arity::entity($userObj);
-
-// $udbObj->save();
-
-
-echo "/* Test 4 Update Multipe Objects*/<br/>";
+echo "/* Test 4 Update Parent with Child Objects*/<br/>";
 
 
 $userObj=new User();

@@ -40,7 +40,6 @@ $pArray[]=$pro;
 $pArray[]=$p2;
 
 
-
 $userObj->profile=$pArray;
 
 $udbObj=Arity::entity($userObj);

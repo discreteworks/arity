@@ -32,7 +32,7 @@ class Reference extends Field {
     * 
     * 
     */
-   function  __construct($fieldName,$referedTable=null,$referedFieldName=null,$map=null,$role=false,$onDelete='SET NULL') {
+   public function  __construct($fieldName,$referedTable=null,$referedFieldName=null,$map=null,$role=false,$onDelete='SET NULL') {
       
 
       $this->reference=$referedTable;
@@ -51,28 +51,28 @@ class Reference extends Field {
     
   
     
-    static function create($fieldName){
+    public static function create($fieldName){
     	
     	return new Reference($fieldName);
     	
     	
     }
     
-    function referToTable($table){
+    public function referToTable($table){
     	
     	$this->reference=$table;
     	
     	return $this;
     }
     
-    function referFieldName($name){
+    public function referFieldName($name){
     	
     	$this->referenceField=$name;
     	
     	return $this;
     }
     
-    function one2many(){
+    public function one2many(){
     	
     	$this->map=ARITY_1M;
     	
@@ -80,7 +80,7 @@ class Reference extends Field {
     	
     }
     
-    function one2one(){
+    public function one2one(){
     	 
     	$this->map=ARITY_11;
     	 
@@ -88,15 +88,15 @@ class Reference extends Field {
     	 
     }
     
-    function isMaster(){
+    public function isParent(){
     	
-    	$this->role=ARITY_MASTER;
+    	$this->role=ARITY_PARENT;
     	
     	return $this;
     	
     }
     
-    function isChild(){
+    public function isChild(){
     	 
     	$this->role=ARITY_CHILD;
     	 
@@ -104,7 +104,7 @@ class Reference extends Field {
     	 
     }
     
-    function setOnDelete($str){
+    public function setOnDelete($str){
     	
     	$this->onDelete=$str;
     	

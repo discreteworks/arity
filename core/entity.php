@@ -121,9 +121,9 @@ class Entity {
 	 * @return Object
 	 */
 
-	public function loads($obj,$column=null) {
+	public function select($attribute=null) {
 
-		$this->provider->select($obj,$column);
+		$this->provider->setSelect($objColumn);
 
 		return $this;
 
@@ -189,12 +189,12 @@ class Entity {
 	* Having conditions applied before compilation
 	* @return Object Entitydecorator.
 	*/
-	public function having($filter,$type=ARITY_AND,$compare=ARITY_EQ) {
+	public function having($args,$type=ARITY_AND,$compare=ARITY_EQ) {
 	
 		
-			if(is_array($filter)) {
+			if(is_array($args)) {
 	
-				$filter=$this->provider->setHavingCondition($filter,$type,$compare);
+				$filter=$this->provider->setHavingCondition($args,$type,$compare);
 			}
 			
 	
@@ -325,17 +325,17 @@ class Entity {
 
 	/**
 	 * Filter conditions applied before compilation
-	 * @param Array  $filter Key pair value.
+	 * @param Array  $args Key pair value.
 	 * @param String $type  Logic operator.
 	 * @param String $compare Operation operator.
 	 * @return Object.
 	 */
-	function filter($filter,$type='AND',$compare=' = ') {
+	function where($args,$type=ARITY_AND,$compare=ARITY_EQ) {
 
 
-		if(is_array($filter)) {
+		if(is_array($args)) {
 
-			$this->provider->setCondition($filter,$type,$compare);
+			$this->provider->setCondition($args,$type,$compare);
 		}
 			
 		return $this;
