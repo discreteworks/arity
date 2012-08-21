@@ -71,7 +71,7 @@ abstract class Provider {
     
     abstract function getCondition();
     
-    abstract function select($obj,$column,$operator=null);
+    abstract function setSelect($objColumn,$operator=null);
     
     abstract function beginTransaction();
     

@@ -122,6 +122,8 @@ class Entity {
 	 */
 
 	public function select($objColumn=null) {
+		
+		echo $objColumn;
 
 		$this->provider->setSelect($objColumn);
 
@@ -134,23 +136,9 @@ class Entity {
 	* @param String Entities names to load
 	* @return Object
 	*/
-	public function sum($obj,$column=null) {
+	public function sum($objColumn) {
 	
-		$this->provider->select($obj,$column,ARITY_SUM);
-	
-		return $this;
-	
-	}
-	
-	/**
-	* sum of table column
-	* @param String Entities names to load
-	* @return Object
-	*/
-	
-	public function avg($obj,$column=null) {
-	
-		$this->provider->select($obj,$column,ARITY_AVG);
+		$this->provider->setSelect($objColumn,ARITY_SUM);
 	
 		return $this;
 	
@@ -162,9 +150,9 @@ class Entity {
 	* @return Object
 	*/
 	
-	public function min($obj,$column=null) {
+	public function avg($objColumn) {
 	
-		$this->provider->select($obj,$column,ARITY_MIN);
+		$this->provider->setSelect($objColumn,ARITY_AVG);
 	
 		return $this;
 	
@@ -176,9 +164,23 @@ class Entity {
 	* @return Object
 	*/
 	
-	public function max($obj,$column=null) {
+	public function min($objColumn) {
 	
-		$this->provider->select($obj,$column,ARITY_MAX);
+		$this->provider->setSelect($objColumn,ARITY_MIN);
+	
+		return $this;
+	
+	}
+	
+	/**
+	* sum of table column
+	* @param String Entities names to load
+	* @return Object
+	*/
+	
+	public function max($objColumn) {
+	
+		$this->provider->setSelect($objColumn,ARITY_MAX);
 	
 		return $this;
 	

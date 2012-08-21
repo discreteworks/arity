@@ -24,7 +24,7 @@
 						<li><a href="#where">where</a></li>
 						<li><a href="#object">object</a></li>
 						<li><a href="#objectCount">objectCount</a></li>
-						<li><a href="#arrayList">arraylist</a></li>
+						<li><a href="#arrayList">arrayList</a></li>
 						<li><a href="#arrayListCount">arrayListCount</a></li>
 						<li><a href="#select">select</a></li>
 						<li><a href="#min">min</a></li>
@@ -47,7 +47,7 @@
 				<li><a href="#CONFIG">CONFIG</a>
 					<ul>
 						<li><a href="#QUERY_DEBUG">QUERY_DEBUG</a></li>
-						<li><a href="#ARITY_IDaddObject">ARITY_IDaddObject</a></li>
+						<li><a href="#ARITY_IDENTITY">ARITY_IDENTITY</a></li>
 						<li><a href="#ARITY_NULL">ARITY_NULL</a></li>
 						<li><a href="#ARITY_EMPTY">ARITY_EMPTY</a></li>
 					</ul></li>
@@ -84,7 +84,7 @@
 						<li><a href="#Arity">Arity</a>
 							<ul>
 								<li><a href="#addObject">addObject</a></li>
-								<li><a href="#provider">native</a></li>
+								<li><a href="#provider">provider</a></li>
 							</ul></li>
 						<li><a href="#Base">Base</a></li>
 						<li><a href="#Db">Db</a></li>
@@ -99,7 +99,7 @@
 								<li><a href="#where">where</a></li>
 								<li><a href="#object">object</a></li>
 								<li><a href="#objectCount">objectCount</a></li>
-								<li><a href="#arrayList">arraylist</a></li>
+								<li><a href="#arrayList">arrayList</a></li>
 								<li><a href="#arrayListCount">arrayListCount</a></li>
 								<li><a href="#select">select</a></li>
 								<li><a href="#min">min</a></li>
@@ -150,14 +150,14 @@
 			</pre>
 
 			<h2>
-				<a href="#___top" id="ARITY_IDaddObject">ARITY_IDaddObject</a>
+				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
 			</h2>
-			<p>Located in the conf.inc.php.Sets the idaddObject field for the
-				object. This idaddObject field is used for object to provider mapping.
-				In most case idaddObject field is the primary key of the provider
+			<p>Located in the conf.inc.php.Sets the ARITY_IDENTITY field for the
+				object. ARITY_IDENTITY field is used for object to provider mapping.
+				In most case ARITY_IDENTITY field is the primary key of the provider
 				mapped table.</p>
 			<pre>
-			define("ARITY_IDaddObject","id"); //Change to your choice of table idaddObject field
+			define("ARITY_IDENTITY","id"); //Change to your choice of table ARITY_IDENTITY field
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_NULL">ARITY_NULL</a>
@@ -403,17 +403,17 @@
 			$dbObj=Arity::addObject($testObj);
 			</pre>
 			<h3>
-				<a id="native" href="#___top">native</a>
+				<a id="provider" href="#___top">provider</a>
 			</h3>
-			<p>Creates an native object for a specified provider. Native
+			<p>Creates an provider object for a specified provider. provider
 				method provide sql support.</p>
-			<pre> public static function native($type)</pre>
+			<pre> public static function provider($type)</pre>
 			<p>
 				<br /> $type Provider(Postgres/Mysql). Default to the provider
 				selected in config
 			</p>
 			<pre>
-			$dbObj=Arity::native();
+			$dbObj=Arity::provider();
 			</pre>
 			<h2>
 				<a id="Base" href="#___top">Base</a>
@@ -591,7 +591,7 @@
 			<h3>
 				<a id="arrayList" href="#___top">arrayList</a>
 			</h3>
-			<p>Return instances for native query.Result can be combinations.</p>
+			<p>Return instances for provider query.Result can be combinations.</p>
 			<pre>
 			$testObj=new Sample();
 		
@@ -724,7 +724,7 @@
 			<pre>
 			
 			</pre>
-			<p>Only abvailable for native queries.Groups the results based on
+			<p>Only abvailable for provider queries.Groups the results based on
 				the arguments.</p>
 			<pre>
 			$testObj=new Sample();
@@ -741,7 +741,7 @@
 			<pre>
 			public function having($args,$type=ARITY_AND,$compare=ARITY_EQ)
 			</pre>
-			<p>Only available for native queries.</p>
+			<p>Only available for arrayList.</p>
 			<pre>
 			$testObj=new Sample();
 		
@@ -892,6 +892,145 @@
 			</h2>
 			<p>Tutorial 0 contains all the general features of Arity.</p>
 			<pre>
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+require '..\..\loader.php';
+
+require 'model\sample.php';
+
+
+echo "/* Case 0: Intitialize Arity Simple Persistent Object*/<br/>";
+
+
+echo "/* Create PHP Object*/<br/>";
+
+$testObj1=new Sample();
+
+
+echo "/* Add Object to Arity peristent manager*/<br/>";
+
+
+$dbObj=Arity::addObject($testObj1);
+
+
+echo "Create Persistent Object Table<br/>";
+
+
+$dbObj->createTable();
+
+
+echo "Initialize 1 Simple PHP Object"."<br/>";
+
+
+$testObj1->name="sample1";
+$testObj1->score="10";
+
+$dbObj->save();
+
+
+echo "/* Add Object 2 to Arity peristent manager*/<br/>";
+
+$testObj2=new Sample();
+
+$dbObj=Arity::addObject($testObj2);
+
+echo "Initialize 2 Simple PHP Object"."<br/>";
+
+$testObj2->name="sample2";
+$testObj2->score="20";
+
+echo "Persist PHP Object from DB"."<br/>";
+
+$dbObj->save();
+
+
+echo "/* Add Object 3 to Arity peristent manager*/<br/>";
+
+$testObj3= new Sample();
+
+$dbObj=Arity::addObject($testObj3);
+
+echo "/*Initialize 3 Simple PHP Object*/"."<br/>";
+
+
+$testObj3->name="sample2";
+$testObj3->score="30";
+
+echo "/*Persist PHP Object from DB*/"."<br/>";
+
+$dbObj->save();
+
+echo "/*Fetch Persisted PHP Object from DB*/"."<br/>";
+
+$rs=$dbObj->fetch()->object();
+
+var_dump($rs);
+
+echo "/*Apply the where condition*/"."<br/>";
+
+$rs=$dbObj->fetch()->where(array("name"=>"sam"))->object();
+
+var_dump($rs);
+
+echo "/*arrayList resultset methods*/"."<br/>";
+
+echo "/*arrayList Resultset select method*/"."<br/>";
+
+$rs=$dbObj->fetch()->select("sample.name")->arrayList();
+
+var_dump($rs);
+
+echo "/*arrayList Resultset min method*/"."<br/>";
+
+$rs=$dbObj->fetch()->min('sample.score')->arrayList();
+
+var_dump($rs);
+
+echo "arrayList Resultset max method*/"."<br/>";
+
+$rs=$dbObj->fetch()->max('sample.score')->arrayList();
+
+var_dump($rs);
+
+echo "/*arrayList Resultset avg method*/"."<br/>";
+
+$rs=$dbObj->fetch()->avg('sample.score')->arrayList();
+
+var_dump($rs);
+
+echo "/*arrayList Resultset sum method*/"."<br/>";
+
+$rs=$dbObj->fetch()->sum('sample.score')->arrayList();
+
+var_dump($rs);
+
+echo "/*arrayList Resultset groupBy method*/"."<br/>";
+
+$rs=$dbObj->fetch()->select('sample.name')->sum('sample.score')->groupBy('sample.name')->arrayList();
+
+var_dump($rs);
+
+echo "/*arrayList Resultset sum groupBy having method*/"."<br/>";
+
+$rs=$dbObj->fetch()->select('sample.name')->sum('sample.score')->groupBy('sample.name')->having(array('name'=>'sample2'))->arrayList();
+
+var_dump($rs);
+
+
+echo "/*Clean Simple Object Entries"."<br/>";;
+
+$dbObj->truncateTable();
+
+
+echo "/*Drop Persistent Object Table"."<br/>";;
+
+
+$dbObj->removeTable();
+
+
 			
 			</pre>
 			<h2>
