@@ -9,7 +9,11 @@ require '..\..\loader.php';
 
 require 'model\user.php';
 
+require 'model\group.php';
+
 require 'model\grouptype.php';
+
+require 'model\profile.php';
 
 
 
@@ -45,27 +49,40 @@ $gtdbObj->removeTable();
 $gtdbObj->createTable();
 
 
+echo "/* Test 2 Intitialize Profile Object*/<br/>";
+
+$proObj= new Profile();
+
+$proObj=Arity::addObject($proObj);
+
+$proObj->removeTable();
+
+$proObj->createTable();
+
+
 echo "/* Test 2 Add Group Type */<br/>";
 
 $grouptypeObj->name="admin";
 
-echo $type_id=$gtdbObj->save();
+$type=$gtdbObj->save();
 
 echo "/* Test 2 Add Group Object*/<br/>";
 
 $groupObj->name="admin";
-$groupObj->type_id=$type_id;
+$groupObj->type_id=$type->id;
 
-echo $group_id=$gdbObj->save();
+$grp=$gdbObj->save();
 
 
 echo "/* Test 2 Add User Object*/<br/>";
 
 $userObj->username="sam";
 $userObj->password="sam";
-$userObj->group_id=$group_id;
+$userObj->group_id=$grp->id;
 
 $udbObj->save();
+
+echo "/* Test 2 Fetch User Object*/<br/>";
 
 $rs=$gdbObj->fetch(3)->object();
 
@@ -74,12 +91,6 @@ foreach($rs as $item){
 	var_dump($item);
 	
 };
-
-
-
-
-
-
 
 
 ?>

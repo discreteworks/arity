@@ -622,6 +622,8 @@ class Pgsql extends Provider {
 
 	
 		//Clear joins
+		
+		$this->join=array();
 
 		$this->load=array();
 
@@ -684,7 +686,7 @@ class Pgsql extends Provider {
 			$the_db = $this->DB;
 
 			$this->queries[] = $sql;
-
+			
 			$this->result = pg_query($the_db,$sql) or $this->notify();
 
 

@@ -892,7 +892,14 @@
 			</h2>
 			<p>Tutorial 0 contains all the general features of Arity.</p>
 			<pre>
-/* 
+			
+			</pre>
+			<h2>
+				<a id="tutorial1" href="#___top">tutorial1</a>
+			</h2>
+			<p>Tutorial 1: Intitialize Arity Simple Persistent Object.</p>
+			<pre>
+			/* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -902,7 +909,272 @@ require '..\..\loader.php';
 require 'model\sample.php';
 
 
-echo "/* Case 0: Intitialize Arity Simple Persistent Object*/<br/>";
+echo "/* Tutorial 1: Intitialize Arity Simple Persistent Object*/<br/>";
+
+
+echo "/* Create PHP Object*/<br/>";
+
+$testObj=new Sample();
+
+echo "Initialize Simple PHP Object"."<br/>";
+
+$testObj->name="sam";
+
+echo "/* Add Object to Arity peristent manager*/<br/>";
+
+
+$dbObj=Arity::addObject($testObj);
+
+
+echo "Create Persistent Object Table<br/>";
+
+
+$dbObj->createTable();
+
+
+echo "Save Simple Object or Persist Object"."<br/>";
+
+
+$dbObj->save();
+
+
+echo "Fetch Persisted PHP Object from DB"."<br/>";
+
+
+$rs=$dbObj->fetch()->object();
+
+var_dump($rs);
+
+echo "Clean Simple Object Entries"."<br/>";;
+
+$dbObj->truncateTable();
+
+$rs=$dbObj->fetch()->object();
+
+var_dump($rs);
+
+
+echo "Drop Persistent Object Table"."<br/>";;
+
+
+$dbObj->removeTable();
+			
+			</pre>
+			<h2>
+				<a id="tutorial2" href="#___top">tutorial2</a>
+			</h2>
+			<p>Test 2 Intitialize User Object.</p>
+			<pre>
+			/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+require '..\..\loader.php';
+
+require 'model\user.php';
+
+require 'model\group.php';
+
+require 'model\grouptype.php';
+
+require 'model\profile.php';
+
+
+
+echo "/* Test 2 Intitialize User Object*/<br/>";
+
+$userObj=new User();
+
+$udbObj=Arity::addObject($userObj);
+
+$udbObj->removeTable();
+
+$udbObj->createTable();
+
+echo "/* Test 2 Intitialize Group Object*/<br/>";
+
+$groupObj= new Group();
+
+$gdbObj=Arity::addObject($groupObj);
+
+$gdbObj->removeTable();
+
+$gdbObj->createTable();
+
+
+echo "/* Test 2 Intitialize Group Object*/<br/>";
+
+$grouptypeObj= new Grouptype();
+
+$gtdbObj=Arity::addObject($grouptypeObj);
+
+$gtdbObj->removeTable();
+
+$gtdbObj->createTable();
+
+
+echo "/* Test 2 Intitialize Profile Object*/<br/>";
+
+$proObj= new Profile();
+
+$proObj=Arity::addObject($proObj);
+
+$proObj->removeTable();
+
+$proObj->createTable();
+
+
+echo "/* Test 2 Add Group Type */<br/>";
+
+$grouptypeObj->name="admin";
+
+$type=$gtdbObj->save();
+
+echo "/* Test 2 Add Group Object*/<br/>";
+
+$groupObj->name="admin";
+$groupObj->type_id=$type->id;
+
+$grp=$gdbObj->save();
+
+
+echo "/* Test 2 Add User Object*/<br/>";
+
+$userObj->username="sam";
+$userObj->password="sam";
+$userObj->group_id=$grp->id;
+
+$udbObj->save();
+
+echo "/* Test 2 Fetch User Object*/<br/>";
+
+$rs=$gdbObj->fetch(3)->object();
+
+foreach($rs as $item){
+	
+	var_dump($item);
+	
+}
+			</pre>
+			<h2>
+				<a id="tutorial3" href="#___top">tutorial3</a>
+			</h2>
+			<p>Tutorial 3 contains all the general features of Arity.</p>
+			<pre>
+			/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+require '..\..\loader.php';
+
+require 'model\user.php';
+
+require 'model\group.php';
+
+require 'model\grouptype.php';
+
+require 'model\profile.php';
+
+
+
+echo "/* Test 3 Intitialize User Object*/<br/>";
+
+$userObj=new User();
+
+$udbObj=Arity::addObject($userObj);
+
+$udbObj->removeTable();
+
+$udbObj->createTable();
+
+
+echo "/* Test 3 Intitialize Group Object*/<br/>";
+
+$groupObj= new Group();
+
+$gdbObj=Arity::addObject($groupObj);
+
+$gdbObj->removeTable();
+
+$gdbObj->createTable();
+
+
+echo "/* Test 3 Add Parent with Child Objects*/<br/>";
+
+
+$userObj=new User();
+
+$userObj->username="test";
+$userObj->password="sample";
+
+
+$grp=new Group();
+
+$grp->name="administrator";
+$grp->type_id=1;
+
+$userObj->group=$grp;
+
+$udbObj=Arity::addObject($userObj);
+
+$udbObj->save();
+
+
+echo "/* Test 3 Fetch Inserted*/<br/>";
+
+$rs=$udbObj->fetch(2)->object();
+
+var_dump($rs);
+
+echo "/* Test 3 Update Parent with Child Objects*/<br/>";
+
+
+$userObj=new User();
+
+$userObj->id=1;
+$userObj->username="best";
+$userObj->password="sample";
+
+
+$grp=new Group();
+$grp->id=1;
+$grp->name="sampple";
+$grp->type_id=1;
+
+$userObj->group=$grp;
+
+$udbObj=Arity::addObject($userObj);
+
+$udbObj->save();
+
+echo "/* Test 3 Fetch Updated*/<br/>";
+
+$rs=$udbObj->fetch(2)->object();
+
+var_dump($rs);
+			</pre>
+			
+			<h2>
+				<a id="tutorial4" href="#___top">tutorial4</a>
+			</h2>
+			<p>Tutorial 4 contains all the general features of Arity.</p>
+			
+			
+			<h2>
+				<a id="tutorial5" href="#___top">tutorial5</a>
+			</h2>
+			<p>Tutorial 5 contains all the general features of Arity.</p>
+			<pre>
+			require '..\..\loader.php';
+
+require 'model\sample.php';
+
+
+echo "/* Tutorial 5: Intitialize Arity Simple Persistent Object*/<br/>";
 
 
 echo "/* Create PHP Object*/<br/>";
@@ -1029,31 +1301,9 @@ echo "/*Drop Persistent Object Table"."<br/>";;
 
 
 $dbObj->removeTable();
-
-
+			
 			
 			</pre>
-			<h2>
-				<a id="tutorial1" href="#___top">tutorial1</a>
-			</h2>
-			<p>Tutorial 1: Intitialize Arity Simple Persistent Object.</p>
-			<h2>
-				<a id="tutorial2" href="#___top">tutorial2</a>
-			</h2>
-			<p>Test 2 Intitialize User Object.</p>
-			<h2>
-				<a id="tutorial3" href="#___top">tutorial3</a>
-			</h2>
-			<p>Tutorial 3 contains all the general features of Arity.</p>
-			<h2>
-				<a id="tutorial4" href="#___top">tutorial4</a>
-			</h2>
-			<p>Tutorial 4 contains all the general features of Arity.</p>
-			<h2>
-				<a id="tutorial5" href="#___top">tutorial5</a>
-			</h2>
-			<p>Tutorial 5 contains all the general features of Arity.</p>
-
 		</div>
 	</div>
 </body>

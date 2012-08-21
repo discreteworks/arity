@@ -26,13 +26,13 @@ class Reference extends Field {
     
     public $cascade;
     
-    public $role;
+    public $parent;
    
    /**
     * 
     * 
     */
-   public function  __construct($fieldName,$referedTable=null,$referedFieldName=null,$map=null,$role=false,$onDelete='SET NULL') {
+   public function  __construct($fieldName,$referedTable=null,$referedFieldName=null,$map=null,$parent=ARITY_CHILD,$onDelete='SET NULL') {
       
 
       $this->reference=$referedTable;
@@ -43,7 +43,7 @@ class Reference extends Field {
       
       $this->onDelete=$onDelete;
       
-      $this->role=$role;
+      $this->parent=$parent;
 
       parent::__construct($this, $fieldName);
 
@@ -90,7 +90,7 @@ class Reference extends Field {
     
     public function isParent(){
     	
-    	$this->role=ARITY_PARENT;
+    	$this->parent=ARITY_PARENT;
     	
     	return $this;
     	
@@ -98,7 +98,7 @@ class Reference extends Field {
     
     public function isChild(){
     	 
-    	$this->role=ARITY_CHILD;
+    	$this->parent=ARITY_CHILD;
     	 
     	return $this;
     	 

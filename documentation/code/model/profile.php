@@ -35,7 +35,7 @@ class Profile{
 	   
        self::$meta->user_id= new Type('user_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
 	  
-	   self::$meta->user= new Reference('user_id','testuser','id',ARITY_11);
+	   self::$meta->user= new Reference('user_id','user','id',ARITY_11);
 	   
 
     }

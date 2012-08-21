@@ -38,9 +38,9 @@ class Group{
 	   
        self::$meta->type_id= new Type('type_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
 	   
-	   self::$meta->grouptype= new Reference('type_id','testgrouptype','id',ARITY_1M);
+	   self::$meta->grouptype= new Reference('type_id','grouptype','id',ARITY_1M);
 	   
-	   self::$meta->user= new Reference('id','testuser','group_id',ARITY_1M);
+	   self::$meta->user= new Reference('id','user','group_id',ARITY_1M,ARITY_PARENT);
 	   
 
     }

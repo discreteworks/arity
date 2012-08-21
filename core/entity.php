@@ -122,7 +122,7 @@ class Entity {
 	 */
 
 	public function select($objColumn=null) {
-		
+
 		echo $objColumn;
 
 		$this->provider->setSelect($objColumn);
@@ -130,91 +130,91 @@ class Entity {
 		return $this;
 
 	}
-	
+
 	/**
-	* sum of table column
-	* @param String Entities names to load
-	* @return Object
-	*/
+	 * sum of table column
+	 * @param String Entities names to load
+	 * @return Object
+	 */
 	public function sum($objColumn) {
-	
+
 		$this->provider->setSelect($objColumn,ARITY_SUM);
-	
+
 		return $this;
-	
+
 	}
-	
+
 	/**
-	* sum of table column
-	* @param String Entities names to load
-	* @return Object
-	*/
-	
+	 * sum of table column
+	 * @param String Entities names to load
+	 * @return Object
+	 */
+
 	public function avg($objColumn) {
-	
+
 		$this->provider->setSelect($objColumn,ARITY_AVG);
-	
+
 		return $this;
-	
+
 	}
-	
+
 	/**
-	* sum of table column
-	* @param String Entities names to load
-	* @return Object
-	*/
-	
+	 * sum of table column
+	 * @param String Entities names to load
+	 * @return Object
+	 */
+
 	public function min($objColumn) {
-	
+
 		$this->provider->setSelect($objColumn,ARITY_MIN);
-	
+
 		return $this;
-	
+
 	}
-	
+
 	/**
-	* sum of table column
-	* @param String Entities names to load
-	* @return Object
-	*/
-	
+	 * sum of table column
+	 * @param String Entities names to load
+	 * @return Object
+	 */
+
 	public function max($objColumn) {
-	
+
 		$this->provider->setSelect($objColumn,ARITY_MAX);
-	
+
 		return $this;
-	
+
 	}
-	
-	
+
+
 	/**
-	* Having conditions applied before compilation
-	* @return Object Entitydecorator.
-	*/
+	 * Having conditions applied before compilation
+	 * @return Object Entitydecorator.
+	 */
 	public function having($args,$type=ARITY_AND,$compare=ARITY_EQ) {
-	
-		
-			if(is_array($args)) {
-	
-				$filter=$this->provider->setHavingCondition($args,$type,$compare);
-			}
+
+
+		if(is_array($args)) {
+
+			$filter=$this->provider->setHavingCondition($args,$type,$compare);
+		}
 			
-	
+
 		return $this;
-	
-	
+
+
 	}
-	
+
 	/**
 	 * Group by
 	 */
 	public function groupBy($column) {
-	
+
 		$this->provider->setGroupBy($column);
-	
+
 		return $this;
-	
-	
+
+
 	}
 
 	/**
@@ -235,7 +235,7 @@ class Entity {
 		$rows=$this->provider->
 
 		buildQuery($table,$this->obj);
-		
+
 
 
 		return $rows;
@@ -250,7 +250,7 @@ class Entity {
 	function arrayListCount($statement=null) {
 
 		$table=strtolower(get_class($this->base));
-		
+
 		if($this->obj==null){
 
 			echo "Please call the fetch method prior to count";
@@ -297,7 +297,7 @@ class Entity {
 		}
 
 		$class_name=get_class($this->base);
-		
+
 		$rows=$this->
 		provider->
 		buildQuery($table,$this->obj);
@@ -377,13 +377,14 @@ class Entity {
 			$this->provider->beginTransaction();
 		}
 
-		$this->saveObject();
+		$obj= $this->saveObject();
 
 		if(TRANSACTIONAL){
-
+		
 			$this->provider->endTransaction();
 		}
-
+		return $obj;
+		
 	}
 
 	private function saveObject($obj=null) {
@@ -392,16 +393,18 @@ class Entity {
 
 		if(isset($obj)) {
 
-			if(is_null($obj->$id))
+			if(is_null($obj->$id)){
 
-			$this->insert($obj);
+				$this->insert($obj);
+			}
+			else {
+				$this->update($obj);
+			}
 
-			else
-			$this->update($obj);
-
-			return $obj->$id;
+			return $obj;
 		}
 		else {
+			
 
 			if(is_null($this->base->$id))
 
@@ -411,7 +414,7 @@ class Entity {
 
 			$this->update($this->base);
 
-			return $this->base->$id;
+			return $this->base;
 		}
 	}
 
@@ -422,17 +425,23 @@ class Entity {
 	 */
 	private function insert($obj) {
 
+
+
 		$id= ARITY_IDENTITY;
 
 		$attributes=get_object_vars($obj);
 
 		$table=strtolower(get_class($obj));
 
+
+
 		$objectArray=array();
 
 		if(count( $attributes) == 0) return false;
 
 		foreach($attributes as $k => $v) {
+
+
 			if($v==null) {
 
 				unset ($attributes[$k]);
@@ -453,9 +462,12 @@ class Entity {
 			}
 			elseif(is_object($attributes[$k])) {
 
+
 				if(!$obj::$meta->$k->parent){
 
-					$out=$this->save($attributes[$k]);
+
+
+					$out=$this->saveObject($attributes[$k]);
 
 					if($out)
 					{
@@ -464,6 +476,7 @@ class Entity {
 						$myField=$obj::$meta->$k->referenceField;
 
 						$attributes[$referedField]=$out->$myField;
+						
 
 					}
 				}
@@ -580,7 +593,7 @@ class Entity {
 
 				foreach($attrib[$k] as $item) {
 
-					$this->save($item);
+					$this->saveObject($item);
 				}
 
 				unset($attrib[$k]);
@@ -589,7 +602,7 @@ class Entity {
 
 				if(!$obj::$meta->$k->parent){
 
-					$out=$this->save($attrib[$k]);
+					$out=$this->saveObject($attrib[$k]);
 
 					if($out)
 					{
@@ -788,7 +801,7 @@ class Entity {
 					if($condition!=NULL) {
 
 
-						if($resultset[$key][$name][$referenceField]==$condition[key($condition)]) {
+						if(@$resultset[$key][$name][$referenceField]==$condition[key($condition)]) {
 
 							$c->$vkey=$resultset[$key][$name][$vkey];
 
@@ -823,7 +836,8 @@ class Entity {
 
 					if($c::$meta->$vkey->map==ARITY_11&& (in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
 
-						$cond1=array($id=>$resultset[$key][$name][$vkey]);
+
+						$cond1=array($id=>@$resultset[$key][$name][$vkey]);
 
 						$ores=$this->mapping(new $vkey(), $resultset,$cond1);
 

@@ -7,7 +7,14 @@
 
 require '..\..\loader.php';
 
-require 'model\sample.php';
+require 'model\user.php';
+
+require 'model\group.php';
+
+require 'model\grouptype.php';
+
+require 'model\profile.php';
+
 
 
 echo "/* Test 3 Intitialize User Object*/<br/>";
@@ -43,7 +50,7 @@ $userObj->password="sample";
 
 $grp=new Group();
 
-$grp->name=2;
+$grp->name="administrator";
 $grp->type_id=1;
 
 $userObj->group=$grp;
@@ -53,18 +60,24 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 4 Update Parent with Child Objects*/<br/>";
+echo "/* Test 3 Fetch Inserted*/<br/>";
+
+$rs=$udbObj->fetch(2)->object();
+
+var_dump($rs);
+
+echo "/* Test 3 Update Parent with Child Objects*/<br/>";
 
 
 $userObj=new User();
 
-$userObj->id=14;
+$userObj->id=1;
 $userObj->username="best";
 $userObj->password="sample";
 
 
 $grp=new Group();
-$grp->id=17;
+$grp->id=1;
 $grp->name="sampple";
 $grp->type_id=1;
 
@@ -74,10 +87,11 @@ $udbObj=Arity::addObject($userObj);
 
 $udbObj->save();
 
+echo "/* Test 3 Fetch Updated*/<br/>";
 
+$rs=$udbObj->fetch(2)->object();
 
-
-
+var_dump($rs);
 
 
 ?>
