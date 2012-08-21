@@ -536,19 +536,19 @@ class Pgsql extends Provider {
 	public function setSelect($objColumn,$operator=null)
 	{
 		$selected= "";
-
-		if(isset($column)){
+		
+		if(isset($objColumn)){
 				
-			$objColumnEx=explode(".", $column);
+			$objColumnEx=explode(".", $objColumn);
 				
-			if(count($objColumn)>1){
+			if(count($objColumnEx)>1){
 
-				$selected= " \"".$objColumn[0]."\".".$objColumn[1];
+				$selected= " \"".$objColumnEx[0]."\".".$objColumnEx[1];
 
 			}
 			else{
 
-				$selected= " \"".$objColumn[0]."\".* ";
+				$selected= " \"".$objColumnEx[0]."\".* ";
 			}
 		}
 
@@ -558,8 +558,9 @@ class Pgsql extends Provider {
 
 		}
 
-
+		
 		$this->load[]=$selected;
+		var_dump($this->load);
 	}
 
 
