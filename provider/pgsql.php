@@ -168,7 +168,7 @@ class Pgsql extends Provider {
 
 	public function truncate($table){
 
-		echo $sql="DELETE FROM \"".$table."\"";
+		$sql="DELETE FROM \"".$table."\"";
 			
 		$rs=$this->execute($sql);
 
@@ -509,7 +509,7 @@ class Pgsql extends Provider {
 	}
 
 	
-	public function setGroupBy($args){
+	public function setGroupBy($column){
 	
 		$selected= "";
 		
@@ -517,14 +517,14 @@ class Pgsql extends Provider {
 		
 			$objColumnEx=explode(".", $column);
 		
-			if(count($objColumn)>1){
+			if(count($objColumnEx)>1){
 		
-				$selected= " \"".$objColumn[0]."\".".$objColumn[1];
+				$selected= " \"".$objColumnEx[0]."\".".$objColumnEx[1];
 		
 			}
 			else{
 		
-				$selected= $objColumn[0];
+				$selected=$objColumnEx[0];
 			}
 		}
 		
@@ -560,7 +560,7 @@ class Pgsql extends Provider {
 
 		
 		$this->load[]=$selected;
-		var_dump($this->load);
+		
 	}
 
 
@@ -600,7 +600,7 @@ class Pgsql extends Provider {
 
 		if(count($this->groupByItem)>0){
 
-			var_dump($this->groupByItem);
+			
 			$query.=" GROUP BY ".implode(",",$this->groupByItem)." \n";
 
 		}
@@ -620,8 +620,7 @@ class Pgsql extends Provider {
 
 		$query.=" ".$this->limit;
 
-		echo $query;
-
+	
 		//Clear joins
 
 		$this->load=array();
