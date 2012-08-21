@@ -13,7 +13,7 @@
 		<div class="search-bar" style="position: absolute; top: 50px;">
 			<strong> Table of content </strong>
 			<ul>
-				<li><strong><a href="#Entity">Entity</a></strong>
+				<li><strong><a href="#addObject">addObject</a></strong>
 					<ul>
 						<li><a href="#createTable">createTable</a></li>
 						<li><a href="#removeTable">removeTable</a></li>
@@ -47,7 +47,7 @@
 				<li><a href="#CONFIG">CONFIG</a>
 					<ul>
 						<li><a href="#QUERY_DEBUG">QUERY_DEBUG</a></li>
-						<li><a href="#ARITY_IDENTITY">ARITY_IDENTITY</a></li>
+						<li><a href="#ARITY_IDaddObject">ARITY_IDaddObject</a></li>
 						<li><a href="#ARITY_NULL">ARITY_NULL</a></li>
 						<li><a href="#ARITY_EMPTY">ARITY_EMPTY</a></li>
 					</ul></li>
@@ -83,12 +83,12 @@
 					<ul>
 						<li><a href="#Arity">Arity</a>
 							<ul>
-								<li><a href="#entity">entity</a></li>
-								<li><a href="#native">native</a></li>
+								<li><a href="#addObject">addObject</a></li>
+								<li><a href="#provider">native</a></li>
 							</ul></li>
 						<li><a href="#Base">Base</a></li>
 						<li><a href="#Db">Db</a></li>
-						<li><a href="#Entity">Entity</a>
+						<li><a href="#addObject">addObject</a>
 							<ul>
 								<li><a href="#createTable">createTable</a></li>
 								<li><a href="#removeTable">removeTable</a></li>
@@ -150,14 +150,14 @@
 			</pre>
 
 			<h2>
-				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
+				<a href="#___top" id="ARITY_IDaddObject">ARITY_IDaddObject</a>
 			</h2>
-			<p>Located in the conf.inc.php.Sets the identity field for the
-				object. This identity field is used for object to provider mapping.
-				In most case identity field is the primary key of the provider
+			<p>Located in the conf.inc.php.Sets the idaddObject field for the
+				object. This idaddObject field is used for object to provider mapping.
+				In most case idaddObject field is the primary key of the provider
 				mapped table.</p>
 			<pre>
-			define("ARITY_IDENTITY","id"); //Change to your choice of table identity field
+			define("ARITY_IDaddObject","id"); //Change to your choice of table idaddObject field
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_NULL">ARITY_NULL</a>
@@ -328,14 +328,14 @@
 			<h2>
 				<a href="#___top" id="ARITY_PARENT">ARITY_PARENT</a>
 			</h2>
-			<p>Define a parent entity object of a relationship.</p>
+			<p>Define a parent addObject object of a relationship.</p>
 			<pre>
 					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_PARENT);
 			</pre>
 			<h2>
 				<a href="#___top" id="ARITY_CHILD">ARITY_CHILD</a>
 			</h2>
-			<p>Define a child entity object of a relationship.On for child
+			<p>Define a child addObject object of a relationship.On for child
 				objects foreign key relationships are mapped by provider from child
 				to parent.</p>
 			<pre>
@@ -380,13 +380,13 @@
 				<a id="Arity" href="#___top">Arity</a>
 
 			</h2>
-			<p>Class with static methods to instantiate the entity object.</p>
+			<p>Class with static methods to instantiate the addObject object.</p>
 			<h3>
-				<a id="entity" href="#___top">entity</a>
+				<a id="addObject" href="#___top">addObject</a>
 			</h3>
-			<p>Creates an entity object for model object for a specified
+			<p>Creates an addObject object for model object for a specified
 				provider.</p>
-			<pre>public static function entity($object,$type=DEFAULT_DB)</pre>
+			<pre>public static function addObject($object,$type=DEFAULT_DB)</pre>
 			<p>
 				$object is the instantiated Model Object.<br /> $type
 				Provider(Postgres/Mysql). Default to the provider selected in config
@@ -400,7 +400,7 @@
 			
 			#Add Object to Arity persistent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			</pre>
 			<h3>
 				<a id="native" href="#___top">native</a>
@@ -428,9 +428,9 @@
 				Includes abstract methods which define how arity communicates with
 				the provider. object.</p>
 			<h2>
-				<a id="Entity" href="#___top">Entity</a>
+				<a id="addObject" href="#___top">addObject</a>
 			</h2>
-			<p>Entity class contains all the bindings required for orm to
+			<p>addObject class contains all the bindings required for orm to
 				work. Provides set of methods to access the provider independent
 				data objects.</p>
 			<h3>
@@ -448,7 +448,7 @@
 			
 			#Add Object to Arity persistent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->createTable();
 			</pre>
@@ -462,7 +462,7 @@
 		
 			#Add Object to Arity persistent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->removeTable();
 			</pre>
@@ -475,7 +475,7 @@
 			
 			#Add Object to Arity persistent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->removeTable();
 			</pre>
@@ -490,7 +490,7 @@
 			
 			#Add Object to Arity persistent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->save();
 			</pre>
@@ -498,7 +498,7 @@
 				<a id="delete" href="#___top">delete</a>
 			</h3>
 			<p>Delete object instance in provider table with respect to the
-				ARITY IDENTITY field if set.</p>
+				ARITY IDaddObject field if set.</p>
 			<pre>
 			$testObj=new Sample();
 			
@@ -506,7 +506,7 @@
 			
 			#Add Object to Arity persistent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->delete();
 			</pre>
@@ -526,7 +526,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch();
 			</pre>
@@ -548,7 +548,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->where(array("name"=>"test"));
 			
@@ -567,7 +567,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->where(array("name"=>"test"))->object();
 			</pre>
@@ -583,7 +583,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->where(array("name"=>"test"))->object()->objectCount();
 			</pre>
@@ -597,7 +597,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->where(array("name"=>"test"))->arrayList();
 			</pre>
@@ -614,7 +614,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->where(array("name"=>"test"))->arrayListCount();
 			</pre>
@@ -632,7 +632,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->select("sample","name")->arrayList();
 			</pre>
@@ -652,7 +652,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->min("sample","id")->arrayList();
 			</pre>
@@ -672,7 +672,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->max("sample","id")->arrayList();
 			</pre>
@@ -693,7 +693,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->avg("sample","id")->arrayList();
 			</pre>
@@ -713,7 +713,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->sum("sample","id")->arrayList();
 			</pre>
@@ -731,7 +731,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->select("sample.name")->groupBy("sample.name")->arrayList();
 			</pre>
@@ -747,7 +747,7 @@
 		
 			#Add Object to Arity peristent manager
 			
-			$dbObj=Arity::entity($testObj);
+			$dbObj=Arity::addObject($testObj);
 			
 			$dbObj->fetch()->select("sample.name")->sum("sample.id")->groupBy(array("name"))->having(array("name"=>"sam"))->arrayList();
 
@@ -886,10 +886,14 @@
 			</h1>
 			<p>This tutorial is based on 5 cases. Each case solves a
 				particular problem of data persistent.</p>
+				
 			<h2>
 				<a id="tutorial0" href="#___top">tutorial0</a>
 			</h2>
 			<p>Tutorial 0 contains all the general features of Arity.</p>
+			<pre>
+			
+			</pre>
 			<h2>
 				<a id="tutorial1" href="#___top">tutorial1</a>
 			</h2>
