@@ -121,7 +121,7 @@ class Entity {
 	 * @return Object
 	 */
 
-	public function select($attribute=null) {
+	public function select($objColumn=null) {
 
 		$this->provider->setSelect($objColumn);
 
