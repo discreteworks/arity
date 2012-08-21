@@ -11,7 +11,7 @@ require '..\loader.php';
 
 $userObj=new User();
 
-$udbObj=Arity::entity($userObj);
+$udbObj=Arity::addObject($userObj);
 
 $udbObj->removeTable();
 
@@ -19,7 +19,7 @@ $udbObj->createTable();
 
 $pro=new Profile();
 
-$pdbObj=Arity::entity($pro);
+$pdbObj=Arity::addObject($pro);
 
 $pdbObj->removeTable();
 
@@ -42,7 +42,7 @@ $pArray[]=$p2;
 
 $userObj->profile=$pArray;
 
-$udbObj=Arity::entity($userObj);
+$udbObj=Arity::addObject($userObj);
 
 $udbObj->save();
 

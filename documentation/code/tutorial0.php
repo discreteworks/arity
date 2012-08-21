@@ -9,7 +9,7 @@ require '..\..\loader.php';
 require 'model\sample.php';
 
 
-echo "/* Tutorial 1: Intitialize Arity Simple Persistent Object*/<br/>";
+echo "/* Case 0: Intitialize Arity Simple Persistent Object*/<br/>";
 
 
 echo "/* Create PHP Object*/<br/>";
@@ -44,6 +44,10 @@ echo "Fetch Persisted PHP Object from DB"."<br/>";
 $rs=$dbObj->fetch()->object();
 
 var_dump($rs);
+
+
+
+
 
 echo "Clean Simple Object Entries"."<br/>";;
 

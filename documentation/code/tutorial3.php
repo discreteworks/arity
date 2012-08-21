@@ -14,7 +14,7 @@ echo "/* Test 3 Intitialize User Object*/<br/>";
 
 $userObj=new User();
 
-$udbObj=Arity::entity($userObj);
+$udbObj=Arity::addObject($userObj);
 
 $udbObj->removeTable();
 
@@ -25,7 +25,7 @@ echo "/* Test 3 Intitialize Group Object*/<br/>";
 
 $groupObj= new Group();
 
-$gdbObj=Arity::entity($groupObj);
+$gdbObj=Arity::addObject($groupObj);
 
 $gdbObj->removeTable();
 
@@ -48,7 +48,7 @@ $grp->type_id=1;
 
 $userObj->group=$grp;
 
-$udbObj=Arity::entity($userObj);
+$udbObj=Arity::addObject($userObj);
 
 $udbObj->save();
 
@@ -70,7 +70,7 @@ $grp->type_id=1;
 
 $userObj->group=$grp;
 
-$udbObj=Arity::entity($userObj);
+$udbObj=Arity::addObject($userObj);
 
 $udbObj->save();
 

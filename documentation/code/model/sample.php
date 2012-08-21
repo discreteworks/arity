@@ -20,7 +20,10 @@ class Sample {
 	public static $meta;
 
 	public $id;
+	
 	public $name;
+	
+	public $score;
 
 	 
 	 
@@ -29,6 +32,8 @@ class Sample {
 		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 		 
 		self::$meta->name= new Type('name',ARITY_VARCHAR,50);
+		
+		self::$meta->score= Type::create('score',ARITY_INT,11);
 
 	
 		
