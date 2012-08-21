@@ -17,7 +17,12 @@
  */
 class Arity {
 
-    public static function native($type) {
+	/**
+	* Access provider methods
+	*
+	*/
+	
+    public static function provider($type) {
 
         if(empty($type)) {
 
@@ -30,8 +35,11 @@ class Arity {
         }
 
     }
-    
-    public static function entity($object,$type=DEFAULT_PROVIDER) {
+   /**
+    * Adds object to Arity Context
+    * 
+    */
+    public static function addObject($object,$type=DEFAULT_PROVIDER) {
 
         $db=$type::getProvider($type);
 
