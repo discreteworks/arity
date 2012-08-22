@@ -35,7 +35,7 @@ class Sample {
 
 Step 2: Access the Arity Context methods
 
-require '..\..\loader.php';
+require 'loader.php';
 
 
 echo "/* Create PHP Object*/<br/>";
