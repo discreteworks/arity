@@ -34,6 +34,15 @@
 						<li><a href="#groupBy">groupBy</a></li>
 						<li><a href="#having">having</a></li>
 					</ul></li>
+				<li><strong><a href="#tutorial">Tutorial</a></strong>
+					<ul>
+						<li><a href="#tutorial0">Tutorial 0</a></li>
+						<li><a href="#tutorial1">Tutorial 1</a></li>
+						<li><a href="#tutorial2">Tutorial 2</a></li>
+						<li><a href="#tutorial3">Tutorial 3</a></li>
+						<li><a href="#tutorial4">Tutorial 4</a></li>
+						<li><a href="#tutorial5">Tutorial 5</a></li>
+					</ul></li>
 			</ul>
 		</div>
 		<a name="___top"></a>
@@ -78,6 +87,22 @@
 						<li><a href="#ARITY_11">ARITY_11</a></li>
 						<li><a href="#ARITY_1M">ARITY_1M</a></li>
 					</ul></li>
+				<li><a href="#LOGIC">LOGIC OPERATORS</a>
+					<ul>
+						<li><a href="#ARITY_AND">ARITY_AND</a></li>
+						<li><a href="#ARITY_OR">ARITY_OR</a></li>
+						<li><a href="#ARITY_EQ">ARITY_EQ</a></li>
+						<li><a href="#ARITY_NEQ">ARITY_NEQ</a></li>
+						<li><a href="#ARITY_GTEQ">ARITY_GTEQ</a></li>
+						<li><a href="#ARITY_LTEQ">ARITY_LTEQ</a></li>
+					</ul></li>	
+				<li><a href="#LOGIC">AGREGATE OPERATORS</a>
+					<ul>
+						<li><a href="#ARITY_MAX">ARITY_MAX</a></li>
+						<li><a href="#ARITY_MIN">ARITY_MIN</a></li>
+						<li><a href="#ARITY_AVG">ARITY_AVG</a></li>
+						<li><a href="#ARITY_SUM">ARITY_SUM</a></li>
+					</ul></li>	
 
 				<li><a href="#CORE">CORE</a>
 					<ul>
@@ -153,10 +178,10 @@
 			<h2>
 				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
 			</h2>
-			<p>Located in the conf.inc.php.Sets the ARITY_IDENTITY field for the
-				object. ARITY_IDENTITY field is used for object to provider mapping.
-				In most case ARITY_IDENTITY field is the primary key of the provider
-				mapped table.</p>
+			<p>Located in the conf.inc.php.Sets the ARITY_IDENTITY field for
+				the object. ARITY_IDENTITY field is used for object to provider
+				mapping. In most case ARITY_IDENTITY field is the primary key of the
+				provider mapped table.</p>
 			<pre>
 			define("ARITY_IDENTITY","id"); //Change to your choice of table ARITY_IDENTITY field
 			</pre>
@@ -232,7 +257,7 @@
 				Type identifier to map object attributes with decimal datatype. The
 				implementation may vary to corresponding provider. The size input
 				parameter for <a href="#Type">Type</a> Object works as precision for
-				decimal type.
+				decimal type eg. 10,2.
 			</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_DECIMAL,10);
@@ -592,7 +617,8 @@
 			<h3>
 				<a id="arrayList" href="#___top">arrayList</a>
 			</h3>
-			<p>Return instances for provider query.Result can be combinations.</p>
+			<p>Return instances for provider query.Result can be
+				combinations.</p>
 			<pre>
 			$testObj=new Sample();
 		
@@ -725,8 +751,8 @@
 			<pre>
 			
 			</pre>
-			<p>Only abvailable for provider queries.Groups the results based on
-				the arguments.</p>
+			<p>Only abvailable for provider queries.Groups the results based
+				on the arguments.</p>
 			<pre>
 			$testObj=new Sample();
 		
@@ -765,15 +791,15 @@
 			</h2>
 			<p>Extends the Field abstract class. Create a type that can be
 				mapped to the provider table type.</p>
-			
+
 			<h3>Option 1</h3>
 			<pre>
 			self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
-			</pre>	
+			</pre>
 			<h3>Option 2</h3>
 			<pre>
 			self::$meta->id= Type::create('id',ARITY_SERIAL,11)->setDefault(ARITY_EMPTY)->required()->primary();
-			</pre>	
+			</pre>
 			<h3>
 				<a id="create" href="#___top">create</a>
 			</h3>
@@ -826,12 +852,12 @@
 			<pre>
 			self::$meta->group_id= new Type('group_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
 			self::$meta->group= new Reference('group_id','testgroup','id',ARITY_1M);
-      		</pre>	
+      		</pre>
 			<h3>Option 2</h3>
 			<pre>
 			self::$meta->group_id= Type::create('group_id',ARITY_INT,11)->setDefault(ARITY_EMPTY)->required();
 			self::$meta->group= Reference::create('group_id')->referToTable('testgroup')->referToFieldName('id')->one2many();
-			</pre>		
+			</pre>
 			<h3>
 				<a id="create" href="#___top">create</a>
 			</h3>
@@ -887,7 +913,7 @@
 			</h1>
 			<p>This tutorial is based on 5 cases. Each case solves a
 				particular problem of data persistent.</p>
-				
+
 			<h2>
 				<a id="tutorial0" href="#___top">Tutorial 0</a>
 			</h2>
@@ -898,27 +924,27 @@ require '..\..\loader.php';
 require 'model\testtype.php';
 
 
-echo "/* Case 0: Intitialize Arity Simple Persistent Object*/<br/>";
+echo "/* Case 0: Intitialize Arity Simple Persistent Object*/<br />";
 
 
-echo "/* Create PHP Object*/<br/>";
+echo "/* Create PHP Object*/<br />";
 
 $testObj=new TestType();
 
 
-echo "/* Add Object to Arity peristent manager*/<br/>";
+echo "/* Add Object to Arity peristent manager*/<br />";
 
 
 $dbObj=Arity::addObject($testObj);
 
 
-echo "Create Persistent Object Table<br/>";
+echo "Create Persistent Object Table<br />";
 
 
 $dbObj->createTable();
 
 
-echo "/*Drop Persistent Object Table"."<br/>";;
+echo "/*Drop Persistent Object Table"."<br />";;
 
 
 $dbObj->removeTable();
@@ -938,43 +964,43 @@ require '..\..\loader.php';
 require 'model\sample.php';
 
 
-echo "/* Tutorial 1: Intitialize Arity Simple Persistent Object*/<br/>";
+echo "/* Tutorial 1: Intitialize Arity Simple Persistent Object*/<br />";
 
 
-echo "/* Create PHP Object*/<br/>";
+echo "/* Create PHP Object*/<br />";
 
 $testObj=new Sample();
 
-echo "Initialize Simple PHP Object"."<br/>";
+echo "Initialize Simple PHP Object"."<br />";
 
 $testObj->name="sam";
 
-echo "/* Add Object to Arity peristent manager*/<br/>";
+echo "/* Add Object to Arity peristent manager*/<br />";
 
 
 $dbObj=Arity::addObject($testObj);
 
 
-echo "Create Persistent Object Table<br/>";
+echo "Create Persistent Object Table<br />";
 
 
 $dbObj->createTable();
 
 
-echo "Save Simple Object or Persist Object"."<br/>";
+echo "Save Simple Object or Persist Object"."<br />";
 
 
 $dbObj->save();
 
 
-echo "Fetch Persisted PHP Object from DB"."<br/>";
+echo "Fetch Persisted PHP Object from DB"."<br />";
 
 
 $rs=$dbObj->fetch()->object();
 
 var_dump($rs);
 
-echo "Clean Simple Object Entries"."<br/>";;
+echo "Clean Simple Object Entries"."<br />";;
 
 $dbObj->truncateTable();
 
@@ -983,7 +1009,7 @@ $rs=$dbObj->fetch()->object();
 var_dump($rs);
 
 
-echo "Drop Persistent Object Table"."<br/>";;
+echo "Drop Persistent Object Table"."<br />";;
 
 
 $dbObj->removeTable();
@@ -1007,7 +1033,7 @@ require 'model\profile.php';
 
 
 
-echo "/* Test 2 Intitialize User Object*/<br/>";
+echo "/* Test 2 Intitialize User Object*/<br />";
 
 $userObj=new User();
 
@@ -1017,7 +1043,7 @@ $udbObj->removeTable();
 
 $udbObj->createTable();
 
-echo "/* Test 2 Intitialize Group Object*/<br/>";
+echo "/* Test 2 Intitialize Group Object*/<br />";
 
 $groupObj= new Group();
 
@@ -1028,7 +1054,7 @@ $gdbObj->removeTable();
 $gdbObj->createTable();
 
 
-echo "/* Test 2 Intitialize Group Object*/<br/>";
+echo "/* Test 2 Intitialize Group Object*/<br />";
 
 $grouptypeObj= new Grouptype();
 
@@ -1039,7 +1065,7 @@ $gtdbObj->removeTable();
 $gtdbObj->createTable();
 
 
-echo "/* Test 2 Intitialize Profile Object*/<br/>";
+echo "/* Test 2 Intitialize Profile Object*/<br />";
 
 $proObj= new Profile();
 
@@ -1050,13 +1076,13 @@ $proObj->removeTable();
 $proObj->createTable();
 
 
-echo "/* Test 2 Add Group Type */<br/>";
+echo "/* Test 2 Add Group Type */<br />";
 
 $grouptypeObj->name="admin";
 
 $type=$gtdbObj->save();
 
-echo "/* Test 2 Add Group Object*/<br/>";
+echo "/* Test 2 Add Group Object*/<br />";
 
 $groupObj->name="admin";
 $groupObj->type_id=$type->id;
@@ -1064,7 +1090,7 @@ $groupObj->type_id=$type->id;
 $grp=$gdbObj->save();
 
 
-echo "/* Test 2 Add User Object*/<br/>";
+echo "/* Test 2 Add User Object*/<br />";
 
 $userObj->username="sam";
 $userObj->password="sam";
@@ -1072,7 +1098,7 @@ $userObj->group_id=$grp->id;
 
 $udbObj->save();
 
-echo "/* Test 2 Fetch User Object*/<br/>";
+echo "/* Test 2 Fetch User Object*/<br />";
 
 $rs=$gdbObj->fetch(3)->object();
 
@@ -1085,7 +1111,8 @@ foreach($rs as $item){
 			<h2>
 				<a id="tutorial3" href="#___top">Tutorial 3</a>
 			</h2>
-			<p>Tutorial 3 contains multi object save child parent features of Arity.</p>
+			<p>Tutorial 3 contains multi object save child parent features of
+				Arity.</p>
 			<pre>
 require '..\..\loader.php';
 
@@ -1099,7 +1126,7 @@ require 'model\profile.php';
 
 
 
-echo "/* Test 3 Intitialize User Object*/<br/>";
+echo "/* Test 3 Intitialize User Object*/<br />";
 
 $userObj=new User();
 
@@ -1110,7 +1137,7 @@ $udbObj->removeTable();
 $udbObj->createTable();
 
 
-echo "/* Test 3 Intitialize Group Object*/<br/>";
+echo "/* Test 3 Intitialize Group Object*/<br />";
 
 $groupObj= new Group();
 
@@ -1121,7 +1148,7 @@ $gdbObj->removeTable();
 $gdbObj->createTable();
 
 
-echo "/* Test 3 Add Parent with Child Objects*/<br/>";
+echo "/* Test 3 Add Parent with Child Objects*/<br />";
 
 
 $userObj=new User();
@@ -1142,13 +1169,13 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 3 Fetch Inserted*/<br/>";
+echo "/* Test 3 Fetch Inserted*/<br />";
 
 $rs=$udbObj->fetch(2)->object();
 
 var_dump($rs);
 
-echo "/* Test 3 Update Parent with Child Objects*/<br/>";
+echo "/* Test 3 Update Parent with Child Objects*/<br />";
 
 
 $userObj=new User();
@@ -1169,17 +1196,18 @@ $udbObj=Arity::addObject($userObj);
 
 $udbObj->save();
 
-echo "/* Test 3 Fetch Updated*/<br/>";
+echo "/* Test 3 Fetch Updated*/<br />";
 
 $rs=$udbObj->fetch(2)->object();
 
 var_dump($rs);
 			</pre>
-			
+
 			<h2>
 				<a id="tutorial4" href="#___top">Tutorial 4</a>
 			</h2>
-			<p>Tutorial 4 contains all multi objects save features parent child of Arity.</p>
+			<p>Tutorial 4 contains all multi objects save features parent
+				child of Arity.</p>
 			<pre>
 			
 require '..\..\loader.php';
@@ -1193,7 +1221,7 @@ require 'model\grouptype.php';
 require 'model\profile.php';
 
 
-echo "/* Test 4 Intitialize User Object*/<br/>";
+echo "/* Test 4 Intitialize User Object*/<br />";
 
 
 $userObj=new User();
@@ -1205,7 +1233,7 @@ $udbObj->removeTable();
 $udbObj->createTable();
 
 
-echo "/* Test 4 Intitialize User Object*/<br/>";
+echo "/* Test 4 Intitialize User Object*/<br />";
 
 $pro=new Profile();
 
@@ -1216,7 +1244,7 @@ $pdbObj->removeTable();
 $pdbObj->createTable();
 
 
-echo "/* Test 4 Add Parent with Child Objects*/<br/>";
+echo "/* Test 4 Add Parent with Child Objects*/<br />";
 
 $userObj->username="best";
 $userObj->password="sample";
@@ -1240,7 +1268,7 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 4 Fetch Inserted*/<br/>";
+echo "/* Test 4 Fetch Inserted*/<br />";
 
 $rs=$udbObj->fetch(2)->object();
 
@@ -1248,7 +1276,7 @@ var_dump($rs);
 
 			
 			</pre>
-			
+
 			<h2>
 				<a id="tutorial5" href="#___top">Tutorial 5</a>
 			</h2>
@@ -1259,27 +1287,27 @@ require '..\..\loader.php';
 require 'model\sample.php';
 
 
-echo "/* Tutorial 5: Intitialize Arity Simple Persistent Object*/<br/>";
+echo "/* Tutorial 5: Intitialize Arity Simple Persistent Object*/<br />";
 
 
-echo "/* Create PHP Object*/<br/>";
+echo "/* Create PHP Object*/<br />";
 
 $testObj1=new Sample();
 
 
-echo "/* Add Object to Arity peristent manager*/<br/>";
+echo "/* Add Object to Arity peristent manager*/<br />";
 
 
 $dbObj=Arity::addObject($testObj1);
 
 
-echo "Create Persistent Object Table<br/>";
+echo "Create Persistent Object Table<br />";
 
 
 $dbObj->createTable();
 
 
-echo "Initialize 1 Simple PHP Object"."<br/>";
+echo "Initialize 1 Simple PHP Object"."<br />";
 
 
 $testObj1->name="sample1";
@@ -1288,101 +1316,101 @@ $testObj1->score="10";
 $dbObj->save();
 
 
-echo "/* Add Object 2 to Arity peristent manager*/<br/>";
+echo "/* Add Object 2 to Arity peristent manager*/<br />";
 
 $testObj2=new Sample();
 
 $dbObj=Arity::addObject($testObj2);
 
-echo "Initialize 2 Simple PHP Object"."<br/>";
+echo "Initialize 2 Simple PHP Object"."<br />";
 
 $testObj2->name="sample2";
 $testObj2->score="20";
 
-echo "Persist PHP Object from DB"."<br/>";
+echo "Persist PHP Object from DB"."<br />";
 
 $dbObj->save();
 
 
-echo "/* Add Object 3 to Arity peristent manager*/<br/>";
+echo "/* Add Object 3 to Arity peristent manager*/<br />";
 
 $testObj3= new Sample();
 
 $dbObj=Arity::addObject($testObj3);
 
-echo "/*Initialize 3 Simple PHP Object*/"."<br/>";
+echo "/*Initialize 3 Simple PHP Object*/"."<br />";
 
 
 $testObj3->name="sample2";
 $testObj3->score="30";
 
-echo "/*Persist PHP Object from DB*/"."<br/>";
+echo "/*Persist PHP Object from DB*/"."<br />";
 
 $dbObj->save();
 
-echo "/*Fetch Persisted PHP Object from DB*/"."<br/>";
+echo "/*Fetch Persisted PHP Object from DB*/"."<br />";
 
 $rs=$dbObj->fetch()->object();
 
 var_dump($rs);
 
-echo "/*Apply the where condition*/"."<br/>";
+echo "/*Apply the where condition*/"."<br />";
 
 $rs=$dbObj->fetch()->where(array("name"=>"sam"))->object();
 
 var_dump($rs);
 
-echo "/*arrayList resultset methods*/"."<br/>";
+echo "/*arrayList resultset methods*/"."<br />";
 
-echo "/*arrayList Resultset select method*/"."<br/>";
+echo "/*arrayList Resultset select method*/"."<br />";
 
 $rs=$dbObj->fetch()->select("sample.name")->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset min method*/"."<br/>";
+echo "/*arrayList Resultset min method*/"."<br />";
 
 $rs=$dbObj->fetch()->min('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "arrayList Resultset max method*/"."<br/>";
+echo "arrayList Resultset max method*/"."<br />";
 
 $rs=$dbObj->fetch()->max('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset avg method*/"."<br/>";
+echo "/*arrayList Resultset avg method*/"."<br />";
 
 $rs=$dbObj->fetch()->avg('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset sum method*/"."<br/>";
+echo "/*arrayList Resultset sum method*/"."<br />";
 
 $rs=$dbObj->fetch()->sum('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset groupBy method*/"."<br/>";
+echo "/*arrayList Resultset groupBy method*/"."<br />";
 
 $rs=$dbObj->fetch()->select('sample.name')->sum('sample.score')->groupBy('sample.name')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset sum groupBy having method*/"."<br/>";
+echo "/*arrayList Resultset sum groupBy having method*/"."<br />";
 
 $rs=$dbObj->fetch()->select('sample.name')->sum('sample.score')->groupBy('sample.name')->having(array('name'=>'sample2'))->arrayList();
 
 var_dump($rs);
 
 
-echo "/*Clean Simple Object Entries"."<br/>";;
+echo "/*Clean Simple Object Entries"."<br />";;
 
 $dbObj->truncateTable();
 
 
-echo "/*Drop Persistent Object Table"."<br/>";;
+echo "/*Drop Persistent Object Table"."<br />";;
 
 
 $dbObj->removeTable();

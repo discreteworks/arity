@@ -104,7 +104,6 @@ define("ARITY_PARENT",true);
 define("ARITY_CHILD",false);
 
 
-
 //Agregate Operators
 
 define("ARITY_MAX","MAX");
@@ -114,6 +113,7 @@ define("ARITY_MIN","MIN");
 define("ARITY_AVG","AVG");
 
 define("ARITY_SUM","SUM");
+
 
 //Logic Operators
 
