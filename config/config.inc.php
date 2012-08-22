@@ -8,8 +8,8 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @package		Arity
- * @author		Shahrukh Hussain
- * @copyright           Copyright (c) 2011 - 2012, Abideen Business Consulting.
+ * @author		codendev
+ * @copyright           Copyright (c) 2011 - 2012, CodenDev.
  * @license		http://www.gnu.org/licenses/gpl.txt
  * @link		http://arity.abideen.com
  * @since		Version 1.0
