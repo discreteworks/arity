@@ -364,7 +364,12 @@ class Pgsql extends Provider {
 
 				$type=" INTEGER ";
 				break;
+					
+			case ARITY_BIGINT:
 
+				$type=" BIGINT ";
+				break;
+				
 			case ARITY_SMALLINT:
 
 				$type=" SMALLINT ";
@@ -508,26 +513,26 @@ class Pgsql extends Provider {
 
 	}
 
-	
+
 	public function setGroupBy($column){
-	
+
 		$selected= "";
-		
+
 		if(isset($column)){
-		
+
 			$objColumnEx=explode(".", $column);
-		
+
 			if(count($objColumnEx)>1){
-		
+
 				$selected= " \"".$objColumnEx[0]."\".".$objColumnEx[1];
-		
+
 			}
 			else{
-		
+
 				$selected=$objColumnEx[0];
 			}
 		}
-		
+
 		$this->groupByItem[]=$selected;
 
 	}
@@ -536,11 +541,11 @@ class Pgsql extends Provider {
 	public function setSelect($objColumn,$operator=null)
 	{
 		$selected= "";
-		
+
 		if(isset($objColumn)){
-				
+
 			$objColumnEx=explode(".", $objColumn);
-				
+
 			if(count($objColumnEx)>1){
 
 				$selected= " \"".$objColumnEx[0]."\".".$objColumnEx[1];
@@ -558,9 +563,9 @@ class Pgsql extends Provider {
 
 		}
 
-		
+
 		$this->load[]=$selected;
-		
+
 	}
 
 
@@ -600,7 +605,7 @@ class Pgsql extends Provider {
 
 		if(count($this->groupByItem)>0){
 
-			
+				
 			$query.=" GROUP BY ".implode(",",$this->groupByItem)." \n";
 
 		}
@@ -620,9 +625,9 @@ class Pgsql extends Provider {
 
 		$query.=" ".$this->limit;
 
-	
+
 		//Clear joins
-		
+
 		$this->join=array();
 
 		$this->load=array();
@@ -686,7 +691,7 @@ class Pgsql extends Provider {
 			$the_db = $this->DB;
 
 			$this->queries[] = $sql;
-			
+				
 			$this->result = pg_query($the_db,$sql) or $this->notify();
 
 

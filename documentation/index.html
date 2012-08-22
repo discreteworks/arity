@@ -116,6 +116,7 @@
 					</ul></li>
 				<li><a href="#TUTORIALS">TUTORIALS</a>
 					<ul>
+						<li><a href="#tutorial0">Tutorial 0</a></li>
 						<li><a href="#tutorial1">Tutorial 1</a></li>
 						<li><a href="#tutorial2">Tutorial 2</a></li>
 						<li><a href="#tutorial3">Tutorial 3</a></li>
@@ -888,14 +889,42 @@
 				particular problem of data persistent.</p>
 				
 			<h2>
-				<a id="tutorial0" href="#___top">tutorial0</a>
+				<a id="tutorial0" href="#___top">Tutorial 0</a>
 			</h2>
-			<p>Tutorial 0 contains all the general features of Arity.</p>
+			<p>Tutorial 0 contains available types of Arity.</p>
 			<pre>
-			
+require '..\..\loader.php';
+
+require 'model\testtype.php';
+
+
+echo "/* Case 0: Intitialize Arity Simple Persistent Object*/<br/>";
+
+
+echo "/* Create PHP Object*/<br/>";
+
+$testObj=new TestType();
+
+
+echo "/* Add Object to Arity peristent manager*/<br/>";
+
+
+$dbObj=Arity::addObject($testObj);
+
+
+echo "Create Persistent Object Table<br/>";
+
+
+$dbObj->createTable();
+
+
+echo "/*Drop Persistent Object Table"."<br/>";;
+
+
+$dbObj->removeTable();
 			</pre>
 			<h2>
-				<a id="tutorial1" href="#___top">tutorial1</a>
+				<a id="tutorial1" href="#___top">Tutorial 1</a>
 			</h2>
 			<p>Tutorial 1: Intitialize Arity Simple Persistent Object.</p>
 			<pre>
@@ -961,16 +990,11 @@ $dbObj->removeTable();
 			
 			</pre>
 			<h2>
-				<a id="tutorial2" href="#___top">tutorial2</a>
+				<a id="tutorial2" href="#___top">Tutorial 2</a>
 			</h2>
-			<p>Test 2 Intitialize User Object.</p>
+			<p>Test 2 Intitialize and Save User,Profile and Group Object.</p>
 			<pre>
-			/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
+		
 require '..\..\loader.php';
 
 require 'model\user.php';
@@ -1059,16 +1083,10 @@ foreach($rs as $item){
 }
 			</pre>
 			<h2>
-				<a id="tutorial3" href="#___top">tutorial3</a>
+				<a id="tutorial3" href="#___top">Tutorial 3</a>
 			</h2>
-			<p>Tutorial 3 contains all the general features of Arity.</p>
+			<p>Tutorial 3 contains multi object save child parent features of Arity.</p>
 			<pre>
-			/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 require '..\..\loader.php';
 
 require 'model\user.php';
@@ -1159,17 +1177,84 @@ var_dump($rs);
 			</pre>
 			
 			<h2>
-				<a id="tutorial4" href="#___top">tutorial4</a>
+				<a id="tutorial4" href="#___top">Tutorial 4</a>
 			</h2>
-			<p>Tutorial 4 contains all the general features of Arity.</p>
+			<p>Tutorial 4 contains all multi objects save features parent child of Arity.</p>
+			<pre>
 			
+require '..\..\loader.php';
+
+require 'model\user.php';
+
+require 'model\group.php';
+
+require 'model\grouptype.php';
+
+require 'model\profile.php';
+
+
+echo "/* Test 4 Intitialize User Object*/<br/>";
+
+
+$userObj=new User();
+
+$udbObj=Arity::addObject($userObj);
+
+$udbObj->removeTable();
+
+$udbObj->createTable();
+
+
+echo "/* Test 4 Intitialize User Object*/<br/>";
+
+$pro=new Profile();
+
+$pdbObj=Arity::addObject($pro);
+
+$pdbObj->removeTable();
+
+$pdbObj->createTable();
+
+
+echo "/* Test 4 Add Parent with Child Objects*/<br/>";
+
+$userObj->username="best";
+$userObj->password="sample";
+$userObj->group_id=1;
+
+
+$pro->address="sam";
+
+$p2=new Profile();
+
+$p2->address="new address";
+
+$pArray[]=$pro;
+$pArray[]=$p2;
+
+
+$userObj->profile=$pArray;
+
+$udbObj=Arity::addObject($userObj);
+
+$udbObj->save();
+
+
+echo "/* Test 4 Fetch Inserted*/<br/>";
+
+$rs=$udbObj->fetch(2)->object();
+
+var_dump($rs);
+
+			
+			</pre>
 			
 			<h2>
-				<a id="tutorial5" href="#___top">tutorial5</a>
+				<a id="tutorial5" href="#___top">Tutorial 5</a>
 			</h2>
 			<p>Tutorial 5 contains all the general features of Arity.</p>
 			<pre>
-			require '..\..\loader.php';
+require '..\..\loader.php';
 
 require 'model\sample.php';
 

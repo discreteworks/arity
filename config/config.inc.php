@@ -27,6 +27,7 @@ ini_set('error_reporting', E_ALL);
 
 define('ARITY_DEBUG',1);
 
+define("ARITY_TYPE","Type");
 
 
 /*********************
@@ -52,9 +53,9 @@ define("ARITY_IDENTITY","id"); //Change to your choice of table identity field
 //Types
 
 
-define("ARITY_TYPE","Type");
-
 define("ARITY_INT","INT");
+
+define("ARITY_BIGINT","BIGINT");
 
 define("ARITY_SERIAL","'SERIAL'");
 

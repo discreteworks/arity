@@ -1,10 +1,4 @@
 <?php
-/*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
-*/
-
-
 require '..\..\loader.php';
 
 require 'model\user.php';
@@ -50,7 +44,7 @@ $pro->address="sam";
 
 $p2=new Profile();
 
-$p2->address="tech";
+$p2->address="new address";
 
 $pArray[]=$pro;
 $pArray[]=$p2;

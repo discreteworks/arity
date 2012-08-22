@@ -7,12 +7,6 @@
 function __autoload($class_name) {
 
 	if (file_exists(dirname(__FILE__)."/../model/" . strtolower($class_name) . ".php")) {
-		 
-		require_once dirname(__FILE__)."/../model/" . strtolower($class_name) . ".php";
-
-	}
-	
-	if (file_exists(dirname(__FILE__)."/../model/" . strtolower($class_name) . ".php")) {
 
 		require_once dirname(__FILE__)."/../model/" . strtolower($class_name) . ".php";
 	}
