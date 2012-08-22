@@ -2,3 +2,88 @@ Arity PHP ORM
 
 Supported Databases:Postgresql
  
+Quick Start
+
+Step1: Model Class
+
+class Sample {
+	 
+	public static $meta;
+
+	public $id;
+	
+	public $name;
+	
+	public $score;
+
+	 
+	 
+	public function  __construct()  {
+
+		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+		 
+		self::$meta->name= new Type('name',ARITY_VARCHAR,50);
+		
+		self::$meta->score= Type::create('score',ARITY_INT,11);
+
+	
+		
+
+	}
+
+}
+
+Step 2: Access the Arity Context methods
+
+require '..\..\loader.php';
+
+
+echo "/* Create PHP Object*/<br/>";
+
+$testObj=new Sample();
+
+echo "Initialize Simple PHP Object"."<br/>";
+
+$testObj->name="sam";
+
+echo "/* Add Object to Arity peristent manager*/<br/>";
+
+
+$dbObj=Arity::addObject($testObj);
+
+
+echo "Create Persistent Object Table<br/>";
+
+
+$dbObj->createTable();
+
+
+echo "Save Simple Object or Persist Object"."<br/>";
+
+
+$dbObj->save();
+
+
+echo "Fetch Persisted PHP Object from DB"."<br/>";
+
+
+$rs=$dbObj->fetch()->object();
+
+var_dump($rs);
+
+echo "Clean Simple Object Entries"."<br/>";;
+
+$dbObj->truncateTable();
+
+$rs=$dbObj->fetch()->object();
+
+var_dump($rs);
+
+
+echo "Drop Persistent Object Table"."<br/>";;
+
+
+$dbObj->removeTable();
+
+ 
+ 
