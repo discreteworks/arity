@@ -18,7 +18,6 @@
 
 class Mysql extends Provider {
 
-
 	public function  initialize() {
 
 		//Initialize database variables
@@ -26,7 +25,6 @@ class Mysql extends Provider {
 		$this->name          = MYSQL_DB_NAME;
 		$this->username  = MYSQL_USERNAME;
 		$this->password  = MYSQL_PASSWORD;
-
 
 	}
 
@@ -69,11 +67,8 @@ class Mysql extends Provider {
 			return $this->execute("CREATE TABLE `".$relation."`"."(id int(11) NOT NULL AUTO_INCREMENT,  `created` datetime, `updated` datetime,PRIMARY KEY (id))");
 
 		}
-		else {
 
-			return false;
-
-		}
+		return false;
 
 	}
 	function delete($relation,$cColumnName,$cValue) {
@@ -113,6 +108,7 @@ class Mysql extends Provider {
 
 			$query.=" ".$item." \n";
 		}
+
 		foreach($entity->groupby as $item){
 
 			$query.=" ".$item." \n";
@@ -140,7 +136,6 @@ class Mysql extends Provider {
 
 			$this->join[]="LEFT JOIN `".$rObject->relation."` on ".$table."_".$rObject->relation.".".$rObject->relation."=".$rObject->relation.".".$rObject->relationField;
 		}
-		
 		elseif($type=='onetomany') {
 
 			$this->join[]="LEFT JOIN `".$rObject->relation."` on ".$table.".".$idColumnName."=".$rObject->relation.".".$rObject->relationField;
@@ -300,6 +295,7 @@ class Mysql extends Provider {
 	public function query($sql) {
 
 		$sql = trim($sql);
+	
 		if(preg_match('/^(INSERT|UPDATE|REPLACE|DELETE)/i', $sql) == 0) {
 			if(!$this->isConnected())
 				$this->connect();
@@ -308,6 +304,7 @@ class Mysql extends Provider {
 			$this->queries[] = $sql;
 			$this->result = mysql_query($sql, $the_db) or $this->notify();
 		}
+
 		return $this->result;
 
 	}
@@ -321,10 +318,9 @@ class Mysql extends Provider {
 			@mysql_free_result($this->result);
 			return $this;
 		}
-		else {
-			@mysql_free_result($this->result);
-			return false;
-		}
+
+		@mysql_free_result($this->result);
+		return false;
 	}
 
 	// Returns the number of rows.
@@ -392,12 +388,10 @@ class Mysql extends Provider {
 
 		while($row = mysql_fetch_row($result)) {
 
-
 			foreach ($row as $key=>$item) {
 
 				list($table, $column) = $this->map[$key];
 				$resultRow[$table][$column] = $item;
-
 
 			}
 			$rows[]=$resultRow;
@@ -406,10 +400,13 @@ class Mysql extends Provider {
 
 		return $rows;
 	}
+
 	public function resultSet($results) {
+
 		if (isset($this->results) && is_resource($this->results) && $this->results != $results) {
 			mysql_free_result($this->results);
 		}
+
 		$this->map = array();
 		$numFields = mysql_num_fields($results);
 		$index = 0;
@@ -449,17 +446,18 @@ class Mysql extends Provider {
 	public function lastQuery() {
 		if($this->numQueries() > 0)
 			return $this->queries[$this->numQueries() - 1];
-		else
-			return false;
+
+		return false;
 	}
 
 	// Takes nothing, a MySQL result, or a query string and returns
 	// the correspsonding MySQL result resource or false if none available.
 	public function resulter($arg = null) {
+
 		if(is_null($arg) && is_resource($this->result))
 			return $this->result;
 		elseif(is_resource($arg))
-		return $arg;
+			return $arg;
 		elseif(is_string($arg)) {
 			$this->query($arg);
 			if(is_resource($this->result))
@@ -467,21 +465,18 @@ class Mysql extends Provider {
 			else
 				return false;
 		}
-		else
-			return false;
+
+		return false;
 	}
 
-	private function spQuote($str){
-		 
-		return "`".$str."`";
-		 
-		 
+	private function spQuote($str) {
+
+		return "`{$str}`";
+
 	}
-	private function notify(){
-		 
+	private function notify() {
+
 		echo "Mysql database error";
-		 
+
 	}
-
-
 }

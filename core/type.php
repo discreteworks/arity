@@ -24,7 +24,6 @@ class Type extends Field {
     public $composite;
     public $required;
 
-
     /**
      *    Create a Type Field Object.
      *    @param string $name       Name of the field.
@@ -52,14 +51,13 @@ class Type extends Field {
         $this->required=$required;
 
     }
-    
+
     public static function create($name,$type,$size=null){
     	
     	return new Type($name,$type,$size);
     	
     }
-    
-    
+
     public function setDefault($default){
     	
     	$this->default=$default;
@@ -99,8 +97,5 @@ class Type extends Field {
     	return $this;
     	 
     }
-   
-
 
 }
-?>

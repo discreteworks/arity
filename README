@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                              Arity PHP ORM                                  *
- * Copyright (C) 2010,2011  CodenDev							               *
+ * Copyright (C) 2010,2012  CodenDev							                      *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *  This program is free software; you can redistribute it and/or              *
  *  modify it under the terms of the GNU General Public License                *
@@ -22,7 +22,7 @@ Description
 
 Project		: Arity - Arity PHP ORM
 License		: GPLv3
-Home Page	: http://www.codendev.com
+Home Page	: http://codendev.com
 
 
 
@@ -49,8 +49,6 @@ class Sample {
 	
 	public $score;
 
-	 
-	 
 	public function  __construct()  {
 
 		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
@@ -58,10 +56,6 @@ class Sample {
 		self::$meta->name= new Type('name',ARITY_VARCHAR,50);
 		
 		self::$meta->score= Type::create('score',ARITY_INT,11);
-
-	
-		
-
 	}
 
 }
@@ -69,7 +63,6 @@ class Sample {
 Step 2: Access the Arity Context methods
 
 require 'loader.php';
-
 
 echo "/* Create PHP Object*/<br/>";
 
@@ -81,24 +74,17 @@ $testObj->name="sam";
 
 echo "/* Add Object to Arity peristent manager*/<br/>";
 
-
 $dbObj=Arity::addObject($testObj);
-
 
 echo "Create Persistent Object Table<br/>";
 
-
 $dbObj->createTable();
-
 
 echo "Save Simple Object or Persist Object"."<br/>";
 
-
 $dbObj->save();
 
-
 echo "Fetch Persisted PHP Object from DB"."<br/>";
-
 
 $rs=$dbObj->fetch()->object();
 
@@ -112,9 +98,7 @@ $rs=$dbObj->fetch()->object();
 
 var_dump($rs);
 
-
 echo "Drop Persistent Object Table"."<br/>";;
-
 
 $dbObj->removeTable();
 

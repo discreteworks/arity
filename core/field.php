@@ -24,10 +24,5 @@ abstract class Field{
       $obj->name=$name;
    
    }
-   
-  
-   
-   
 
 }
-?>

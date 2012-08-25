@@ -97,8 +97,6 @@ class Entity {
 		$this->provider->dropTable($table);
 	}
 
-
-
 	/**
 	 * Fetches the entities from provider with level of depth.
 	 * @param integer $depth the level of entities with respect to join
@@ -186,7 +184,6 @@ class Entity {
 
 	}
 
-
 	/**
 	 * Having conditions applied before compilation
 	 * @return Object Entitydecorator.
@@ -198,10 +195,8 @@ class Entity {
 
 			$filter=$this->provider->setHavingCondition($args,$type,$compare);
 		}
-			
 
 		return $this;
-
 
 	}
 
@@ -213,7 +208,6 @@ class Entity {
 		$this->provider->setGroupBy($column);
 
 		return $this;
-
 
 	}
 
@@ -235,8 +229,6 @@ class Entity {
 		$rows=$this->provider->
 
 		buildQuery($table,$this->obj);
-
-
 
 		return $rows;
 
@@ -264,9 +256,6 @@ class Entity {
 		return $this->provider->getRowCount();
 
 	}
-
-
-
 
 	/**
 	 * Count the results from mapped entities resultset.
@@ -322,7 +311,6 @@ class Entity {
 
 		return $obj;
 
-
 	}
 
 	/**
@@ -333,7 +321,6 @@ class Entity {
 	 * @return Object.
 	 */
 	function where($args,$type=ARITY_AND,$compare=ARITY_EQ) {
-
 
 		if(is_array($args)) {
 
@@ -425,22 +412,17 @@ class Entity {
 	 */
 	private function insert($obj) {
 
-
-
 		$id= ARITY_IDENTITY;
 
 		$attributes=get_object_vars($obj);
 
 		$table=strtolower(get_class($obj));
 
-
-
 		$objectArray=array();
 
 		if(count( $attributes) == 0) return false;
 
 		foreach($attributes as $k => $v) {
-
 
 			if($v==null) {
 
@@ -462,10 +444,7 @@ class Entity {
 			}
 			elseif(is_object($attributes[$k])) {
 
-
 				if(!$obj::$meta->$k->parent){
-
-
 
 					$out=$this->saveObject($attributes[$k]);
 
@@ -476,7 +455,6 @@ class Entity {
 						$myField=$obj::$meta->$k->referenceField;
 
 						$attributes[$referedField]=$out->$myField;
-						
 
 					}
 				}
@@ -486,7 +464,6 @@ class Entity {
 
 				}
 				unset($attributes[$k]);
-					
 
 			}
 
@@ -499,7 +476,6 @@ class Entity {
 		//
 		// 					$this->save($item);
 		// 				}
-
 
 		foreach($objectArray as $k=>$v){
 
@@ -517,7 +493,6 @@ class Entity {
 					//var_dump($item);
 					$this->saveObject($item);
 
-
 				}
 			}
 			else{
@@ -533,8 +508,6 @@ class Entity {
 
 		return $obj;
 	}
-
-
 
 	/*
 	 * Delete the entity based on condition.
@@ -620,14 +593,12 @@ class Entity {
 
 				}
 				unset($attrib[$k]);
-					
 
 			}
 
 		}
 
 		$table=strtolower(get_class($obj));
-
 
 		$this->provider->update($table,$attrib,$id,$obj->$id);
 
@@ -648,7 +619,6 @@ class Entity {
 
 	private function alterEntity(){
 
-
 		$fieldAttributes=array();
 
 		$table=strtolower(get_class($this->base));
@@ -663,7 +633,6 @@ class Entity {
 
 					$fieldAttributes[]=$table::$meta->$key;
 
-
 				}
 
 			}
@@ -674,10 +643,7 @@ class Entity {
 
 		$this->provider->addField($table,$fieldAttributes);
 
-
-
 	}
-
 
 	/**
 	 * Create new entity table in provider. If entity table exists
@@ -705,7 +671,6 @@ class Entity {
 
 			$this->provider->createTable($table,$fieldAttributes);
 		}
-			
 
 	}
 
@@ -747,7 +712,6 @@ class Entity {
 
 				$this->chain(new $ref);
 
-
 			}
 
 		}
@@ -765,7 +729,6 @@ class Entity {
 	 */
 
 	private function mapping($object,$resultset,$condition=null,$referenceField=null) {
-
 
 		$id= ARITY_IDENTITY;
 
@@ -787,13 +750,11 @@ class Entity {
 
 			if(!array_key_exists($name, $resultset[$key])) {
 
-
 				return null;
 
 			}
 
 			foreach($attrib as $vkey=>$var) {
-
 
 				if(@get_class(@$c::$meta->$vkey)=="Type") {
 
@@ -828,14 +789,12 @@ class Entity {
 							$c->$vkey=null;
 						}
 
-
 					}
 
 				}
 				elseif(@get_class(@$c::$meta->$vkey)=="Reference") {
 
 					if($c::$meta->$vkey->map==ARITY_11&& (in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
-
 
 						$cond1=array($id=>@$resultset[$key][$name][$vkey]);
 
@@ -872,7 +831,6 @@ class Entity {
 
 			}
 
-
 			$c_clone=clone $c;
 
 			if(!array_key_exists(md5($c_clone->id), $tempArray)&&$c->$id!=null) {
@@ -880,7 +838,6 @@ class Entity {
 				$tempArray[md5($c_clone->id)]=md5(serialize( $c_clone));
 
 				$objectArray[]= $c_clone;
-
 
 			}
 
@@ -892,7 +849,6 @@ class Entity {
 	}
 
 }
-
 
 // 		$objectArray=array();
 

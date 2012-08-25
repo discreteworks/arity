@@ -21,4 +21,3 @@ abstract class Base {
     public static $meta;
 
 }
-?>

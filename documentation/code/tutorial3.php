@@ -87,6 +87,3 @@ echo "/* Test 3 Fetch Updated*/<br/>";
 $rs=$udbObj->fetch(2)->object();
 
 var_dump($rs);
-
-
-?>
