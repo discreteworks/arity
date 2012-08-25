@@ -29,5 +29,3 @@ echo "/*Drop Persistent Object Table"."<br/>";;
 
 
 $dbObj->removeTable();
-
-

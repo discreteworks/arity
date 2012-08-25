@@ -127,10 +127,6 @@ echo "/*Clean Simple Object Entries"."<br/>";;
 
 $dbObj->truncateTable();
 
-
 echo "/*Drop Persistent Object Table"."<br/>";;
 
-
 $dbObj->removeTable();
-
-
