@@ -22,7 +22,7 @@ Description
 
 Project		: Arity - Arity PHP ORM
 License		: GPLv3
-Home Page	: http://codendev.com
+Home Page	: http://www.codendev.com
 
 
 
@@ -41,7 +41,7 @@ Setup the database connection in config/config.inc.php
 Leave PGSQL_SCHEMA as public, if you havent created you own schema.
 
 
-HOWTO TO USE:
+HOW TO USE:
 --------------
 
 Step1: Create model model class. 
