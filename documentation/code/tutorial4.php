@@ -13,7 +13,6 @@ require 'model\profile.php';
 
 echo "/* Test 4 Intitialize User Object*/<br/>";
 
-
 $userObj=new User();
 
 $udbObj=Arity::addObject($userObj);
@@ -37,9 +36,10 @@ $pdbObj->createTable();
 echo "/* Test 4 Add Parent with Child Objects*/<br/>";
 
 $userObj->username="best";
-$userObj->password="sample";
-$userObj->group_id=1;
 
+$userObj->password="sample";
+
+$userObj->group_id=1;
 
 $pro->address="sam";
 
@@ -50,7 +50,6 @@ $p2->address="new address";
 $pArray[]=$pro;
 $pArray[]=$p2;
 
-
 $userObj->profile=$pArray;
 
 $udbObj=Arity::addObject($userObj);
@@ -58,7 +57,7 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 4 Fetch Inserted*/<br/>";
+echo '/* Test 4 Fetch Inserted*/<br/>';
 
 $rs=$udbObj->fetch(2)->object();
 

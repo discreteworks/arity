@@ -9,9 +9,9 @@
  *
  * @package		Arity
  * @author		codendev
- * @copyright           Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
- * @link		http://arity.abideen.com
+ * @copyright  Copyright (c) 2011 - 2012, CodenDev.
+ * @license		http://gnu.org/licenses/gpl.txt
+ * @link		   http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
  */
@@ -21,7 +21,6 @@ class Arity {
 	* Access provider methods
 	*
 	*/
-	
     public static function provider($type) {
 
         if(empty($type)) {
@@ -39,7 +38,7 @@ class Arity {
     * Adds object to Arity Context
     * 
     */
-    public static function addObject($object,$type=DEFAULT_PROVIDER) {
+    public static function addObject($object, $type=DEFAULT_PROVIDER) {
 
         $db=$type::getProvider($type);
 

@@ -44,15 +44,7 @@ class User {
        	self::$meta->group= new Reference('group_id','group','id',ARITY_1M);
        	
        	self::$meta->profile=new Reference('id','profile','user_id',ARITY_11,ARITY_PARENT);
-       	
 
-       
     }
 
-
-    
-   
-
-
 }
-?>

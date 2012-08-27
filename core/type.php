@@ -9,9 +9,9 @@
  *
  * @package		Arity
  * @author		codendev
- * @copyright           Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
- * @link		http://arity.abideen.com
+ * @copyright  Copyright (c) 2011 - 2012, CodenDev.
+ * @license		http://gnu.org/licenses/gpl.txt
+ * @link		   http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
  */
@@ -34,68 +34,67 @@ class Type extends Field {
      *    @param mixed $default    Default value of field.
      *    @access public
      */
-    function  __construct($name,$type,$size=null,$default=null,$required=ARITY_NOTREQUIRED,$key=null,$composite=null) {
+    function  __construct($name, $type, $size=null, $default=null, $required=ARITY_NOTREQUIRED, $key=null, $composite=null) {
 
         parent::__construct($this, $name);
 
         $this->size=$size;
-        
+
         $this->type=$type;
-        
+
         $this->default=$default;
-        
+
         $this->key=$key;
-        
+
         $this->composite=$composite;
-        
+
         $this->required=$required;
 
     }
 
-    public static function create($name,$type,$size=null){
-    	
-    	return new Type($name,$type,$size);
-    	
+    public static function create($name, $type, $size=null) {
+
+    	return new Type($name, $type, $size);
+
     }
 
-    public function setDefault($default){
-    	
+    public function setDefault($default) {
+
     	$this->default=$default;
-    	
+
     	return $this;
-    	
-    }
-    
-    public function composite(){
-    	
-    	$this->composite=ARITY_COMPOSITE;	
-    	
-    	return $this;
-    	
-    }
-    
-    public function primaryKey(){
-    	 
-    	$this->key=ARITY_PRIMARY;
-    	 
-    	return $this;
-    	 
-    }
-    
-    public function uniqueKey(){
-    
-    	$this->key=ARITY_UNIQUE;
-    
-    	return $this;
-    
-    }
-    
-    public function required(){
-    	 
-    	$this->key=ARITY_REQUIRED;
-    	 
-    	return $this;
-    	 
+
     }
 
+    public function composite() {
+
+    	$this->composite=ARITY_COMPOSITE;	
+
+    	return $this;
+
+    }
+
+    public function primaryKey() {
+
+    	$this->key=ARITY_PRIMARY;
+
+    	return $this;
+
+    }
+    
+    public function uniqueKey() {
+
+    	$this->key=ARITY_UNIQUE;
+
+    	return $this;
+
+    }
+    
+    public function required() {
+
+    	$this->key=ARITY_REQUIRED;
+
+    	return $this;
+
+    }
 }

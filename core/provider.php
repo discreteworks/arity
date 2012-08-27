@@ -10,7 +10,7 @@
  * @package		Arity
  * @author		codendev
  * @copyright           Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
+ * @license		http://gnu.org/licenses/gpl.txt
  * @link		http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
@@ -28,25 +28,25 @@ abstract class Provider {
     
     public $table;
         
-    //Limit index
+    // Limit index
     public $start=0;
     
-    //Limit offset
+    // Limit offset
     public $offset=1;
         
-    //Entities to be loaded prior to mapping
+    // Entities to be loaded prior to mapping
     public $load=array();
     
-    //Filter conditions
+    // Filter conditions
     public $condition=array();
     
-    //Group by base entity table with other tables
+    // Group by base entity table with other tables
     public $groupByItem=array();
     
-    //Having conditions
+    // Having conditions
     public $havingCondition=array();
    
-    //  Main Abstract methods
+    // Main Abstract methods
     
     abstract function initialize();
     
@@ -75,7 +75,7 @@ abstract class Provider {
     abstract function endTransaction();
     
     
-    //Provider Oriented methods
+    // Provider Oriented methods
     
     abstract function query( $statement );
     
@@ -106,20 +106,19 @@ abstract class Provider {
     	$obj = new $provider();
     	return $obj;
     }
-    
+
     public  function showDebug(){
     
     	if(ARITY_DEBUG){
     
-    		echo "<div class=\"debug\" style=\"background:#eee;color:#222;padding:5px;font: 90% Courier New,Courier,monospace\">";
+    		echo "<div class=\"debug\" style=\"background:#eee; color:#222; padding:5px; font: 90% Courier New, Courier, monospace\">";
     		echo "<h1 style=\"\">DEBUG</></h2>";
     		foreach($this->queries as $key=>$query){
     
     			echo "<p style=\"color:#555;\">".$query."</p>";
     		}
     		echo "</div>";
-    
-    
+
     	}
     }
 

@@ -7,32 +7,25 @@ require 'model\sample.php';
 
 echo "/* Tutorial 5: Intitialize Arity Simple Persistent Object*/<br/>";
 
-
 echo "/* Create PHP Object*/<br/>";
 
 $testObj1=new Sample();
 
-
 echo "/* Add Object to Arity peristent manager*/<br/>";
-
 
 $dbObj=Arity::addObject($testObj1);
 
-
 echo "Create Persistent Object Table<br/>";
-
 
 $dbObj->createTable();
 
-
 echo "Initialize 1 Simple PHP Object"."<br/>";
 
-
 $testObj1->name="sample1";
+
 $testObj1->score="10";
 
 $dbObj->save();
-
 
 echo "/* Add Object 2 to Arity peristent manager*/<br/>";
 
@@ -43,12 +36,12 @@ $dbObj=Arity::addObject($testObj2);
 echo "Initialize 2 Simple PHP Object"."<br/>";
 
 $testObj2->name="sample2";
+
 $testObj2->score="20";
 
 echo "Persist PHP Object from DB"."<br/>";
 
 $dbObj->save();
-
 
 echo "/* Add Object 3 to Arity peristent manager*/<br/>";
 
@@ -58,8 +51,8 @@ $dbObj=Arity::addObject($testObj3);
 
 echo "/*Initialize 3 Simple PHP Object*/"."<br/>";
 
-
 $testObj3->name="sample2";
+
 $testObj3->score="30";
 
 echo "/*Persist PHP Object from DB*/"."<br/>";
@@ -121,7 +114,6 @@ echo "/*arrayList Resultset sum groupBy having method*/"."<br/>";
 $rs=$dbObj->fetch()->select('sample.name')->sum('sample.score')->groupBy('sample.name')->having(array('name'=>'sample2'))->arrayList();
 
 var_dump($rs);
-
 
 echo "/*Clean Simple Object Entries"."<br/>";;
 
