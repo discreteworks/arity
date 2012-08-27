@@ -2,7 +2,7 @@
 /**
  * Arity
  *
- * Web Framework for PHP 5.2 or newer
+ * ORM Framework for PHP 5.2 or newer
  *
  * Licensed under GPL
  * Redistributions of files must retain the above copyright notice.
@@ -11,7 +11,7 @@
  * @author		codendev
  * @copyright  Copyright (c) 2011 - 2012, CodenDev.
  * @license		http://gnu.org/licenses/gpl.txt
- * @link		   http://arity.abideen.com
+ * @link		   http://www.codendev.com
  * @since		Version 1.0
  * @filesource
  */

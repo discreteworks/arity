@@ -37,7 +37,16 @@ Features
 Installation procedure:
 ----------------------
 
-Step1: Model Class
+Setup the database connection in config/config.inc.php
+Leave PGSQL_SCHEMA as public, if you havent created you own schema.
+
+
+HOWTO TO USE:
+--------------
+
+Step1: Create model model class. 
+
+>file:sample.php
 
 class Sample {
 	 
@@ -60,9 +69,15 @@ class Sample {
 
 }
 
-Step 2: Access the Arity Context methods
+Step 2: Access the Arity Context methods. Create test.php for accessing the Arity Context methods
+for data persistence.
+
+>file:test.php
+
 
 require 'loader.php';
+
+require 'sample.php';//If the the class is in sample file
 
 echo "/* Create PHP Object*/<br/>";
 
@@ -102,5 +117,4 @@ echo "Drop Persistent Object Table"."<br/>";;
 
 $dbObj->removeTable();
 
- 
- 
+Step3: Completed 
