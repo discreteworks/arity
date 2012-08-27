@@ -1,5 +1,6 @@
 TODO
 ----
 	* Foreign Key creation in Postgresql for the Object mapping
-	* Mysql Provider
-	* Sqlite Provider
+	* Add MySQL provider
+	* Add SQLite provider
+	* Add MsSQL provider

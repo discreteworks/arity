@@ -9,15 +9,15 @@
  *
  * @package		Arity
  * @author		codendev
- * @copyright           Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
- * @link		http://arity.abideen.com
+ * @copyright  Copyright (c) 2011 - 2012, CodenDev.
+ * @license		http://gnu.org/licenses/gpl.txt
+ * @link		   http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
  */
 class Reference extends Field {
-    //put your code here
-  
+    // put your code here
+
     public $reference;
 
     public $map;
@@ -27,13 +27,12 @@ class Reference extends Field {
     public $cascade;
     
     public $parent;
-   
+
    /**
     * 
     * 
     */
-   public function  __construct($fieldName,$referedTable=null,$referedFieldName=null,$map=null,$parent=ARITY_CHILD,$onDelete='SET NULL') {
-      
+   public function  __construct($fieldName, $referedTable=null, $referedFieldName=null, $map=null, $parent=ARITY_CHILD, $onDelete='SET NULL') {
 
       $this->reference=$referedTable;
 
@@ -52,8 +51,7 @@ class Reference extends Field {
     public static function create($fieldName){
     	
     	return new Reference($fieldName);
-    	
-    	
+
     }
     
     public function referToTable($table){
@@ -77,21 +75,21 @@ class Reference extends Field {
     	return $this;
     	
     }
-    
+
     public function one2one(){
     	 
     	$this->map=ARITY_11;
     	 
     	return $this;
-    	 
+
     }
-    
+
     public function isParent(){
     	
     	$this->parent=ARITY_PARENT;
     	
     	return $this;
-    	
+
     }
     
     public function isChild(){
@@ -99,15 +97,15 @@ class Reference extends Field {
     	$this->parent=ARITY_CHILD;
     	 
     	return $this;
-    	 
+
     }
-    
+
     public function setOnDelete($str){
     	
     	$this->onDelete=$str;
     	
     	return $this;
-    	
+
     }
 
 }

@@ -37,7 +37,6 @@ class TestType {
 	
 	public $aritybinary;
 	 
-	 
 	public function  __construct()  {
 
 		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
@@ -57,11 +56,7 @@ class TestType {
 		self::$meta->aritydate= Type::create('aritydate',ARITY_DATE);
 		
 		self::$meta->aritybinary= Type::create('aritybinary',ARITY_BINARY);
-		
-	
-		
 
 	}
 
 }
-?>

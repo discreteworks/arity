@@ -10,7 +10,7 @@
  * @package		Arity
  * @author		codendev
  * @copyright           Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
+ * @license		http://gnu.org/licenses/gpl.txt
  * @link		http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
@@ -18,7 +18,7 @@
 
 class Pgsql extends Provider {
 
-	//Join base entity table with other tables
+	// Join base entity table with other tables
 
 	private $DB;
 
@@ -34,7 +34,7 @@ class Pgsql extends Provider {
 
 	public function  initialize() {
 
-		//Initialize database variables
+		// Initialize database variables
 		$this->host      = PGSQL_HOST;
 
 		$this->name      = PGSQL_DB_NAME;
@@ -43,10 +43,9 @@ class Pgsql extends Provider {
 
 		$this->password  = PGSQL_PASSWORD;
 
-
 	}
 
-	function __destruct(){
+	function __destruct() {
 
 		$this->showDebug();
 
@@ -87,12 +86,12 @@ class Pgsql extends Provider {
 		return $this->isConnected();
 	}
 
-	function delete($table,$columnName,$value){
+	function delete($table,$columnName,$value) {
 
 		$this->execute("DELETE FROM \"$table\" WHERE $columnName =". $this->escape($value));
 	}
 
-	function insert($table,$attributes){
+	function insert($table,$attributes) {
 
 		$cmd = 'INSERT INTO';
 
@@ -100,28 +99,28 @@ class Pgsql extends Provider {
 
 		foreach($attributes as $k => $v)
 
-		if(!is_null($v))
+			if(!is_null($v))
 
-		$data[$k] = $this->quote($v);
+				$data[$k] = $this->quote($v);
 
 		$columns = '' . implode(', ', array_keys($data)) . '';
 
 		$values = implode(',', $data);
 
-		$sql="$cmd \"{$table}\" ($columns) VALUES ($values)";
+		$sql="{$cmd} \"{$table}\" ({$columns}) VALUES ({$values})";
 
 		$this->execute($sql);
 
 		return $this->pg_last_inserted_id($table);
 	}
 
-	function update($table,$attrib,$cColumnName,$cValue){
+	function update($table,$attrib,$cColumnName,$cValue) {
 
 		$sql = "UPDATE \"{$table}\" SET ";
 
 		foreach($attrib as $k => $v)
 
-		$sql .= "$k=" . $this->quote($v) . ',';
+			$sql .= "$k=" . $this->quote($v) . ',';
 
 		$sql[strlen($sql) - 1] = ' ';
 
@@ -136,7 +135,7 @@ class Pgsql extends Provider {
 	public function tableExists($table) {
 
 		$sql="SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'
-		and table_name  LIKE '".$table."'";
+		and table_name  LIKE '{$table}'";
 
 		$rs=$this->query($sql);
 
@@ -157,7 +156,7 @@ class Pgsql extends Provider {
 
 	}
 
-	public function truncate($table){
+	public function truncate($table) {
 
 		$sql="DELETE FROM \"".$table."\"";
 			
@@ -165,17 +164,17 @@ class Pgsql extends Provider {
 
 	}
 
-	private function buildFieldConstraint($table,$fieldAttributes){
+	private function buildFieldConstraint($table,$fieldAttributes) {
 
 		$constraints=array();
 
 		$fields=array();
 
-		foreach($fieldAttributes as $item){
+		foreach($fieldAttributes as $item) {
 
 			$fields[]=$this->makeField($item);
 
-			if($item->composite!=ARITY_COMPOSITE){
+			if($item->composite!=ARITY_COMPOSITE) {
 					
 				$constraint=$this->makeConstraint($table, $item);
 					
@@ -186,7 +185,7 @@ class Pgsql extends Provider {
 			
 		$primary=$this->makeCompositeConstraint($table,$fieldAttributes);
 			
-		if($primary){
+		if($primary) {
 
 
 			$constraints[]=$primary;
@@ -195,7 +194,7 @@ class Pgsql extends Provider {
 		$unique=$this->makeCompositeConstraint($table,$fieldAttributes,ARITY_UNIQUE);
 			
 			
-		if($unique){
+		if($unique) {
 
 			$constraints[]=$unique;
 		}
@@ -213,7 +212,7 @@ class Pgsql extends Provider {
 
 			$result=$this->buildFieldConstraint($table, $fieldAttributes);
 
-			if(count($result["constraints"])){
+			if(count($result["constraints"])) {
 				$cStr=",".implode(",",$result["constraints"]);
 			}
 			else {
@@ -231,7 +230,7 @@ class Pgsql extends Provider {
 
 	}
 
-	private function makeConstraint($table,$fieldAttribute){
+	private function makeConstraint($table,$fieldAttribute) {
 
 		if($fieldAttribute->key==ARITY_PRIMARY && $fieldAttribute->composite==ARITY_NULL)
 
@@ -243,13 +242,13 @@ class Pgsql extends Provider {
 
 	}
 
-	private function makeCompositeConstraint($table,$fieldAttributes,$type=ARITY_PRIMARY){
+	private function makeCompositeConstraint($table,$fieldAttributes,$type=ARITY_PRIMARY) {
 
 		$compositePrimary=array();
 
 		$compositeUnique=array();
 
-		foreach($fieldAttributes as $item){
+		foreach($fieldAttributes as $item) {
 
 			if($item->composite==ARITY_COMPOSITE)
 			{
@@ -264,12 +263,12 @@ class Pgsql extends Provider {
 			}
 
 		}
-		if(count($compositePrimary)>0 && $type==ARITY_PRIMARY){
+		if(count($compositePrimary)>0 && $type==ARITY_PRIMARY) {
 
 			return "CONSTRAINT \"".$table."_".implode("_",$compositePrimary)."_pk\" PRIMARY KEY (\"".implode("\",\"",$compositePrimary)."\")";
 
 		}
-		elseif(count($compositeUnique)>0 && $type==ARITY_UNIQUE){
+		elseif(count($compositeUnique)>0 && $type==ARITY_UNIQUE) {
 
 			return "CONSTRAINT \"".$table."_".implode("_",$compositeUnique)."\" UNIQUE (\"".implode("\",\"",$compositeUnique)."\")";
 
@@ -277,7 +276,7 @@ class Pgsql extends Provider {
 
 	}
 
-	private function primaryKeyExist($table){
+	private function primaryKeyExist($table) {
 
 		$sql="SELECT
 		pg_attribute.attname,
@@ -290,11 +289,11 @@ class Pgsql extends Provider {
 		pg_attribute.attnum = any(pg_index.indkey)
 		AND indisprimary"	;
 
-		$primaryKeys = $this->query("SELECT * FROM information_schema.columns WHERE table_name = '$relation'");
+		$primaryKeys = $this->query("SELECT * FROM information_schema.columns WHERE table_name = '{$relation}'");
 
-		if($primaryKeys){
+		if($primaryKeys) {
 
-			if( $this->getRowCount($primaryKeys)>0){
+			if( $this->getRowCount($primaryKeys)>0) {
 				return true;
 
 			}
@@ -387,7 +386,7 @@ class Pgsql extends Provider {
 
 		$result=$this->buildFieldConstraint($table,$fieldAttributes);
 
-		if(count($result["constraints"])){
+		if(count($result["constraints"])) {
 
 			$cStr=", ADD ".implode(", ADD ",$result["constraints"]);
 		}
@@ -407,11 +406,11 @@ class Pgsql extends Provider {
 
 	public function fieldExists($relation,$field) {
 
-		$fields = $this->query("SELECT * FROM information_schema.columns WHERE table_name = '$relation'");
+		$fields = $this->query("SELECT * FROM information_schema.columns WHERE table_name = '{$relation}'");
 
 		$field_array=array();
 
-		if($fields){
+		if($fields) {
 
 			$rs =  $this->getRows($fields);
 
@@ -419,7 +418,7 @@ class Pgsql extends Provider {
 
 			for ($i = 0; $i < $columns; $i++) {
 
-				$field_array[] = $rs[$i]['columns']["column_name"];
+				$field_array[] = $rs[$i]['columns']['column_name'];
 
 			}
 		}
@@ -428,7 +427,7 @@ class Pgsql extends Provider {
 
 	}
 
-	function setTable($table){
+	function setTable($table) {
 
 		$this->table=$table;
 
@@ -468,7 +467,7 @@ class Pgsql extends Provider {
 		return $this->condition;
 	}
 
-	public function setHavingCondition($keyPairValues,$type,$compare){
+	public function setHavingCondition($keyPairValues,$type,$compare) {
 
 		$cond="";
 
@@ -490,15 +489,15 @@ class Pgsql extends Provider {
 
 	}
 
-	public function setGroupBy($column){
+	public function setGroupBy($column) {
 
 		$selected= "";
 
-		if(isset($column)){
+		if(isset($column)) {
 
 			$objColumnEx=explode(".", $column);
 
-			if(count($objColumnEx)>1){
+			if(count($objColumnEx)>1) {
 
 				$selected= " \"".$objColumnEx[0]."\".".$objColumnEx[1];
 
@@ -518,11 +517,11 @@ class Pgsql extends Provider {
 	{
 		$selected= "";
 
-		if(isset($objColumn)){
+		if(isset($objColumn)) {
 
 			$objColumnEx=explode(".", $objColumn);
 
-			if(count($objColumnEx)>1){
+			if(count($objColumnEx)>1) {
 
 				$selected= " \"".$objColumnEx[0]."\".".$objColumnEx[1];
 
@@ -533,7 +532,7 @@ class Pgsql extends Provider {
 			}
 		}
 
-		if(isset($operator)){
+		if(isset($operator)) {
 
 			$selected = $operator."(".$selected.")";
 
@@ -543,7 +542,7 @@ class Pgsql extends Provider {
 
 	}
 
-	function buildQuery($table,$obj,$limit=TRUE){
+	function buildQuery($table,$obj,$limit=TRUE) {
 
 		if(count($this->load)==0) {
 
@@ -563,7 +562,7 @@ class Pgsql extends Provider {
 			$query.=" ".$item." \n";
 		}
 
-		if(count($this->condition)>0){
+		if(count($this->condition)>0) {
 
 			$query.=" WHERE ";
 
@@ -574,29 +573,28 @@ class Pgsql extends Provider {
 			}
 		}
 
-		if(count($this->groupByItem)>0){
+		if(count($this->groupByItem)>0) {
 
-				
-			$query.=" GROUP BY ".implode(",",$this->groupByItem)." \n";
+			$query.=" GROUP BY ".implode(",", $this->groupByItem)." \n";
 
 		}
 
-		if(count($this->havingCondition)>0){
+		if(count($this->havingCondition)>0) {
 
 			$query.=" HAVING ";
 
-			foreach($this->havingCondition as $item){
+			foreach($this->havingCondition as $item) {
 
 				$query.=" ".$item." \n";
 
 			}
 		}
 
-		if(isset($this->limit)&&$limit)
+		if(isset($this->limit) && $limit)
 
-		$query.=" ".$this->limit;
+			$query.=" ".$this->limit;
 
-		//Clear joins
+		// Clear joins
 
 		$this->join=array();
 
@@ -614,7 +612,7 @@ class Pgsql extends Provider {
 
 	}
 
-	function setLimit($start=0,$offset=1){
+	function setLimit($start=0, $offset=1) {
 
 		$this->start=$start;
 
@@ -625,7 +623,6 @@ class Pgsql extends Provider {
 	}
 
 	function createJoin($rObject,$table,$idColumnName,$type=ARITY_11) {
-
 
 		if($type==ARITY_11) {
 
@@ -655,7 +652,7 @@ class Pgsql extends Provider {
 
 			if(!$this->isConnected())
 
-			$this->connect();
+				$this->connect();
 
 			$the_db = $this->DB;
 
@@ -669,7 +666,7 @@ class Pgsql extends Provider {
 
 	}
 
-	public function beginTransaction(){
+	public function beginTransaction() {
 
 		$sql="BEGIN";
 
@@ -677,7 +674,7 @@ class Pgsql extends Provider {
 
 	}
 
-	public function endTransaction(){
+	public function endTransaction() {
 
 		$sql="COMMIT";
 
@@ -686,7 +683,6 @@ class Pgsql extends Provider {
 	}
 
 	public function execute( $sql ) {
-
 
 		$this->queries[]=$sql;
 
@@ -699,8 +695,7 @@ class Pgsql extends Provider {
 			$this->result = pg_query($this->DB,$sql);
 
 		}
-		catch(Exception $e){
-
+		catch(Exception $e) {
 
 			return false;
 		}
@@ -744,7 +739,7 @@ class Pgsql extends Provider {
 
 	}
 
-	function pg_last_inserted_id($table){
+	function pg_last_inserted_id($table) {
 
 		if(!$this->isConnected()) return false;
 
@@ -752,12 +747,11 @@ class Pgsql extends Provider {
 
 		$ret = pg_query($this->DB, $sql);
 
-		$sql = "SELECT currval('".$table."_".ARITY_IDENTITY."_seq')";
-			
+		$sql = "SELECT currval('{$table}_".ARITY_IDENTITY."_seq')";
 
 		$retorno =pg_query($this->DB, $sql);
 			
-		if(pg_num_rows($ret)>0){
+		if(pg_num_rows($ret)>0) {
 
 			$s_dados = pg_fetch_all($retorno);
 
@@ -765,10 +759,9 @@ class Pgsql extends Provider {
 
 			return $currval;
 
-		} else {
+		} 
 
-			return false;
-		}
+		return false;
 	}
 
 	// Returns a single value.
@@ -872,11 +865,11 @@ class Pgsql extends Provider {
 			else {
 
 				$this->map[$index++] = array(0, $column[0]);
-					
+
 			}
 
 			$j++;
-			// var_dump($this->map);
+			//var_dump($this->map);
 		}
 	}
 
@@ -893,6 +886,7 @@ class Pgsql extends Provider {
 		if(!$this->isConnected()) $this->connect();
 
 		return pg_escape_string($this->DB,$var);
+
 	}
 
 	public function numQueries() {
@@ -908,17 +902,18 @@ class Pgsql extends Provider {
 			return $this->queries[$this->numQueries() - 1];
 
 		return false;
+
 	}
 
 	public function resulter($arg = null) {
 
 		if(is_null($arg) && is_resource($this->result))
 
-		return $this->result;
+			return $this->result;
 
 		elseif(is_resource($arg))
 
-		return $arg;
+			return $arg;
 
 		elseif(is_string($arg)) {
 
@@ -926,13 +921,12 @@ class Pgsql extends Provider {
 
 			if(is_resource($this->result))
 
-			return $this->result;
-
-			else
+				return $this->result;
 
 			return false;
 		}
 
 		return false;
+
 	}
 }
