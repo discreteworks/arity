@@ -86,6 +86,3 @@ foreach($rs as $item){
 	var_dump($item);
 	
 };
-
-
-?>

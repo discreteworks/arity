@@ -48,9 +48,7 @@ class Reference extends Field {
       parent::__construct($this, $fieldName);
 
     }
-    
-  
-    
+
     public static function create($fieldName){
     	
     	return new Reference($fieldName);
@@ -112,6 +110,4 @@ class Reference extends Field {
     	
     }
 
-  
 }
-?>

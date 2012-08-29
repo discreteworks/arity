@@ -56,17 +56,9 @@ class Pgsql extends Provider {
 			return $this;
 
 		}
-		else {
 
-			@pg_free_result($this->result);
-
-			return false;
-
-		}
-
-
-			
-			
+		@pg_free_result($this->result);
+		return false;
 	}
 
 	// Do we have a valid read-only database connection?
@@ -75,7 +67,6 @@ class Pgsql extends Provider {
 		return is_resource($this->DB) && get_resource_type($this->DB) == 'pgsql link';
 
 	}
-
 
 	// Do we have a valid database connection and have we selected a database?
 	public function databaseSelected() {
@@ -151,9 +142,9 @@ class Pgsql extends Provider {
 
 		if($rs)
 
-		return $this->hasRows($rs);
+		   return $this->hasRows($rs);
 
-		else
+
 
 		return false;
 	}
@@ -173,8 +164,6 @@ class Pgsql extends Provider {
 		$rs=$this->execute($sql);
 
 	}
-
-
 
 	private function buildFieldConstraint($table,$fieldAttributes){
 
@@ -237,16 +226,12 @@ class Pgsql extends Provider {
 			return $this->execute($table);
 
 		}
-		else {
 
-			return false;
-
-		}
+		return false;
 
 	}
 
 	private function makeConstraint($table,$fieldAttribute){
-
 
 		if($fieldAttribute->key==ARITY_PRIMARY && $fieldAttribute->composite==ARITY_NULL)
 
@@ -255,8 +240,6 @@ class Pgsql extends Provider {
 		if($fieldAttribute->key==ARITY_UNIQUE && $fieldAttribute->composite==ARITY_NULL)
 
 		return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_u\" UNIQUE (\"".$fieldAttribute->name."\")";
-
-
 
 	}
 
@@ -267,7 +250,6 @@ class Pgsql extends Provider {
 		$compositeUnique=array();
 
 		foreach($fieldAttributes as $item){
-
 
 			if($item->composite==ARITY_COMPOSITE)
 			{
@@ -293,7 +275,6 @@ class Pgsql extends Provider {
 
 		}
 
-
 	}
 
 	private function primaryKeyExist($table){
@@ -317,12 +298,9 @@ class Pgsql extends Provider {
 				return true;
 
 			}
-			else
-			{
 
-				return false;
-			}
 		}
+
 		return false;
 
 	}
@@ -508,11 +486,9 @@ class Pgsql extends Provider {
 			$cond= $type." ".$cond;
 		}
 
-
 		$this->havingCondition[]=$cond;
 
 	}
-
 
 	public function setGroupBy($column){
 
@@ -563,12 +539,9 @@ class Pgsql extends Provider {
 
 		}
 
-
 		$this->load[]=$selected;
 
 	}
-
-
 
 	function buildQuery($table,$obj,$limit=TRUE){
 
@@ -580,7 +553,6 @@ class Pgsql extends Provider {
 
 			}
 		}
-
 
 		$fields=implode(',', $this->load);
 
@@ -601,7 +573,6 @@ class Pgsql extends Provider {
 
 			}
 		}
-
 
 		if(count($this->groupByItem)>0){
 
@@ -625,7 +596,6 @@ class Pgsql extends Provider {
 
 		$query.=" ".$this->limit;
 
-
 		//Clear joins
 
 		$this->join=array();
@@ -637,7 +607,6 @@ class Pgsql extends Provider {
 		$this->groupByItem= array();
 
 		$this->havingCondition=array();
-
 
 		$this->query($query);
 
@@ -693,8 +662,6 @@ class Pgsql extends Provider {
 			$this->queries[] = $sql;
 				
 			$this->result = pg_query($the_db,$sql) or $this->notify();
-
-
 
 		}
 
@@ -772,7 +739,6 @@ class Pgsql extends Provider {
 	public function insertId() {
 
 		if(!$this->isConnected()) return false;
-
 
 		return pg_last_oid($this->result);
 
@@ -869,7 +835,6 @@ class Pgsql extends Provider {
 
 				$resultRow[$table][$column] = $item;
 
-
 			}
 
 			$rows[]=$resultRow;
@@ -940,9 +905,7 @@ class Pgsql extends Provider {
 
 		if($this->numQueries() > 0)
 
-		return $this->queries[$this->numQueries() - 1];
-
-		else
+			return $this->queries[$this->numQueries() - 1];
 
 		return false;
 	}
@@ -970,9 +933,6 @@ class Pgsql extends Provider {
 			return false;
 		}
 
-		else
-
 		return false;
 	}
 }
-

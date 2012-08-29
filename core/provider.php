@@ -45,10 +45,7 @@ abstract class Provider {
     
     //Having conditions
     public $havingCondition=array();
-    
-
    
-
     //  Main Abstract methods
     
     abstract function initialize();
@@ -93,9 +90,7 @@ abstract class Provider {
     abstract function getRow($arg = null);
     
     abstract function getRows($arg = null);
-  
-           
-   
+
     // Singleton constructor
     private function __construct() {
     
@@ -128,12 +123,4 @@ abstract class Provider {
     	}
     }
 
-
-
-
-
-
-
 }
-
-?>

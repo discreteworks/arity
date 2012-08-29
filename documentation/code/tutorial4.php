@@ -63,7 +63,3 @@ echo "/* Test 4 Fetch Inserted*/<br/>";
 $rs=$udbObj->fetch(2)->object();
 
 var_dump($rs);
-
-
-
-?>
