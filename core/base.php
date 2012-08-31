@@ -9,9 +9,9 @@
  *
  * @package		Arity
  * @author		codendev
- * @copyright   Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
- * @link		http://arity.abideen.com
+ * @copyright  Copyright (c) 2011 - 2012, CodenDev.
+ * @license		http://gnu.org/licenses/gpl.txt
+ * @link		   http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
  */

@@ -25,8 +25,6 @@ class Sample {
 	
 	public $score;
 
-	 
-	 
 	public function  __construct()  {
 
 		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
@@ -35,10 +33,6 @@ class Sample {
 		
 		self::$meta->score= Type::create('score',ARITY_INT,11);
 
-	
-		
-
 	}
 
 }
-?>

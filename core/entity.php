@@ -9,31 +9,30 @@
  *
  * @package		Arity
  * @author		codendev
- * @copyright   Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
- * @link		http://arity.abideen.com
+ * @copyright  Copyright (c) 2011 - 2012, CodenDev.
+ * @license		http://gnu.org/licenses/gpl.txt
+ * @link		   http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
  */
-
 class Entity {
 
 	// Base entity on which operations are added
 	protected $base;
 
-	//Provider instance
+	// Provider instance
 	public $provider;
 
 	// Object array of entities
 	private $obj=array();
 
-	//Depth restriction of the joins 0 to n
+	// Depth restriction of the joins 0 to n
 	private $depth=0;
 
-	//Current level of the join 0 to n
+	// Current level of the join 0 to n
 	private $level=0;
 
-	//Name of entities mapped
+	// Name of entities mapped
 	private $map=array();
 
 	// Count of instances of entities object compile
@@ -58,12 +57,11 @@ class Entity {
 
 		$table=strtolower(get_class($this->base));
 
-		if(!$this->provider->tableExists($table)){
+		if(!$this->provider->tableExists($table)) {
 
 			$this->createEntity($table);
 
-		}
-		else{
+		} else {
 
 			$this->alterEntity($this);
 
@@ -89,7 +87,6 @@ class Entity {
 	 */
 	public function removeTable() {
 
-
 		$table=strtolower(get_class($this->base));
 
 		if($this->provider->tableExists($table))
@@ -102,7 +99,6 @@ class Entity {
 	 * @param integer $depth the level of entities with respect to join
 	 * @return Object Entitydecorator
 	 */
-
 	public function fetch($depth=null) {
 
 		$this->depth=$depth;
@@ -118,7 +114,6 @@ class Entity {
 	 * @param String Entities names to load
 	 * @return Object
 	 */
-
 	public function select($objColumn=null) {
 
 		echo $objColumn;
@@ -147,7 +142,6 @@ class Entity {
 	 * @param String Entities names to load
 	 * @return Object
 	 */
-
 	public function avg($objColumn) {
 
 		$this->provider->setSelect($objColumn,ARITY_AVG);
@@ -161,7 +155,6 @@ class Entity {
 	 * @param String Entities names to load
 	 * @return Object
 	 */
-
 	public function min($objColumn) {
 
 		$this->provider->setSelect($objColumn,ARITY_MIN);
@@ -175,7 +168,6 @@ class Entity {
 	 * @param String Entities names to load
 	 * @return Object
 	 */
-
 	public function max($objColumn) {
 
 		$this->provider->setSelect($objColumn,ARITY_MAX);
@@ -189,7 +181,6 @@ class Entity {
 	 * @return Object Entitydecorator.
 	 */
 	public function having($args,$type=ARITY_AND,$compare=ARITY_EQ) {
-
 
 		if(is_array($args)) {
 
@@ -215,14 +206,13 @@ class Entity {
 	 * Standard compile of the result set without mapping to entities
 	 * @return Associative Array resultset of entities from provider.
 	 */
-
 	function arrayList() {
 
 		$table=strtolower(get_class($this->base));
 
-		if($this->obj==null){
+		if($this->obj==null) {
 
-			echo "<span>Please call the fetch method prior to native result";
+			echo '<span>Please call the fetch method prior to native result';
 			return;
 		}
 
@@ -238,12 +228,11 @@ class Entity {
 	 * Count the results from provider resultset.
 	 * @return integer number of rows.
 	 */
-
 	function arrayListCount($statement=null) {
 
 		$table=strtolower(get_class($this->base));
 
-		if($this->obj==null){
+		if($this->obj==null) {
 
 			echo "Please call the fetch method prior to count";
 			return;
@@ -261,7 +250,6 @@ class Entity {
 	 * Count the results from mapped entities resultset.
 	 * @return integer count of entity instances or number of rows.
 	 */
-
 	function objectCount() {
 
 		return $this->objectCount;
@@ -272,14 +260,13 @@ class Entity {
 	 * Object compile of provider resultset of entities with mapping.
 	 * @return Associative array of mapped entity object instances.
 	 */
-
 	public function object() {
 
 		$objs=array();
 
 		$table=strtolower(get_class($this->base));
 
-		if($this->obj==null){
+		if($this->obj==null) {
 
 			echo "Please call the fetch method prior to object";
 			return;
@@ -357,16 +344,16 @@ class Entity {
 	 * @return integer new insert id.
 	 */
 
-	public function save(){
+	public function save() {
 
-		if(TRANSACTIONAL){
+		if(TRANSACTIONAL) {
 
 			$this->provider->beginTransaction();
 		}
 
 		$obj= $this->saveObject();
 
-		if(TRANSACTIONAL){
+		if(TRANSACTIONAL) {
 		
 			$this->provider->endTransaction();
 		}
@@ -380,7 +367,7 @@ class Entity {
 
 		if(isset($obj)) {
 
-			if(is_null($obj->$id)){
+			if(is_null($obj->$id)) {
 
 				$this->insert($obj);
 			}
@@ -430,12 +417,13 @@ class Entity {
 			}
 			elseif(is_array($attributes[$k])) {
 
-				// 				foreach($attributes[$k] as $item) {
+				//foreach($attributes[$k] as $item) {
 
-				// 					$this->save($item);
-				// 				}
+				//$this->save($item);
 
-				if($obj::$meta->$k->parent){
+				//}
+
+				if($obj::$meta->$k->parent) {
 
 					$objectArray[$k]=$attributes[$k];
 
@@ -444,7 +432,7 @@ class Entity {
 			}
 			elseif(is_object($attributes[$k])) {
 
-				if(!$obj::$meta->$k->parent){
+				if(!$obj::$meta->$k->parent) {
 
 					$out=$this->saveObject($attributes[$k]);
 
@@ -477,12 +465,11 @@ class Entity {
 		// 					$this->save($item);
 		// 				}
 
-		foreach($objectArray as $k=>$v){
+		foreach($objectArray as $k=>$v) {
 
+			if(is_array($v)) {
 
-			if(is_array($v)){
-
-				foreach($v as $item){
+				foreach($v as $item) {
 
 					$referedField=$obj::$meta->$k->name;
 
@@ -573,7 +560,7 @@ class Entity {
 			}
 			elseif(is_object($attrib[$k])) {
 
-				if(!$obj::$meta->$k->parent){
+				if(!$obj::$meta->$k->parent) {
 
 					$out=$this->saveObject($attrib[$k]);
 
@@ -602,7 +589,7 @@ class Entity {
 
 		$this->provider->update($table,$attrib,$id,$obj->$id);
 
-		foreach($objectArray as $k=>$v){
+		foreach($objectArray as $k=>$v) {
 
 			$referedField=$obj::$meta->$k->name;
 
@@ -613,11 +600,12 @@ class Entity {
 			$this->saveObject($v);
 
 		}
+
 		return $obj;
 
 	}
 
-	private function alterEntity(){
+	private function alterEntity() {
 
 		$fieldAttributes=array();
 
@@ -651,14 +639,13 @@ class Entity {
 	 */
 	private function createEntity($table) {
 
-
 		$relationFlag=true;
 
 		//Read attributes of the model
 
 		$attributes=get_object_vars($this->base);
 
-		if(count($attributes)>0){
+		if(count($attributes)>0) {
 
 			foreach ($attributes as $key=>$item) {
 
@@ -702,7 +689,6 @@ class Entity {
 		$table=strtolower(get_class($ref));
 
 		foreach($attributes as $key=>$name) {
-
 
 			if(@get_class($table::$meta->$key)=='Reference'&&!isset($this->obj[strtolower($table::$meta->$key->reference)])&&$this->level<$this->depth) {
 
@@ -780,7 +766,7 @@ class Entity {
 
 					}
 					else {
-						if(isset($resultset[$key][$name][$vkey])){
+						if(isset($resultset[$key][$name][$vkey])) {
 
 							$c->$vkey=$resultset[$key][$name][$vkey];
 						}
@@ -807,7 +793,6 @@ class Entity {
 						}
 					}
 					elseif($c::$meta->$vkey->map==ARITY_1M&&(in_array($c::$meta->$vkey->reference, $this->map)==false || array_search($c::$meta->$vkey->reference, $this->map)>array_search($name, $this->map))) {
-
 
 						$cond2=array($c::$meta->$vkey->name=>$resultset[$key][$name][$c::$meta->$vkey->name]
 						);
@@ -841,7 +826,6 @@ class Entity {
 
 			}
 
-
 		}
 
 		return $objectArray;
@@ -858,7 +842,7 @@ class Entity {
 // 			$ci=key($item);
 
 
-// 			if(isset($ci)){
+// 			if(isset($ci)) {
 
 // 				$c=new $ci;
 
@@ -866,7 +850,7 @@ class Entity {
 
 // 				foreach($attrib as $vkey=>$var) {
 
-// 					if(isset($rows[$key][key($item)][$vkey])){
+// 					if(isset($rows[$key][key($item)][$vkey])) {
 
 // 						$c->$vkey=$rows[$key][key($item)][$vkey];
 

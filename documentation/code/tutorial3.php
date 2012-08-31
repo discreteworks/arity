@@ -11,7 +11,6 @@ require 'model\grouptype.php';
 require 'model\profile.php';
 
 
-
 echo "/* Test 3 Intitialize User Object*/<br/>";
 
 $userObj=new User();
@@ -36,16 +35,16 @@ $gdbObj->createTable();
 
 echo "/* Test 3 Add Parent with Child Objects*/<br/>";
 
-
 $userObj=new User();
 
 $userObj->username="test";
-$userObj->password="sample";
 
+$userObj->password="sample";
 
 $grp=new Group();
 
 $grp->name="administrator";
+
 $grp->type_id=1;
 
 $userObj->group=$grp;
@@ -61,19 +60,23 @@ $rs=$udbObj->fetch(2)->object();
 
 var_dump($rs);
 
-echo "/* Test 3 Update Parent with Child Objects*/<br/>";
 
+echo "/* Test 3 Update Parent with Child Objects*/<br/>";
 
 $userObj=new User();
 
 $userObj->id=1;
+
 $userObj->username="best";
+
 $userObj->password="sample";
 
-
 $grp=new Group();
+
 $grp->id=1;
+
 $grp->name="sampple";
+
 $grp->type_id=1;
 
 $userObj->group=$grp;
@@ -81,6 +84,7 @@ $userObj->group=$grp;
 $udbObj=Arity::addObject($userObj);
 
 $udbObj->save();
+
 
 echo "/* Test 3 Fetch Updated*/<br/>";
 

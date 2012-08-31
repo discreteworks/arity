@@ -10,19 +10,19 @@
  * @package		Arity
  * @author		codendev
  * @copyright           Copyright (c) 2011 - 2012, CodenDev.
- * @license		http://www.gnu.org/licenses/gpl.txt
+ * @license		http://gnu.org/licenses/gpl.txt
  * @link		http://arity.abideen.com
  * @since		Version 1.0
  * @filesource
  */
-abstract class Field{
+abstract class Field {
 
    public $name;
-   
-   function  __construct(Field $obj,$name) {
 
-      $obj->name=$name;
-   
+   function  __construct(Field $obj, $name) {
+
+      $obj->name = $name;
+
    }
 
 }
