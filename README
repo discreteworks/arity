@@ -44,7 +44,7 @@ Leave PGSQL_SCHEMA as public, if you havent created you own schema.
 HOW TO USE:
 --------------
 
-Step1: Create model model class. 
+Step1: Create model class. 
 
 >file:sample.php
 
