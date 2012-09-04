@@ -91,7 +91,7 @@ class Entity {
 
 		if($this->provider->tableExists($table))
 
-		$this->provider->dropTable($table);
+			$this->provider->dropTable($table);
 	}
 
 	/**
@@ -354,11 +354,11 @@ class Entity {
 		$obj= $this->saveObject();
 
 		if(TRANSACTIONAL) {
-		
+
 			$this->provider->endTransaction();
 		}
 		return $obj;
-		
+
 	}
 
 	private function saveObject($obj=null) {
@@ -378,15 +378,15 @@ class Entity {
 			return $obj;
 		}
 		else {
-			
+				
 
 			if(is_null($this->base->$id))
 
-			$this->insert($this->base);
+				$this->insert($this->base);
 
 			else
 
-			$this->update($this->base);
+				$this->update($this->base);
 
 			return $this->base;
 		}
@@ -533,14 +533,14 @@ class Entity {
 
 		if(is_null($obj->$id))
 
-		return false;
+			return false;
 
 
 		$attrib=get_object_vars($obj);
 
 		if(count($attrib) == 0)
 
-		return;
+			return;
 
 		foreach($attrib as $k => $v) {
 
@@ -629,7 +629,7 @@ class Entity {
 
 		if($fieldAttributes)
 
-		$this->provider->addField($table,$fieldAttributes);
+			$this->provider->addField($table,$fieldAttributes);
 
 	}
 

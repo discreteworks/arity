@@ -101,7 +101,7 @@ class Pgsql extends Provider {
 
 			if(!is_null($v))
 
-				$data[$k] = $this->quote($v);
+			$data[$k] = $this->quote($v);
 
 		$columns = '' . implode(', ', array_keys($data)) . '';
 
@@ -141,7 +141,7 @@ class Pgsql extends Provider {
 
 		if($rs)
 
-		   return $this->hasRows($rs);
+			return $this->hasRows($rs);
 
 
 
@@ -179,7 +179,7 @@ class Pgsql extends Provider {
 				$constraint=$this->makeConstraint($table, $item);
 					
 				if($constraint)
-				$constraints[]=$constraint;
+					$constraints[]=$constraint;
 			}
 		}
 			
@@ -234,11 +234,11 @@ class Pgsql extends Provider {
 
 		if($fieldAttribute->key==ARITY_PRIMARY && $fieldAttribute->composite==ARITY_NULL)
 
-		return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_pk\" PRIMARY KEY (\"".$fieldAttribute->name."\")";
+			return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_pk\" PRIMARY KEY (\"".$fieldAttribute->name."\")";
 
 		if($fieldAttribute->key==ARITY_UNIQUE && $fieldAttribute->composite==ARITY_NULL)
 
-		return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_u\" UNIQUE (\"".$fieldAttribute->name."\")";
+			return " CONSTRAINT \"".$table."_".$fieldAttribute->name."_u\" UNIQUE (\"".$fieldAttribute->name."\")";
 
 	}
 
@@ -255,11 +255,11 @@ class Pgsql extends Provider {
 
 				if($item->key==ARITY_PRIMARY)
 
-				$compositePrimary[]=$item->name;
+					$compositePrimary[]=$item->name;
 
 				if($item->key==ARITY_UNIQUE)
 
-				$compositeUnique[]=$item->name;
+					$compositeUnique[]=$item->name;
 			}
 
 		}
@@ -346,7 +346,7 @@ class Pgsql extends Provider {
 
 				$type=" BIGINT ";
 				break;
-				
+
 			case ARITY_SMALLINT:
 
 				$type=" SMALLINT ";
@@ -657,7 +657,7 @@ class Pgsql extends Provider {
 			$the_db = $this->DB;
 
 			$this->queries[] = $sql;
-				
+
 			$this->result = pg_query($the_db,$sql) or $this->notify();
 
 		}
@@ -688,7 +688,7 @@ class Pgsql extends Provider {
 
 		if(!$this->isConnected())
 
-		$this->connect();
+			$this->connect();
 
 		try{
 
@@ -759,7 +759,7 @@ class Pgsql extends Provider {
 
 			return $currval;
 
-		} 
+		}
 
 		return false;
 	}
@@ -788,7 +788,7 @@ class Pgsql extends Provider {
 
 		while($row = pg_fetch_array($result, PGSQL_ASSOC))
 
-		$values[] = array_pop($row);
+			$values[] = array_pop($row);
 
 		return $values;
 	}
@@ -913,7 +913,7 @@ class Pgsql extends Provider {
 
 		elseif(is_resource($arg))
 
-			return $arg;
+		return $arg;
 
 		elseif(is_string($arg)) {
 

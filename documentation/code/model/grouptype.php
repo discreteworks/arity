@@ -16,7 +16,7 @@
  * @filesource
  */
 class GroupType{
-	 
+
 	public static $meta;
 
 	public $id;

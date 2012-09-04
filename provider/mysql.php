@@ -123,14 +123,14 @@ class Mysql extends Provider {
 
 		foreach($attributes as $k => $v)
 			if(!is_null($v))
-				$data[$k] = $this->quote($v);
+			$data[$k] = $this->quote($v);
 
 		$columns = '`' . implode('`, `', array_keys($data)) . '`';
 		$values = implode(',', $data);
 		$this->execute("{$cmd} `{$table}` ({$columns}) VALUES ({$values})");
 		$obj->id = $this->insertId();
 	}
-	
+
 	function update($table, $attrib, $cColumnName, $cValue) {
 		$sql = "UPDATE `{$table}` SET ";
 
@@ -379,7 +379,7 @@ class Mysql extends Provider {
 		if(is_null($arg) && is_resource($this->result))
 			return $this->result;
 		elseif(is_resource($arg))
-			return $arg;
+		return $arg;
 		elseif(is_string($arg)) {
 			$this->query($arg);
 			if(is_resource($this->result))

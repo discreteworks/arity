@@ -16,35 +16,35 @@
  * @filesource
  */
 class User {
-    
-    public static $meta;
-    
-    public $id;
-    
-    public $username;
-    
-    public $password;
-    
-    public $group_id;
-    
-    public $group;
-    
-    public $profile;
 
-    public function  __construct() {
+	public static $meta;
 
-       	self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
-       	
-       	self::$meta->username= new Type('username',ARITY_VARCHAR,50);
-       	
-       	self::$meta->password= new Type('password',ARITY_VARCHAR,50);
-       	
-       	self::$meta->group_id= new Type('group_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
-		
-       	self::$meta->group= new Reference('group_id','group','id',ARITY_1M);
-       	
-       	self::$meta->profile=new Reference('id','profile','user_id',ARITY_11,ARITY_PARENT);
+	public $id;
 
-    }
+	public $username;
+
+	public $password;
+
+	public $group_id;
+
+	public $group;
+
+	public $profile;
+
+	public function  __construct() {
+
+		self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
+
+		self::$meta->username= new Type('username',ARITY_VARCHAR,50);
+
+		self::$meta->password= new Type('password',ARITY_VARCHAR,50);
+
+		self::$meta->group_id= new Type('group_id',ARITY_INT,11,ARITY_EMPTY,ARITY_REQUIRED);
+
+		self::$meta->group= new Reference('group_id','group','id',ARITY_1M);
+
+		self::$meta->profile=new Reference('id','profile','user_id',ARITY_11,ARITY_PARENT);
+
+	}
 
 }

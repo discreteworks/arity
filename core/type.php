@@ -17,84 +17,84 @@
  */
 class Type extends Field {
 
-    public $size;
-    public $type;
-    public $default;
-    public $key;
-    public $composite;
-    public $required;
+	public $size;
+	public $type;
+	public $default;
+	public $key;
+	public $composite;
+	public $required;
 
-    /**
-     *    Create a Type Field Object.
-     *    @param string $name       Name of the field.
-     *    @param string $description       Description of field.
-     *    @param boolean $required       Boolean required field.
-     *    @param integer $size        Size of field.
-     *    @param string $type       Type of field(number,text,longtext,binary).
-     *    @param mixed $default    Default value of field.
-     *    @access public
-     */
-    function  __construct($name, $type, $size=null, $default=null, $required=ARITY_NOTREQUIRED, $key=null, $composite=null) {
+	/**
+	 *    Create a Type Field Object.
+	 *    @param string $name       Name of the field.
+	 *    @param string $description       Description of field.
+	 *    @param boolean $required       Boolean required field.
+	 *    @param integer $size        Size of field.
+	 *    @param string $type       Type of field(number,text,longtext,binary).
+	 *    @param mixed $default    Default value of field.
+	 *    @access public
+	 */
+	function  __construct($name, $type, $size=null, $default=null, $required=ARITY_NOTREQUIRED, $key=null, $composite=null) {
 
-        parent::__construct($this, $name);
+		parent::__construct($this, $name);
 
-        $this->size=$size;
+		$this->size=$size;
 
-        $this->type=$type;
+		$this->type=$type;
 
-        $this->default=$default;
+		$this->default=$default;
 
-        $this->key=$key;
+		$this->key=$key;
 
-        $this->composite=$composite;
+		$this->composite=$composite;
 
-        $this->required=$required;
+		$this->required=$required;
 
-    }
+	}
 
-    public static function create($name, $type, $size=null) {
+	public static function create($name, $type, $size=null) {
 
-    	return new Type($name, $type, $size);
+		return new Type($name, $type, $size);
 
-    }
+	}
 
-    public function setDefault($default) {
+	public function setDefault($default) {
 
-    	$this->default=$default;
+		$this->default=$default;
 
-    	return $this;
+		return $this;
 
-    }
+	}
 
-    public function composite() {
+	public function composite() {
 
-    	$this->composite=ARITY_COMPOSITE;	
+		$this->composite=ARITY_COMPOSITE;
 
-    	return $this;
+		return $this;
 
-    }
+	}
 
-    public function primaryKey() {
+	public function primaryKey() {
 
-    	$this->key=ARITY_PRIMARY;
+		$this->key=ARITY_PRIMARY;
 
-    	return $this;
+		return $this;
 
-    }
-    
-    public function uniqueKey() {
+	}
 
-    	$this->key=ARITY_UNIQUE;
+	public function uniqueKey() {
 
-    	return $this;
+		$this->key=ARITY_UNIQUE;
 
-    }
-    
-    public function required() {
+		return $this;
 
-    	$this->key=ARITY_REQUIRED;
+	}
 
-    	return $this;
+	public function required() {
 
-    }
+		$this->key=ARITY_REQUIRED;
+
+		return $this;
+
+	}
 }

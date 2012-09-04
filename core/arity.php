@@ -18,32 +18,32 @@
 class Arity {
 
 	/**
-	* Access provider methods
-	*
-	*/
-    public static function provider($type) {
+	 * Access provider methods
+	 *
+	 */
+	public static function provider($type) {
 
-        if(empty($type)) {
+		if(empty($type)) {
 
-            return  DEFAULT_PROVIDER::getProvider();
+			return  DEFAULT_PROVIDER::getProvider();
 
-        }
-        else {
+		}
+		else {
 
-            return  $type::getProvider();
-        }
+			return  $type::getProvider();
+		}
 
-    }
-   /**
-    * Adds object to Arity Context
-    * 
-    */
-    public static function addObject($object, $type=DEFAULT_PROVIDER) {
+	}
+	/**
+	 * Adds object to Arity Context
+	 *
+	 */
+	public static function addObject($object, $type=DEFAULT_PROVIDER) {
 
-        $db=$type::getProvider($type);
+		$db=$type::getProvider($type);
 
-        return new Entity($object,$db);
+		return new Entity($object,$db);
 
-    }
+	}
 
 }

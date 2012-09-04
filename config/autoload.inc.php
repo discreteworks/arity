@@ -35,7 +35,7 @@ function __autoload($class_name) {
 
 	/* Comment to disable test case object loading in production */
 	if (file_exists(dirname(__FILE__).'/../res/' . strtolower($class_name) . '.php')) {
-	
+
 		require_once dirname(__FILE__).'/../res/' . strtolower($class_name) . '.php';
 	}
 

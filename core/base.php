@@ -18,6 +18,6 @@
 
 abstract class Base {
 
-    public static $meta;
+	public static $meta;
 
 }

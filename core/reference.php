@@ -16,96 +16,96 @@
  * @filesource
  */
 class Reference extends Field {
-    // put your code here
+	// put your code here
 
-    public $reference;
+	public $reference;
 
-    public $map;
-    
-    public $referenceField;
-    
-    public $cascade;
-    
-    public $parent;
+	public $map;
 
-   /**
-    * 
-    * 
-    */
-   public function  __construct($fieldName, $referedTable=null, $referedFieldName=null, $map=null, $parent=ARITY_CHILD, $onDelete='SET NULL') {
+	public $referenceField;
 
-      $this->reference=$referedTable;
+	public $cascade;
 
-      $this->referenceField=$referedFieldName;
-      
-      $this->map=$map;
-      
-      $this->onDelete=$onDelete;
-      
-      $this->parent=$parent;
+	public $parent;
 
-      parent::__construct($this, $fieldName);
+	/**
+	 *
+	 *
+	 */
+	public function  __construct($fieldName, $referedTable=null, $referedFieldName=null, $map=null, $parent=ARITY_CHILD, $onDelete='SET NULL') {
 
-    }
+		$this->reference=$referedTable;
 
-    public static function create($fieldName){
-    	
-    	return new Reference($fieldName);
+		$this->referenceField=$referedFieldName;
 
-    }
-    
-    public function referToTable($table){
-    	
-    	$this->reference=$table;
-    	
-    	return $this;
-    }
-    
-    public function referFieldName($name){
-    	
-    	$this->referenceField=$name;
-    	
-    	return $this;
-    }
-    
-    public function one2many(){
-    	
-    	$this->map=ARITY_1M;
-    	
-    	return $this;
-    	
-    }
+		$this->map=$map;
 
-    public function one2one(){
-    	 
-    	$this->map=ARITY_11;
-    	 
-    	return $this;
+		$this->onDelete=$onDelete;
 
-    }
+		$this->parent=$parent;
 
-    public function isParent(){
-    	
-    	$this->parent=ARITY_PARENT;
-    	
-    	return $this;
+		parent::__construct($this, $fieldName);
 
-    }
-    
-    public function isChild(){
-    	 
-    	$this->parent=ARITY_CHILD;
-    	 
-    	return $this;
+	}
 
-    }
+	public static function create($fieldName){
+		 
+		return new Reference($fieldName);
 
-    public function setOnDelete($str){
-    	
-    	$this->onDelete=$str;
-    	
-    	return $this;
+	}
 
-    }
+	public function referToTable($table){
+		 
+		$this->reference=$table;
+		 
+		return $this;
+	}
+
+	public function referFieldName($name){
+		 
+		$this->referenceField=$name;
+		 
+		return $this;
+	}
+
+	public function one2many(){
+		 
+		$this->map=ARITY_1M;
+		 
+		return $this;
+		 
+	}
+
+	public function one2one(){
+
+		$this->map=ARITY_11;
+
+		return $this;
+
+	}
+
+	public function isParent(){
+		 
+		$this->parent=ARITY_PARENT;
+		 
+		return $this;
+
+	}
+
+	public function isChild(){
+
+		$this->parent=ARITY_CHILD;
+
+		return $this;
+
+	}
+
+	public function setOnDelete($str){
+		 
+		$this->onDelete=$str;
+		 
+		return $this;
+
+	}
 
 }

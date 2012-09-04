@@ -17,12 +17,12 @@
  */
 abstract class Field {
 
-   public $name;
+	public $name;
 
-   function  __construct(Field $obj, $name) {
+	function  __construct(Field $obj, $name) {
 
-      $obj->name = $name;
+		$obj->name = $name;
 
-   }
+	}
 
 }

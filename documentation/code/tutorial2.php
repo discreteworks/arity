@@ -86,7 +86,7 @@ echo "/* Test 2 Fetch User Object*/<br/>";
 $rs=$gdbObj->fetch(3)->object();
 
 foreach($rs as $item) {
-	
+
 	var_dump($item);
-	
+
 }

@@ -121,11 +121,11 @@ define('ARITY_GTEQ', '>=');
 define('ARITY_LTEQ', '<=');
 
 /*********************
-*Providers*
+ *Providers*
 **********************/
 
 /*********************
-*MYSQL DB CONNECTION*
+ *MYSQL DB CONNECTION*
 **********************/
 
 define('MYSQL_HOST', 'localhost');
