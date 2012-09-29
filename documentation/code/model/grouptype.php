@@ -5,7 +5,7 @@
  * ORM Framework for PHP 5.2 or newer
  *
  * Licensed under GPL
- * Redistributions of files must retain the above copyright notice.
+ * 
  *
  * @package		Arity
  * @author		codendev
