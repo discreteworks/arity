@@ -3,3 +3,4 @@ TODO
 	* Foreign Key creation in Postgresql for the Object mapping
 	* Add MySQL provider
 	* Add SQLite provider
+	* Add PHPUnit Tests
