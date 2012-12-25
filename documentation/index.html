@@ -1,161 +1,161 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang='en' dir='ltr'>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 <title>Arity</title>
-<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href='css/style.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<div id="content">
+	<div id='content'>
 		<h1>
-			<img src="images/arity.png">
+			<img src='images/arity.png'>
 		</h1>
-		<div class="search-bar" style="position: absolute; top: 50px;">
+		<div class='search-bar' style='position: absolute; top: 50px;'>
 			<strong> Table of content </strong>
 			<ul>
-				<li><strong><a href="#addObject">addObject</a></strong>
+				<li><strong><a href='#addObject'>addObject</a></strong>
 					<ul>
-						<li><a href="#createTable">createTable</a></li>
-						<li><a href="#removeTable">removeTable</a></li>
-						<li><a href="#truncateTable">truncateTable</a></li>
-						<li><a href="#save">save</a></li>
-						<li><a href="#delete">delete</a></li>
-						<li><a href="#fetch">fetch</a></li>
-						<li><a href="#where">where</a></li>
-						<li><a href="#object">object</a></li>
-						<li><a href="#objectCount">objectCount</a></li>
-						<li><a href="#arrayList">arrayList</a></li>
-						<li><a href="#arrayListCount">arrayListCount</a></li>
-						<li><a href="#select">select</a></li>
-						<li><a href="#min">min</a></li>
-						<li><a href="#max">max</a></li>
-						<li><a href="#avg">avg</a></li>
-						<li><a href="#sum">sum</a></li>
-						<li><a href="#groupBy">groupBy</a></li>
-						<li><a href="#having">having</a></li>
+						<li><a href='#createTable'>createTable</a></li>
+						<li><a href='#removeTable'>removeTable</a></li>
+						<li><a href='#truncateTable'>truncateTable</a></li>
+						<li><a href='#save'>save</a></li>
+						<li><a href='#delete'>delete</a></li>
+						<li><a href='#fetch'>fetch</a></li>
+						<li><a href='#where'>where</a></li>
+						<li><a href='#object'>object</a></li>
+						<li><a href='#objectCount'>objectCount</a></li>
+						<li><a href='#arrayList'>arrayList</a></li>
+						<li><a href='#arrayListCount'>arrayListCount</a></li>
+						<li><a href='#select'>select</a></li>
+						<li><a href='#min'>min</a></li>
+						<li><a href='#max'>max</a></li>
+						<li><a href='#avg'>avg</a></li>
+						<li><a href='#sum'>sum</a></li>
+						<li><a href='#groupBy'>groupBy</a></li>
+						<li><a href='#having'>having</a></li>
 					</ul></li>
-				<li><strong><a href="#tutorial">Tutorial</a></strong>
+				<li><strong><a href='#tutorial'>Tutorial</a></strong>
 					<ul>
-						<li><a href="#tutorial0">Tutorial 0</a></li>
-						<li><a href="#tutorial1">Tutorial 1</a></li>
-						<li><a href="#tutorial2">Tutorial 2</a></li>
-						<li><a href="#tutorial3">Tutorial 3</a></li>
-						<li><a href="#tutorial4">Tutorial 4</a></li>
-						<li><a href="#tutorial5">Tutorial 5</a></li>
+						<li><a href='#tutorial0'>Tutorial 0</a></li>
+						<li><a href='#tutorial1'>Tutorial 1</a></li>
+						<li><a href='#tutorial2'>Tutorial 2</a></li>
+						<li><a href='#tutorial3'>Tutorial 3</a></li>
+						<li><a href='#tutorial4'>Tutorial 4</a></li>
+						<li><a href='#tutorial5'>Tutorial 5</a></li>
 					</ul></li>
 			</ul>
 		</div>
-		<a name="___top"></a>
-		<div class="pod">
+		<a name='___top'></a>
+		<div class='pod'>
 
 			<h1>Arity</h1>
 
-			<ul id="index">
-				<li><a href="#NAME">NAME</a></li>
-				<li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-				<li><a href="#CONFIG">CONFIG</a>
+			<ul id='index'>
+				<li><a href='#NAME'>NAME</a></li>
+				<li><a href='#DESCRIPTION'>DESCRIPTION</a></li>
+				<li><a href='#CONFIG'>CONFIG</a>
 					<ul>
-						<li><a href="#QUERY_DEBUG">QUERY_DEBUG</a></li>
-						<li><a href="#ARITY_IDENTITY">ARITY_IDENTITY</a></li>
-						<li><a href="#ARITY_NULL">ARITY_NULL</a></li>
-						<li><a href="#ARITY_EMPTY">ARITY_EMPTY</a></li>
+						<li><a href='#QUERY_DEBUG'>QUERY_DEBUG</a></li>
+						<li><a href='#ARITY_IDENTITY'>ARITY_IDENTITY</a></li>
+						<li><a href='#ARITY_NULL'>ARITY_NULL</a></li>
+						<li><a href='#ARITY_EMPTY'>ARITY_EMPTY</a></li>
 					</ul></li>
-				<li><a href="#TYPES">DATATYPE IDENTIFIERS</a>
+				<li><a href='#TYPES'>DATATYPE IDENTIFIERS</a>
 					<ul>
-						<li><a href="#ARITY_INT">ARITY_INT</a></li>
-						<li><a href="#ARITY_SERIAL">ARITY_SERIAL</a></li>
-						<li><a href="#ARITY_SMALLINT">ARITY_SMALLINT</a></li>
-						<li><a href="#ARITY_DECIMAL">ARITY_DECIMAL</a></li>
-						<li><a href="#ARITY_VARCHAR">ARITY_VARCHAR</a></li>
-						<li><a href="#ARITY_TEXT">ARITY_TEXT</a></li>
-						<li><a href="#ARITY_DATE">ARITY_DATE</a></li>
-						<li><a href="#ARITY_BINARY">ARITY_BINARY</a></li>
+						<li><a href='#ARITY_INT'>ARITY_INT</a></li>
+						<li><a href='#ARITY_SERIAL'>ARITY_SERIAL</a></li>
+						<li><a href='#ARITY_SMALLINT'>ARITY_SMALLINT</a></li>
+						<li><a href='#ARITY_DECIMAL'>ARITY_DECIMAL</a></li>
+						<li><a href='#ARITY_VARCHAR'>ARITY_VARCHAR</a></li>
+						<li><a href='#ARITY_TEXT'>ARITY_TEXT</a></li>
+						<li><a href='#ARITY_DATE'>ARITY_DATE</a></li>
+						<li><a href='#ARITY_BINARY'>ARITY_BINARY</a></li>
 					</ul></li>
-				<li><a href="#CONSTRAINTS">CONSTRAINTS</a>
+				<li><a href='#CONSTRAINTS'>CONSTRAINTS</a>
 					<ul>
-						<li><a href="#ARITY_PRIMARY">ARITY_PRIMARY</a></li>
-						<li><a href="#ARITY_UNIQUE">ARITY_UNIQUE</a></li>
-						<li><a href="#ARITY_COMPOSITE">ARITY_COMPOSITE</a></li>
-						<li><a href="#ARITY_REQUIRED">ARITY_REQUIRED</a></li>
-						<li><a href="#ARITY_NOTREQUIRED">ARITY_NOTREQUIRED</a></li>
+						<li><a href='#ARITY_PRIMARY'>ARITY_PRIMARY</a></li>
+						<li><a href='#ARITY_UNIQUE'>ARITY_UNIQUE</a></li>
+						<li><a href='#ARITY_COMPOSITE'>ARITY_COMPOSITE</a></li>
+						<li><a href='#ARITY_REQUIRED'>ARITY_REQUIRED</a></li>
+						<li><a href='#ARITY_NOTREQUIRED'>ARITY_NOTREQUIRED</a></li>
 
 					</ul></li>
-				<li><a href="#MULTIPLICITY">MULTIPLICITY</a>
+				<li><a href='#MULTIPLICITY'>MULTIPLICITY</a>
 					<ul>
-						<li><a href="#ARITY_PARENT">ARITY_PARENT</a></li>
-						<li><a href="#ARITY_CHILD">ARITY_CHILD</a></li>
-						<li><a href="#ARITY_11">ARITY_11</a></li>
-						<li><a href="#ARITY_1M">ARITY_1M</a></li>
+						<li><a href='#ARITY_PARENT'>ARITY_PARENT</a></li>
+						<li><a href='#ARITY_CHILD'>ARITY_CHILD</a></li>
+						<li><a href='#ARITY_11'>ARITY_11</a></li>
+						<li><a href='#ARITY_1M'>ARITY_1M</a></li>
 					</ul></li>
-				<li><a href="#LOGIC">LOGIC OPERATORS</a>
+				<li><a href='#LOGIC'>LOGIC OPERATORS</a>
 					<ul>
-						<li><a href="#ARITY_AND">ARITY_AND</a></li>
-						<li><a href="#ARITY_OR">ARITY_OR</a></li>
-						<li><a href="#ARITY_EQ">ARITY_EQ</a></li>
-						<li><a href="#ARITY_NEQ">ARITY_NEQ</a></li>
-						<li><a href="#ARITY_GTEQ">ARITY_GTEQ</a></li>
-						<li><a href="#ARITY_LTEQ">ARITY_LTEQ</a></li>
+						<li><a href='#ARITY_AND'>ARITY_AND</a></li>
+						<li><a href='#ARITY_OR'>ARITY_OR</a></li>
+						<li><a href='#ARITY_EQ'>ARITY_EQ</a></li>
+						<li><a href='#ARITY_NEQ'>ARITY_NEQ</a></li>
+						<li><a href='#ARITY_GTEQ'>ARITY_GTEQ</a></li>
+						<li><a href='#ARITY_LTEQ'>ARITY_LTEQ</a></li>
 					</ul></li>
-				<li><a href="#LOGIC">AGREGATE OPERATORS</a>
+				<li><a href='#LOGIC'>AGREGATE OPERATORS</a>
 					<ul>
-						<li><a href="#ARITY_MAX">ARITY_MAX</a></li>
-						<li><a href="#ARITY_MIN">ARITY_MIN</a></li>
-						<li><a href="#ARITY_AVG">ARITY_AVG</a></li>
-						<li><a href="#ARITY_SUM">ARITY_SUM</a></li>
+						<li><a href='#ARITY_MAX'>ARITY_MAX</a></li>
+						<li><a href='#ARITY_MIN'>ARITY_MIN</a></li>
+						<li><a href='#ARITY_AVG'>ARITY_AVG</a></li>
+						<li><a href='#ARITY_SUM'>ARITY_SUM</a></li>
 					</ul></li>
 
-				<li><a href="#CORE">CORE</a>
+				<li><a href='#CORE'>CORE</a>
 					<ul>
-						<li><a href="#Arity">Arity</a>
+						<li><a href='#Arity'>Arity</a>
 							<ul>
-								<li><a href="#addObject">addObject</a></li>
-								<li><a href="#provider">provider</a></li>
+								<li><a href='#addObject'>addObject</a></li>
+								<li><a href='#provider'>provider</a></li>
 							</ul></li>
-						<li><a href="#Base">Base</a></li>
-						<li><a href="#Db">Db</a></li>
-						<li><a href="#addObject">addObject</a>
+						<li><a href='#Base'>Base</a></li>
+						<li><a href='#Db'>Db</a></li>
+						<li><a href='#addObject'>addObject</a>
 							<ul>
-								<li><a href="#createTable">createTable</a></li>
-								<li><a href="#removeTable">removeTable</a></li>
-								<li><a href="#truncateTable">truncateTable</a></li>
-								<li><a href="#save">save</a></li>
-								<li><a href="#delete">delete</a></li>
-								<li><a href="#fetch">fetch</a></li>
-								<li><a href="#where">where</a></li>
-								<li><a href="#object">object</a></li>
-								<li><a href="#objectCount">objectCount</a></li>
-								<li><a href="#arrayList">arrayList</a></li>
-								<li><a href="#arrayListCount">arrayListCount</a></li>
-								<li><a href="#select">select</a></li>
-								<li><a href="#min">min</a></li>
-								<li><a href="#max">max</a></li>
-								<li><a href="#avg">avg</a></li>
-								<li><a href="#sum">sum</a></li>
-								<li><a href="#groupBy">groupBy</a></li>
-								<li><a href="#having">having</a></li>
+								<li><a href='#createTable'>createTable</a></li>
+								<li><a href='#removeTable'>removeTable</a></li>
+								<li><a href='#truncateTable'>truncateTable</a></li>
+								<li><a href='#save'>save</a></li>
+								<li><a href='#delete'>delete</a></li>
+								<li><a href='#fetch'>fetch</a></li>
+								<li><a href='#where'>where</a></li>
+								<li><a href='#object'>object</a></li>
+								<li><a href='#objectCount'>objectCount</a></li>
+								<li><a href='#arrayList'>arrayList</a></li>
+								<li><a href='#arrayListCount'>arrayListCount</a></li>
+								<li><a href='#select'>select</a></li>
+								<li><a href='#min'>min</a></li>
+								<li><a href='#max'>max</a></li>
+								<li><a href='#avg'>avg</a></li>
+								<li><a href='#sum'>sum</a></li>
+								<li><a href='#groupBy'>groupBy</a></li>
+								<li><a href='#having'>having</a></li>
 
 							</ul></li>
-						<li><a href="#Field">Field</a></li>
-						<li><a href="#Reference">Reference</a></li>
-						<li><a href="#TWWype">Type</a></li>
+						<li><a href='#Field'>Field</a></li>
+						<li><a href='#Reference'>Reference</a></li>
+						<li><a href='#TWWype'>Type</a></li>
 					</ul></li>
-				<li><a href="#TUTORIALS">TUTORIALS</a>
+				<li><a href='#TUTORIALS'>TUTORIALS</a>
 					<ul>
-						<li><a href="#tutorial0">Tutorial 0</a></li>
-						<li><a href="#tutorial1">Tutorial 1</a></li>
-						<li><a href="#tutorial2">Tutorial 2</a></li>
-						<li><a href="#tutorial3">Tutorial 3</a></li>
-						<li><a href="#tutorial4">Tutorial 4</a></li>
-						<li><a href="#tutorial5">Tutorial 5</a></li>
+						<li><a href='#tutorial0'>Tutorial 0</a></li>
+						<li><a href='#tutorial1'>Tutorial 1</a></li>
+						<li><a href='#tutorial2'>Tutorial 2</a></li>
+						<li><a href='#tutorial3'>Tutorial 3</a></li>
+						<li><a href='#tutorial4'>Tutorial 4</a></li>
+						<li><a href='#tutorial5'>Tutorial 5</a></li>
 					</ul></li>
 
 			</ul>
-			<h1 id="NAME">
-				<a href="#___top">NAME</a>
+			<h1 id='NAME'>
+				<a href='#___top'>NAME</a>
 			</h1>
 			<p>Arity Object Relational Mapper for PHP.</p>
-			<h1 id="DESCRIPTION">
-				<a href="#___top">DESCRIPTION</a>
+			<h1 id='DESCRIPTION'>
+				<a href='#___top'>DESCRIPTION</a>
 			</h1>
 			<p>Arity is a object relation mapping framework. It provides set
 				of libraries which help you convert simple php classes in persistent
@@ -167,44 +167,44 @@
 				provides a framework for supporting multiple providers.</p>
 
 			<h1>
-				<a id="CONFIG" href="#___top">CONFIG</a>
+				<a id='CONFIG' href='#___top'>CONFIG</a>
 			</h1>
 			<h2>
-				<a href="#___top" id="QUERY_DEBUG">QUERY_DEBUG</a>
+				<a href='#___top' id='QUERY_DEBUG'>QUERY_DEBUG</a>
 			</h2>
 			<p>
-				Enables query debug for Arity<a href="#Type">Type</a> is created.
+				Enables query debug for Arity<a href='#Type'>Type</a> is created.
 			</p>
 			<pre>
 				define('QUERY_DEBUG',1);
 			</pre>
 
 			<h2>
-				<a href="#___top" id="ARITY_IDENTITY">ARITY_IDENTITY</a>
+				<a href='#___top' id='ARITY_IDENTITY'>ARITY_IDENTITY</a>
 			</h2>
 			<p>Located in the conf.inc.php.Sets the ARITY_IDENTITY field for
 				the object. ARITY_IDENTITY field is used for object to provider
 				mapping. In most case ARITY_IDENTITY field is the primary key of the
 				provider mapped table.</p>
 			<pre>
-			define("ARITY_IDENTITY","id"); //Change to your choice of table ARITY_IDENTITY field
+			define('ARITY_IDENTITY','id'); //Change to your choice of table ARITY_IDENTITY field
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_NULL">ARITY_NULL</a>
+				<a href='#___top' id='ARITY_NULL'>ARITY_NULL</a>
 			</h2>
 			<p>
 				PHP equivalent NULL representation for NULL values either set when <a
-					href="#Type">Type</a> is created.
+					href='#Type'>Type</a> is created.
 			</p>
 			<h2>
-				<a href="#___top" id="ARITY_EMPTY">ARITY_EMPTY</a>
+				<a href='#___top' id='ARITY_EMPTY'>ARITY_EMPTY</a>
 			</h2>
 			<p>
 				PHP equivalent empty string representation for empty values either
-				set when <a href="#Type">Type</a> is created.
+				set when <a href='#Type'>Type</a> is created.
 			</p>
-			<h1 id="TYPES">
-				<a href="#___top">TYPE DATA IDENTIFIERS</a>
+			<h1 id='TYPES'>
+				<a href='#___top'>TYPE DATA IDENTIFIERS</a>
 			</h1>
 			<p>The types that are available to construct object that can be
 				mapped to database tables.These types explain the normal php object
@@ -229,7 +229,7 @@
 			</pre>
 
 			<h2>
-				<a href="#___top" id="ARITY_INT">ARITY_INT</a>
+				<a href='#___top' id='ARITY_INT'>ARITY_INT</a>
 			</h2>
 			<p>Type identifier to map object attributes with integer
 				datatype.</p>
@@ -237,7 +237,7 @@
 				self::$meta->myType= new Type('myType',ARITY_INT,10);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_SERIAL">ARITY_SERIAL</a>
+				<a href='#___top' id='ARITY_SERIAL'>ARITY_SERIAL</a>
 			</h2>
 			<p>Type identifier to map object attributes with integer datatype
 				with auto increment in table. The actual allocation of size depends
@@ -247,7 +247,7 @@
 				self::$meta->myType= new Type('myType',ARITY_SERIAL,10);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_SMALLINT">ARITY_SMALLINT</a>
+				<a href='#___top' id='ARITY_SMALLINT'>ARITY_SMALLINT</a>
 			</h2>
 			<p>Type identifier to map object attributes with small integer
 				datatype.</p>
@@ -255,19 +255,19 @@
 				self::$meta->myType= new Type('mytype',ARITY_SMALLINT,10);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_DECIMAL">ARITY_DECIMAL</a>
+				<a href='#___top' id='ARITY_DECIMAL'>ARITY_DECIMAL</a>
 			</h2>
 			<p>
 				Type identifier to map object attributes with decimal datatype. The
 				implementation may vary to corresponding provider. The size input
-				parameter for <a href="#Type">Type</a> Object works as precision for
+				parameter for <a href='#Type'>Type</a> Object works as precision for
 				decimal type eg. 10,2.
 			</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_DECIMAL,10);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_VARCHAR">ARITY_VARCHAR</a>
+				<a href='#___top' id='ARITY_VARCHAR'>ARITY_VARCHAR</a>
 			</h2>
 			<p>Type identifier to map object attributes with variable
 				character datatype.</p>
@@ -275,7 +275,7 @@
 				self::$meta->myType= new Type('mytype',ARITY_VARCHAR,50);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_TEXT">ARITY_TEXT</a>
+				<a href='#___top' id='ARITY_TEXT'>ARITY_TEXT</a>
 			</h2>
 			<p>Type identifier to map object attributes with character
 				variable unlimited length datatype.</p>
@@ -283,14 +283,14 @@
 				self::$meta->myType= new Type('mytype',ARITY_TEXT);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_DATE">ARITY_DATE</a>
+				<a href='#___top' id='ARITY_DATE'>ARITY_DATE</a>
 			</h2>
 			<p>Type identifier to map object attributes with date datatype.</p>
 			<pre>
 				self::$meta->myType= new Type('mytype',ARITY_DATE);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_BINARY">ARITY_BINARY</a>
+				<a href='#___top' id='ARITY_BINARY'>ARITY_BINARY</a>
 			</h2>
 			<p>Type identifier to map object attributes with binary datatype.
 				Intended for storing images,videos or documents in binary format.</p>
@@ -298,13 +298,13 @@
 				self::$meta->myType= new Type('mytype',ARITY_BINARY);
 			</pre>
 			<h1>
-				<a id="CONSTRAINTS" href="#___top">CONSTRAINTS</a>
+				<a id='CONSTRAINTS' href='#___top'>CONSTRAINTS</a>
 			</h1>
 			<p>List of constraints both row and column level are available
 				for developer. Constraints are used to control object properties to
 				map with correct provider implementation.</p>
 			<h2>
-				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
+				<a href='#___top' id='ARITY_PRIMARY'>ARITY_PRIMARY</a>
 			</h2>
 			<p>Create a primary key constraint on an object property.The
 				implementation of primary key constraint depends on provider.</p>
@@ -312,7 +312,7 @@
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_UNIQUE">ARITY_UNIQUE</a>
+				<a href='#___top' id='ARITY_UNIQUE'>ARITY_UNIQUE</a>
 			</h2>
 			<p>Create a unique key constraint on an object property.The
 				implementation of unique key constraint depends on provider.</p>
@@ -320,7 +320,7 @@
 					  self::$meta->user_id= new Type('user_id',ARITY_INT,11,ARITY_EMPTY,ARITY_NULL,ARITY_UNIQUE);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_PRIMARY">ARITY_PRIMARY</a>
+				<a href='#___top' id='ARITY_PRIMARY'>ARITY_PRIMARY</a>
 			</h2>
 			<p>Create a primary key constraint on an object property.The
 				implementation of primary key constraint depends on provider.</p>
@@ -328,7 +328,7 @@
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_COMPOSITE">ARITY_COMPOSITE</a>
+				<a href='#___top' id='ARITY_COMPOSITE'>ARITY_COMPOSITE</a>
 			</h2>
 			<p>Add the current attribute to composite key constraint of an
 				object.</p>
@@ -336,7 +336,7 @@
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY,ARITY_COMPOSITE);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_REQUIRED">ARITY_REQUIRED</a>
+				<a href='#___top' id='ARITY_REQUIRED'>ARITY_REQUIRED</a>
 			</h2>
 			<p>Create a required object property.The implementation of which
 				depends on provider.</p>
@@ -344,7 +344,7 @@
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_REQUIRED,ARITY_PRIMARY);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_NOTREQUIRED">ARITY_NOTREQUIRED</a>
+				<a href='#___top' id='ARITY_NOTREQUIRED'>ARITY_NOTREQUIRED</a>
 			</h2>
 			<p>Create a not required object property.The implementation of
 				which depends on provider.</p>
@@ -352,18 +352,18 @@
 					self::$meta->id= new Type('id',ARITY_SERIAL,11,ARITY_EMPTY,ARITY_NOTREQUIRED,ARITY_PRIMARY);
 			</pre>
 			<h1>
-				<a id="MULTIPLICITY" href="#___top">MULTIPLICITY</a>
+				<a id='MULTIPLICITY' href='#___top'>MULTIPLICITY</a>
 			</h1>
 			<p>List of core classes available for Arity</p>
 			<h2>
-				<a href="#___top" id="ARITY_PARENT">ARITY_PARENT</a>
+				<a href='#___top' id='ARITY_PARENT'>ARITY_PARENT</a>
 			</h2>
 			<p>Define a parent addObject object of a relationship.</p>
 			<pre>
 					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_PARENT);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_CHILD">ARITY_CHILD</a>
+				<a href='#___top' id='ARITY_CHILD'>ARITY_CHILD</a>
 			</h2>
 			<p>Define a child addObject object of a relationship.On for child
 				objects foreign key relationships are mapped by provider from child
@@ -372,21 +372,21 @@
 					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_CHILD);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_11">ARITY_11</a>
+				<a href='#___top' id='ARITY_11'>ARITY_11</a>
 			</h2>
 			<p>Define one to one relationship.</p>
 			<pre>
 					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_11,ARITY_PARENT);
 			</pre>
 			<h2>
-				<a href="#___top" id="ARITY_1M">ARITY_1M</a>
+				<a href='#___top' id='ARITY_1M'>ARITY_1M</a>
 			</h2>
 			<p>Define one to many relationship.</p>
 			<pre>
 					self::$meta->profile=new Reference('id','testprofile','user_id',ARITY_1M,ARITY_CHILD);
 			</pre>
 			<h1>
-				<a id="CORE" href="#___top">CORE</a>
+				<a id='CORE' href='#___top'>CORE</a>
 			</h1>
 			<p>List of core classes available for Arity</p>
 			<pre>
@@ -407,12 +407,12 @@
 			</pre>
 
 			<h2>
-				<a id="Arity" href="#___top">Arity</a>
+				<a id='Arity' href='#___top'>Arity</a>
 
 			</h2>
 			<p>Class with static methods to instantiate the addObject object.</p>
 			<h3>
-				<a id="addObject" href="#___top">addObject</a>
+				<a id='addObject' href='#___top'>addObject</a>
 			</h3>
 			<p>Creates an addObject object for model object for a specified
 				provider.</p>
@@ -426,14 +426,14 @@
 			
 			$testObj=new Sample();
 			
-			$testObj->name="test";
+			$testObj->name='test';
 			
 			#Add Object to Arity persistent manager
 			
 			$dbObj=Arity::addObject($testObj);
 			</pre>
 			<h3>
-				<a id="provider" href="#___top">provider</a>
+				<a id='provider' href='#___top'>provider</a>
 			</h3>
 			<p>Creates an provider object for a specified provider. provider
 				method provide sql support.</p>
@@ -446,25 +446,25 @@
 			$dbObj=Arity::provider();
 			</pre>
 			<h2>
-				<a id="Base" href="#___top">Base</a>
+				<a id='Base' href='#___top'>Base</a>
 			</h2>
 			<p>Abstract Base class for model. Includes the static $meta
 				variable to describe the child class provide mapping structure.</p>
 
 			<h2>
-				<a id="Db" href="#___top">Db</a>
+				<a id='Db' href='#___top'>Db</a>
 			</h2>
 			<p>Abstract class mandatory for the provider to implement.
 				Includes abstract methods which define how arity communicates with
 				the provider. object.</p>
 			<h2>
-				<a id="addObject" href="#___top">addObject</a>
+				<a id='addObject' href='#___top'>addObject</a>
 			</h2>
 			<p>addObject class contains all the bindings required for orm to
 				work. Provides set of methods to access the provider independent
 				data objects.</p>
 			<h3>
-				<a id="createTable" href="#___top">createTable</a>
+				<a id='createTable' href='#___top'>createTable</a>
 			</h3>
 			<p>Create the table in the database corresponding to the test
 				object.</p>
@@ -474,7 +474,7 @@
 			
 			$testObj=new Sample();
 			
-			$testObj->name="test";
+			$testObj->name='test';
 			
 			#Add Object to Arity persistent manager
 			
@@ -483,7 +483,7 @@
 			$dbObj->createTable();
 			</pre>
 			<h3>
-				<a id="removeTable" href="#___top">removeTable</a>
+				<a id='removeTable' href='#___top'>removeTable</a>
 			</h3>
 			<p>Remove the table in the database corresponding to the test
 				object.</p>
@@ -497,7 +497,7 @@
 			$dbObj->removeTable();
 			</pre>
 			<h3>
-				<a id="truncateTable" href="#___top">truncateTable</a>
+				<a id='truncateTable' href='#___top'>truncateTable</a>
 			</h3>
 			<p>Remove all the records from the corresponding provider table.</p>
 			<pre>
@@ -510,13 +510,13 @@
 			$dbObj->removeTable();
 			</pre>
 			<h3>
-				<a id="save" href="#___top">save</a>
+				<a id='save' href='#___top'>save</a>
 			</h3>
 			<p>Saves the object in provider table</p>
 			<pre>
 			$testObj=new Sample();
 			
-			$testObj->name="test";
+			$testObj->name='test';
 			
 			#Add Object to Arity persistent manager
 			
@@ -525,7 +525,7 @@
 			$dbObj->save();
 			</pre>
 			<h3>
-				<a id="delete" href="#___top">delete</a>
+				<a id='delete' href='#___top'>delete</a>
 			</h3>
 			<p>Delete object instance in provider table with respect to the
 				ARITY IDaddObject field if set.</p>
@@ -542,7 +542,7 @@
 			</pre>
 
 			<h3>
-				<a id="fetch" href="#___top">fetch</a>
+				<a id='fetch' href='#___top'>fetch</a>
 			</h3>
 			<p>fetch provider table in corresponding to the instatiated
 				object.</p>
@@ -561,7 +561,7 @@
 			$dbObj->fetch();
 			</pre>
 			<h3>
-				<a id="where" href="#___top">where</a>
+				<a id='where' href='#___top'>where</a>
 			</h3>
 			<p>Remove the table in the database corresponding to the test
 				object.</p>
@@ -580,13 +580,13 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->where(array("name"=>"test"));
+			$dbObj->fetch()->where(array('name'=>'test'));
 			
-			$dbObj->fetch()->where(array("name"=>"test","age"=>"10"),ARITY_OR,ARITY_EQ);
+			$dbObj->fetch()->where(array('name'=>'test','age'=>'10'),ARITY_OR,ARITY_EQ);
 			
 			</pre>
 			<h3>
-				<a id="object" href="#___top">object</a>
+				<a id='object' href='#___top'>object</a>
 			</h3>
 			<p>Returns instantiated populated object.Object with it
 				relationships are populated at this point into the instantiated
@@ -599,10 +599,10 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->where(array("name"=>"test"))->object();
+			$dbObj->fetch()->where(array('name'=>'test'))->object();
 			</pre>
 			<h3>
-				<a id="objectCount" href="#___top">objectCount</a>
+				<a id='objectCount' href='#___top'>objectCount</a>
 			</h3>
 			<p>Returns instantiated populated object. Count of the instances
 				that are loaded. This count is for the main object. Child object
@@ -615,11 +615,11 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->where(array("name"=>"test"))->object()->objectCount();
+			$dbObj->fetch()->where(array('name'=>'test'))->object()->objectCount();
 			</pre>
 
 			<h3>
-				<a id="arrayList" href="#___top">arrayList</a>
+				<a id='arrayList' href='#___top'>arrayList</a>
 			</h3>
 			<p>Return instances for provider query.Result can be
 				combinations.</p>
@@ -630,11 +630,11 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->where(array("name"=>"test"))->arrayList();
+			$dbObj->fetch()->where(array('name'=>'test'))->arrayList();
 			</pre>
 
 			<h3>
-				<a id="arrayListCount" href="#___top">arrayListCount</a>
+				<a id='arrayListCount' href='#___top'>arrayListCount</a>
 			</h3>
 			<p>Count of the instances for a arrayList result set.Result can
 				be combinations of child table and redundant results.</p>
@@ -647,10 +647,10 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->where(array("name"=>"test"))->arrayListCount();
+			$dbObj->fetch()->where(array('name'=>'test'))->arrayListCount();
 			</pre>
 			<h3>
-				<a id="select" href="#___top">select</a>
+				<a id='select' href='#___top'>select</a>
 			</h3>
 			<pre>
 			public function select($obj,$column=null)
@@ -665,10 +665,10 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->select("sample","name")->arrayList();
+			$dbObj->fetch()->select('sample','name')->arrayList();
 			</pre>
 			<h3>
-				<a id="min" href="#___top">min</a>
+				<a id='min' href='#___top'>min</a>
 			</h3>
 			<pre>
 			public function min($objColumn)
@@ -685,10 +685,10 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->min("sample","id")->arrayList();
+			$dbObj->fetch()->min('sample','id')->arrayList();
 			</pre>
 			<h3>
-				<a id="max" href="#___top">max</a>
+				<a id='max' href='#___top'>max</a>
 			</h3>
 			<pre>
 			public function max($objColumn)
@@ -705,11 +705,11 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->max("sample","id")->arrayList();
+			$dbObj->fetch()->max('sample','id')->arrayList();
 			</pre>
 
 			<h3>
-				<a id="avg" href="#___top">avg</a>
+				<a id='avg' href='#___top'>avg</a>
 			</h3>
 			<pre>
 			
@@ -726,10 +726,10 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->avg("sample","id")->arrayList();
+			$dbObj->fetch()->avg('sample','id')->arrayList();
 			</pre>
 			<h3>
-				<a id="sum" href="#___top">sum</a>
+				<a id='sum' href='#___top'>sum</a>
 			</h3>
 			<pre>
 			
@@ -746,11 +746,11 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->sum("sample","id")->arrayList();
+			$dbObj->fetch()->sum('sample','id')->arrayList();
 			</pre>
 
 			<h3>
-				<a id="groupBy" href="#___top">groupBy</a>
+				<a id='groupBy' href='#___top'>groupBy</a>
 			</h3>
 			<pre>
 			
@@ -764,10 +764,10 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->select("sample.name")->groupBy("sample.name")->arrayList();
+			$dbObj->fetch()->select('sample.name')->groupBy('sample.name')->arrayList();
 			</pre>
 			<h3>
-				<a id="having" href="#___top">having</a>
+				<a id='having' href='#___top'>having</a>
 			</h3>
 			<pre>
 			public function having($args,$type=ARITY_AND,$compare=ARITY_EQ)
@@ -780,18 +780,18 @@
 			
 			$dbObj=Arity::addObject($testObj);
 			
-			$dbObj->fetch()->select("sample.name")->sum("sample.id")->groupBy(array("name"))->having(array("name"=>"sam"))->arrayList();
+			$dbObj->fetch()->select('sample.name')->sum('sample.id')->groupBy(array('name'))->having(array('name'=>'sam'))->arrayList();
 
 			</pre>
 
 			<h2>
-				<a id="Field" href="#___top">Field</a>
+				<a id='Field' href='#___top'>Field</a>
 			</h2>
 			<p>Abstract class for creating object fields.Its inherited by
 				Type and Reference.</p>
 
 			<h2>
-				<a id="Type" href="#___top">Type</a>
+				<a id='Type' href='#___top'>Type</a>
 			</h2>
 			<p>Extends the Field abstract class. Create a type that can be
 				mapped to the provider table type.</p>
@@ -805,49 +805,49 @@
 			self::$meta->id= Type::create('id',ARITY_SERIAL,11)->setDefault(ARITY_EMPTY)->required()->primary();
 			</pre>
 			<h3>
-				<a id="create" href="#___top">create</a>
+				<a id='create' href='#___top'>create</a>
 			</h3>
 			<pre>
 			public static function create($name,$type,$size=null)
 			</pre>
 			<p>Static method to create type mapping.</p>
 			<h3>
-				<a id="setDefault" href="#___top">setDefault</a>
+				<a id='setDefault' href='#___top'>setDefault</a>
 			</h3>
 			<pre>
 			 public function setDefault($default)
 			</pre>
 			<p>Method to set default value for type.</p>
 			<h3>
-				<a id="composite" href="#___top">composite</a>
+				<a id='composite' href='#___top'>composite</a>
 			</h3>
 			<pre>
 			 public function composite()
 			</pre>
 			<p>Method to add a type to a composite key.</p>
 			<h3>
-				<a id="primaryKey" href="#___top">primaryKey</a>
+				<a id='primaryKey' href='#___top'>primaryKey</a>
 			</h3>
 			<pre>
 			 public function primaryKey()
 			</pre>
 			<p>Method to add a primary key type.</p>
 			<h3>
-				<a id="uniqueKey" href="#___top">uniqueKey</a>
+				<a id='uniqueKey' href='#___top'>uniqueKey</a>
 			</h3>
 			<pre>
 			 public function uniqueKey()
 			</pre>
 			<p>Method to add a unique key type.</p>
 			<h3>
-				<a id="required" href="#___top">required</a>
+				<a id='required' href='#___top'>required</a>
 			</h3>
 			<pre>
 			 public function required()
 			</pre>
 			<p>Method to add a required key type.</p>
 			<h2>
-				<a id="Reference" href="#___top">Reference</a>
+				<a id='Reference' href='#___top'>Reference</a>
 			</h2>
 			<p>Extends the Field abstract class. Create a relationship
 				between objects.These relationships are used for mapping the object
@@ -863,49 +863,49 @@
 			self::$meta->group= Reference::create('group_id')->referToTable('testgroup')->referToFieldName('id')->one2many();
 			</pre>
 			<h3>
-				<a id="create" href="#___top">create</a>
+				<a id='create' href='#___top'>create</a>
 			</h3>
 			<pre>
 			public static function create($fieldName)
 			</pre>
 			<p>Static method to create the field.</p>
 			<h3>
-				<a id="referToTable" href="#___top">referToTable</a>
+				<a id='referToTable' href='#___top'>referToTable</a>
 			</h3>
 			<pre>
 			public function referToTable($table)
 			</pre>
 			<p>Method to create relation for a attribute to a table.</p>
 			<h3>
-				<a id="referFieldName" href="#___top">referFieldName</a>
+				<a id='referFieldName' href='#___top'>referFieldName</a>
 			</h3>
 			<pre>
 			public function referFieldName($name)
 			</pre>
 			<p>Method to relation for a attribute for already refered table.</p>
 			<h3>
-				<a id="one2many" href="#___top">one2many</a>
+				<a id='one2many' href='#___top'>one2many</a>
 			</h3>
 			<pre>
 			   public function one2many()
 			</pre>
 			<p>Method to define one to many multiplicity of relation.</p>
 			<h3>
-				<a id="one2one" href="#___top">one2one</a>
+				<a id='one2one' href='#___top'>one2one</a>
 			</h3>
 			<pre>
 			 public function one2one()
 			</pre>
 			<p>Method to define one to one multiplicity of relation.</p>
 			<h3>
-				<a id="isParent" href="#___top">isParent</a>
+				<a id='isParent' href='#___top'>isParent</a>
 			</h3>
 			<pre>
 			public function isParent()
 			</pre>
 			<p>Method to define a parent relation heirarchy.</p>
 			<h3>
-				<a id="isChild" href="#___top">isChild</a>
+				<a id='isChild' href='#___top'>isChild</a>
 			</h3>
 			<pre>
 			public function isChild()
@@ -913,13 +913,13 @@
 			<p>Method to define a child relation heirarchy.</p>
 
 			<h1>
-				<a id="TUTORIALS" href="#___top">TUTORIALS</a>
+				<a id='TUTORIALS' href='#___top'>TUTORIALS</a>
 			</h1>
 			<p>This tutorial is based on 5 cases. Each case solves a
 				particular problem of data persistent.</p>
 
 			<h2>
-				<a id="tutorial0" href="#___top">Tutorial 0</a>
+				<a id='tutorial0' href='#___top'>Tutorial 0</a>
 			</h2>
 			<p>Tutorial 0 contains available types of Arity.</p>
 			<pre>
@@ -928,33 +928,33 @@ require '..\..\loader.php';
 require 'model\testtype.php';
 
 
-echo "/* Case 0: Intitialize Arity Simple Persistent Object*/<br />";
+echo '/* Case 0: Intitialize Arity Simple Persistent Object*/<br />';
 
 
-echo "/* Create PHP Object*/<br />";
+echo '/* Create PHP Object*/<br />';
 
 $testObj=new TestType();
 
 
-echo "/* Add Object to Arity peristent manager*/<br />";
+echo '/* Add Object to Arity peristent manager*/<br />';
 
 
 $dbObj=Arity::addObject($testObj);
 
 
-echo "Create Persistent Object Table<br />";
+echo 'Create Persistent Object Table<br />';
 
 
 $dbObj->createTable();
 
 
-echo "/*Drop Persistent Object Table"."<br />";;
+echo '/*Drop Persistent Object Table'.'<br />';;
 
 
 $dbObj->removeTable();
 			</pre>
 			<h2>
-				<a id="tutorial1" href="#___top">Tutorial 1</a>
+				<a id='tutorial1' href='#___top'>Tutorial 1</a>
 			</h2>
 			<p>Tutorial 1: Intitialize Arity Simple Persistent Object.</p>
 			<pre>
@@ -968,43 +968,43 @@ require '..\..\loader.php';
 require 'model\sample.php';
 
 
-echo "/* Tutorial 1: Intitialize Arity Simple Persistent Object*/<br />";
+echo '/* Tutorial 1: Intitialize Arity Simple Persistent Object*/<br />';
 
 
-echo "/* Create PHP Object*/<br />";
+echo '/* Create PHP Object*/<br />';
 
 $testObj=new Sample();
 
-echo "Initialize Simple PHP Object"."<br />";
+echo 'Initialize Simple PHP Object'.'<br />';
 
-$testObj->name="sam";
+$testObj->name='sam';
 
-echo "/* Add Object to Arity peristent manager*/<br />";
+echo '/* Add Object to Arity peristent manager*/<br />';
 
 
 $dbObj=Arity::addObject($testObj);
 
 
-echo "Create Persistent Object Table<br />";
+echo 'Create Persistent Object Table<br />';
 
 
 $dbObj->createTable();
 
 
-echo "Save Simple Object or Persist Object"."<br />";
+echo 'Save Simple Object or Persist Object'.'<br />';
 
 
 $dbObj->save();
 
 
-echo "Fetch Persisted PHP Object from DB"."<br />";
+echo 'Fetch Persisted PHP Object from DB'.'<br />';
 
 
 $rs=$dbObj->fetch()->object();
 
 var_dump($rs);
 
-echo "Clean Simple Object Entries"."<br />";;
+echo 'Clean Simple Object Entries'.'<br />';;
 
 $dbObj->truncateTable();
 
@@ -1013,14 +1013,14 @@ $rs=$dbObj->fetch()->object();
 var_dump($rs);
 
 
-echo "Drop Persistent Object Table"."<br />";;
+echo 'Drop Persistent Object Table'.'<br />';;
 
 
 $dbObj->removeTable();
 			
 			</pre>
 			<h2>
-				<a id="tutorial2" href="#___top">Tutorial 2</a>
+				<a id='tutorial2' href='#___top'>Tutorial 2</a>
 			</h2>
 			<p>Test 2 Intitialize and Save User,Profile and Group Object.</p>
 			<pre>
@@ -1037,7 +1037,7 @@ require 'model\profile.php';
 
 
 
-echo "/* Test 2 Intitialize User Object*/<br />";
+echo '/* Test 2 Intitialize User Object*/<br />';
 
 $userObj=new User();
 
@@ -1047,7 +1047,7 @@ $udbObj->removeTable();
 
 $udbObj->createTable();
 
-echo "/* Test 2 Intitialize Group Object*/<br />";
+echo '/* Test 2 Intitialize Group Object*/<br />';
 
 $groupObj= new Group();
 
@@ -1058,7 +1058,7 @@ $gdbObj->removeTable();
 $gdbObj->createTable();
 
 
-echo "/* Test 2 Intitialize Group Object*/<br />";
+echo '/* Test 2 Intitialize Group Object*/<br />';
 
 $grouptypeObj= new Grouptype();
 
@@ -1069,7 +1069,7 @@ $gtdbObj->removeTable();
 $gtdbObj->createTable();
 
 
-echo "/* Test 2 Intitialize Profile Object*/<br />";
+echo '/* Test 2 Intitialize Profile Object*/<br />';
 
 $proObj= new Profile();
 
@@ -1080,29 +1080,29 @@ $proObj->removeTable();
 $proObj->createTable();
 
 
-echo "/* Test 2 Add Group Type */<br />";
+echo '/* Test 2 Add Group Type */<br />';
 
-$grouptypeObj->name="admin";
+$grouptypeObj->name='admin';
 
 $type=$gtdbObj->save();
 
-echo "/* Test 2 Add Group Object*/<br />";
+echo '/* Test 2 Add Group Object*/<br />';
 
-$groupObj->name="admin";
+$groupObj->name='admin';
 $groupObj->type_id=$type->id;
 
 $grp=$gdbObj->save();
 
 
-echo "/* Test 2 Add User Object*/<br />";
+echo '/* Test 2 Add User Object*/<br />';
 
-$userObj->username="sam";
-$userObj->password="sam";
+$userObj->username='sam';
+$userObj->password='sam';
 $userObj->group_id=$grp->id;
 
 $udbObj->save();
 
-echo "/* Test 2 Fetch User Object*/<br />";
+echo '/* Test 2 Fetch User Object*/<br />';
 
 $rs=$gdbObj->fetch(3)->object();
 
@@ -1113,7 +1113,7 @@ foreach($rs as $item){
 }
 			</pre>
 			<h2>
-				<a id="tutorial3" href="#___top">Tutorial 3</a>
+				<a id='tutorial3' href='#___top'>Tutorial 3</a>
 			</h2>
 			<p>Tutorial 3 contains multi object save child parent features of
 				Arity.</p>
@@ -1130,7 +1130,7 @@ require 'model\profile.php';
 
 
 
-echo "/* Test 3 Intitialize User Object*/<br />";
+echo '/* Test 3 Intitialize User Object*/<br />';
 
 $userObj=new User();
 
@@ -1141,7 +1141,7 @@ $udbObj->removeTable();
 $udbObj->createTable();
 
 
-echo "/* Test 3 Intitialize Group Object*/<br />";
+echo '/* Test 3 Intitialize Group Object*/<br />';
 
 $groupObj= new Group();
 
@@ -1152,18 +1152,18 @@ $gdbObj->removeTable();
 $gdbObj->createTable();
 
 
-echo "/* Test 3 Add Parent with Child Objects*/<br />";
+echo '/* Test 3 Add Parent with Child Objects*/<br />';
 
 
 $userObj=new User();
 
-$userObj->username="test";
-$userObj->password="sample";
+$userObj->username='test';
+$userObj->password='sample';
 
 
 $grp=new Group();
 
-$grp->name="administrator";
+$grp->name='administrator';
 $grp->type_id=1;
 
 $userObj->group=$grp;
@@ -1173,25 +1173,25 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 3 Fetch Inserted*/<br />";
+echo '/* Test 3 Fetch Inserted*/<br />';
 
 $rs=$udbObj->fetch(2)->object();
 
 var_dump($rs);
 
-echo "/* Test 3 Update Parent with Child Objects*/<br />";
+echo '/* Test 3 Update Parent with Child Objects*/<br />';
 
 
 $userObj=new User();
 
 $userObj->id=1;
-$userObj->username="best";
-$userObj->password="sample";
+$userObj->username='best';
+$userObj->password='sample';
 
 
 $grp=new Group();
 $grp->id=1;
-$grp->name="sampple";
+$grp->name='sampple';
 $grp->type_id=1;
 
 $userObj->group=$grp;
@@ -1200,7 +1200,7 @@ $udbObj=Arity::addObject($userObj);
 
 $udbObj->save();
 
-echo "/* Test 3 Fetch Updated*/<br />";
+echo '/* Test 3 Fetch Updated*/<br />';
 
 $rs=$udbObj->fetch(2)->object();
 
@@ -1208,7 +1208,7 @@ var_dump($rs);
 			</pre>
 
 			<h2>
-				<a id="tutorial4" href="#___top">Tutorial 4</a>
+				<a id='tutorial4' href='#___top'>Tutorial 4</a>
 			</h2>
 			<p>Tutorial 4 contains all multi objects save features parent
 				child of Arity.</p>
@@ -1225,7 +1225,7 @@ require 'model\grouptype.php';
 require 'model\profile.php';
 
 
-echo "/* Test 4 Intitialize User Object*/<br />";
+echo '/* Test 4 Intitialize User Object*/<br />';
 
 
 $userObj=new User();
@@ -1237,7 +1237,7 @@ $udbObj->removeTable();
 $udbObj->createTable();
 
 
-echo "/* Test 4 Intitialize User Object*/<br />";
+echo '/* Test 4 Intitialize User Object*/<br />';
 
 $pro=new Profile();
 
@@ -1248,18 +1248,18 @@ $pdbObj->removeTable();
 $pdbObj->createTable();
 
 
-echo "/* Test 4 Add Parent with Child Objects*/<br />";
+echo '/* Test 4 Add Parent with Child Objects*/<br />';
 
-$userObj->username="best";
-$userObj->password="sample";
+$userObj->username='best';
+$userObj->password='sample';
 $userObj->group_id=1;
 
 
-$pro->address="sam";
+$pro->address='sam';
 
 $p2=new Profile();
 
-$p2->address="new address";
+$p2->address='new address';
 
 $pArray[]=$pro;
 $pArray[]=$p2;
@@ -1272,7 +1272,7 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 4 Fetch Inserted*/<br />";
+echo '/* Test 4 Fetch Inserted*/<br />';
 
 $rs=$udbObj->fetch(2)->object();
 
@@ -1282,7 +1282,7 @@ var_dump($rs);
 			</pre>
 
 			<h2>
-				<a id="tutorial5" href="#___top">Tutorial 5</a>
+				<a id='tutorial5' href='#___top'>Tutorial 5</a>
 			</h2>
 			<p>Tutorial 5 contains all the general features of Arity.</p>
 			<pre>
@@ -1291,130 +1291,130 @@ require '..\..\loader.php';
 require 'model\sample.php';
 
 
-echo "/* Tutorial 5: Intitialize Arity Simple Persistent Object*/<br />";
+echo '/* Tutorial 5: Intitialize Arity Simple Persistent Object*/<br />';
 
 
-echo "/* Create PHP Object*/<br />";
+echo '/* Create PHP Object*/<br />';
 
 $testObj1=new Sample();
 
 
-echo "/* Add Object to Arity peristent manager*/<br />";
+echo '/* Add Object to Arity peristent manager*/<br />';
 
 
 $dbObj=Arity::addObject($testObj1);
 
 
-echo "Create Persistent Object Table<br />";
+echo 'Create Persistent Object Table<br />';
 
 
 $dbObj->createTable();
 
 
-echo "Initialize 1 Simple PHP Object"."<br />";
+echo 'Initialize 1 Simple PHP Object'.'<br />';
 
 
-$testObj1->name="sample1";
-$testObj1->score="10";
+$testObj1->name='sample1';
+$testObj1->score='10';
 
 $dbObj->save();
 
 
-echo "/* Add Object 2 to Arity peristent manager*/<br />";
+echo '/* Add Object 2 to Arity peristent manager*/<br />';
 
 $testObj2=new Sample();
 
 $dbObj=Arity::addObject($testObj2);
 
-echo "Initialize 2 Simple PHP Object"."<br />";
+echo 'Initialize 2 Simple PHP Object'.'<br />';
 
-$testObj2->name="sample2";
-$testObj2->score="20";
+$testObj2->name='sample2';
+$testObj2->score='20';
 
-echo "Persist PHP Object from DB"."<br />";
+echo 'Persist PHP Object from DB'.'<br />';
 
 $dbObj->save();
 
 
-echo "/* Add Object 3 to Arity peristent manager*/<br />";
+echo '/* Add Object 3 to Arity peristent manager*/<br />';
 
 $testObj3= new Sample();
 
 $dbObj=Arity::addObject($testObj3);
 
-echo "/*Initialize 3 Simple PHP Object*/"."<br />";
+echo '/*Initialize 3 Simple PHP Object*/'.'<br />';
 
 
-$testObj3->name="sample2";
-$testObj3->score="30";
+$testObj3->name='sample2';
+$testObj3->score='30';
 
-echo "/*Persist PHP Object from DB*/"."<br />";
+echo '/*Persist PHP Object from DB*/'.'<br />';
 
 $dbObj->save();
 
-echo "/*Fetch Persisted PHP Object from DB*/"."<br />";
+echo '/*Fetch Persisted PHP Object from DB*/'.'<br />';
 
 $rs=$dbObj->fetch()->object();
 
 var_dump($rs);
 
-echo "/*Apply the where condition*/"."<br />";
+echo '/*Apply the where condition*/'.'<br />';
 
-$rs=$dbObj->fetch()->where(array("name"=>"sam"))->object();
-
-var_dump($rs);
-
-echo "/*arrayList resultset methods*/"."<br />";
-
-echo "/*arrayList Resultset select method*/"."<br />";
-
-$rs=$dbObj->fetch()->select("sample.name")->arrayList();
+$rs=$dbObj->fetch()->where(array('name'=>'sam'))->object();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset min method*/"."<br />";
+echo '/*arrayList resultset methods*/'.'<br />';
+
+echo '/*arrayList Resultset select method*/'.'<br />';
+
+$rs=$dbObj->fetch()->select('sample.name')->arrayList();
+
+var_dump($rs);
+
+echo '/*arrayList Resultset min method*/'.'<br />';
 
 $rs=$dbObj->fetch()->min('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "arrayList Resultset max method*/"."<br />";
+echo 'arrayList Resultset max method*/'.'<br />';
 
 $rs=$dbObj->fetch()->max('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset avg method*/"."<br />";
+echo '/*arrayList Resultset avg method*/'.'<br />';
 
 $rs=$dbObj->fetch()->avg('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset sum method*/"."<br />";
+echo '/*arrayList Resultset sum method*/'.'<br />';
 
 $rs=$dbObj->fetch()->sum('sample.score')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset groupBy method*/"."<br />";
+echo '/*arrayList Resultset groupBy method*/'.'<br />';
 
 $rs=$dbObj->fetch()->select('sample.name')->sum('sample.score')->groupBy('sample.name')->arrayList();
 
 var_dump($rs);
 
-echo "/*arrayList Resultset sum groupBy having method*/"."<br />";
+echo '/*arrayList Resultset sum groupBy having method*/'.'<br />';
 
 $rs=$dbObj->fetch()->select('sample.name')->sum('sample.score')->groupBy('sample.name')->having(array('name'=>'sample2'))->arrayList();
 
 var_dump($rs);
 
 
-echo "/*Clean Simple Object Entries"."<br />";;
+echo '/*Clean Simple Object Entries'.'<br />';;
 
 $dbObj->truncateTable();
 
 
-echo "/*Drop Persistent Object Table"."<br />";;
+echo '/*Drop Persistent Object Table'.'<br />';;
 
 
 $dbObj->removeTable();

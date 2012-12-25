@@ -11,7 +11,7 @@ require 'model\grouptype.php';
 require 'model\profile.php';
 
 
-echo "/* Test 3 Intitialize User Object*/<br/>";
+echo '/* Test 3 Intitialize User Object*/<br/>';
 
 $userObj=new User();
 
@@ -22,7 +22,7 @@ $udbObj->removeTable();
 $udbObj->createTable();
 
 
-echo "/* Test 3 Intitialize Group Object*/<br/>";
+echo '/* Test 3 Intitialize Group Object*/<br/>';
 
 $groupObj= new Group();
 
@@ -33,17 +33,17 @@ $gdbObj->removeTable();
 $gdbObj->createTable();
 
 
-echo "/* Test 3 Add Parent with Child Objects*/<br/>";
+echo '/* Test 3 Add Parent with Child Objects*/<br/>';
 
 $userObj=new User();
 
-$userObj->username="test";
+$userObj->username='test';
 
-$userObj->password="sample";
+$userObj->password='sample';
 
 $grp=new Group();
 
-$grp->name="administrator";
+$grp->name='administrator';
 
 $grp->type_id=1;
 
@@ -54,28 +54,28 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 3 Fetch Inserted*/<br/>";
+echo '/* Test 3 Fetch Inserted*/<br/>';
 
 $rs=$udbObj->fetch(2)->object();
 
 var_dump($rs);
 
 
-echo "/* Test 3 Update Parent with Child Objects*/<br/>";
+echo '/* Test 3 Update Parent with Child Objects*/<br/>';
 
 $userObj=new User();
 
 $userObj->id=1;
 
-$userObj->username="best";
+$userObj->username='best';
 
-$userObj->password="sample";
+$userObj->password='sample';
 
 $grp=new Group();
 
 $grp->id=1;
 
-$grp->name="sampple";
+$grp->name='sampple';
 
 $grp->type_id=1;
 
@@ -86,7 +86,7 @@ $udbObj=Arity::addObject($userObj);
 $udbObj->save();
 
 
-echo "/* Test 3 Fetch Updated*/<br/>";
+echo '/* Test 3 Fetch Updated*/<br/>';
 
 $rs=$udbObj->fetch(2)->object();
 

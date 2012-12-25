@@ -11,7 +11,7 @@ require 'model\grouptype.php';
 require 'model\profile.php';
 
 
-echo "/* Test 4 Intitialize User Object*/<br/>";
+echo '/* Test 4 Intitialize User Object*/<br/>';
 
 $userObj=new User();
 
@@ -22,7 +22,7 @@ $udbObj->removeTable();
 $udbObj->createTable();
 
 
-echo "/* Test 4 Intitialize User Object*/<br/>";
+echo '/* Test 4 Intitialize User Object*/<br/>';
 
 $pro=new Profile();
 
@@ -33,19 +33,19 @@ $pdbObj->removeTable();
 $pdbObj->createTable();
 
 
-echo "/* Test 4 Add Parent with Child Objects*/<br/>";
+echo '/* Test 4 Add Parent with Child Objects*/<br/>';
 
-$userObj->username="best";
+$userObj->username='best';
 
-$userObj->password="sample";
+$userObj->password='sample';
 
 $userObj->group_id=1;
 
-$pro->address="sam";
+$pro->address='sam';
 
 $p2=new Profile();
 
-$p2->address="new address";
+$p2->address='new address';
 
 $pArray[]=$pro;
 $pArray[]=$p2;
