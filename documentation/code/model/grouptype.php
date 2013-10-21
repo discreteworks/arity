@@ -4,7 +4,7 @@
  *
  * ORM Framework for PHP 5.2 or newer
  *
- * Licensed under GPL
+ * Licensed under BSD
  * 
  *
  * @package		Arity
