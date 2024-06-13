@@ -1,36 +1,29 @@
-Arity PHP ORM
+# Arity PHP ORM
 
-Description
-----------
+## Description
 
 Project		: Arity - Arity PHP ORM
-License		: BSD
 Home Page	: http://www.discreteworks.com
 
+## Features
+- No XML required.
+- Support nth level of relationships.
+- Table defination exist within the mapping class.
+- Can Supports sql independent providers.
+- Supported Databases:Postgresql
 
-
-Features
-----------
-    * No XML required.
-    * Support nth level of relationships.
-    * Table defination exist within the mapping class.
-    * Can Supports sql independent providers.
-	* Supported Databases:Postgresql
-	
-Installation procedure:
-----------------------
+## Installation procedure:
 
 Setup the database connection in config/config.inc.php
 Leave PGSQL_SCHEMA as public, if you havent created you own schema.
 
 
-HOW TO USE:
---------------
+## HOW TO USE:
 
-Step1: Create model class. 
+### Step1: Create model class. 
 
->file:sample.php
-
+Create file: sample.php
+```
 class Sample {
 	 
 	public static $meta;
@@ -51,13 +44,14 @@ class Sample {
 	}
 
 }
+```
 
 Step 2: Access the Arity Context methods. Create test.php for accessing the Arity Context methods
 for data persistence.
 
->file:test.php
+Create file:test.php
 
-
+```
 require 'loader.php';
 
 require 'sample.php';//If the the class is in sample file
@@ -99,5 +93,4 @@ var_dump($rs);
 echo "Drop Persistent Object Table"."<br/>";;
 
 $dbObj->removeTable();
-
-Step3: Completed 
+```
