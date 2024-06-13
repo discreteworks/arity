@@ -2,8 +2,7 @@
 
 ## Description
 
-Project		: Arity - Arity PHP ORM
-Home Page	: http://www.discreteworks.com
+Project : Arity - Arity PHP ORM
 
 ## Features
 - No XML required.
